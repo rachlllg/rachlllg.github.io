@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/cover.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+  
+<body class="d-flex h-100 text-center text-bg-dark">  
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0">Rachel Gao</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0 {% if page.url == '/' %}active{% endif %}" href="/">Home</a>
+          <a class="nav-link fw-bold py-1 px-0 {% if page.url == '/about' %}active{% endif %}" href="/about">About</a>
+          <a class="nav-link fw-bold py-1 px-0 {% if page.url == '/contact' %}active{% endif %}" href="/contact">Contact</a>
+          <a class="nav-link fw-bold py-1 px-0 {% if page.url == '/blog' %}active{% endif %}" href="/blog">Blogs</a>
+          <a class="nav-link fw-bold py-1 px-0 {% if page.url == '/project' %}active{% endif %}" href="/project">Projects</a>
+        </nav>
+      </div>
+    </header>
+
+    {{content}}
+
+    <footer class="mt-auto text-white-50">
+      <h4>Thank you for visiting!</h4>
+      <p><a href={{site.youtube_link}} class="text-white">YouTube</a> | <a href={{site.github_link}} class="text-white">GitHub</a> | <a href={{site.linkedin_link}} class="text-white">LinkedIn</a> | <a href={{site.email}} class="text-white">Email</a> </p>
+    </footer>
+
+  </div>
+
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>

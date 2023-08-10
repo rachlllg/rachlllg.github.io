@@ -18,19 +18,63 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: TBD
-email: TBD
+title: Rachel Gao
+email: mailto:rachgao108@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  TBD
+  Join me on my adventure in the dataverse!
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: TBD
-github_username:  TBD
+url: https://rachlllg.github.io/ # the base hostname & protocol for your site, e.g. http://example.com
+youtube_link: https://www.youtube.com/channel/UC900ptWm2x_7pDtXeaeBa3A
+github_link: https://github.com/rachlllg
+linkedin_link: https://www.linkedin.com/in/rachel-gao/
 
 # Build settings
 theme: null
 plugins:
   - jekyll-feed
+
+# Set Front Matter Defaults 
+defaults:
+  -
+    scope:
+      type: posts
+      path: _posts
+    values:
+      is_post: true
+      layout: post
+  -
+    scope:
+      type: pages
+      path: _pages
+    values:
+      is_post: false
+      layout: default
+
+# Go to the _pages directory to build the website
+include: [_pages]
+
+# Set Blog Posts Defaults
+defaults:
+  -
+    scope:
+      type: posts
+      path: _posts
+    values:
+      is_post: true
+      layout: post
+      permalink: /blog/:title/
+  -
+    scope:
+      type: pages
+      path: _pages
+    values:
+      is_post: false
+      layout: default
+
+# minifying compiled css
+sass:
+  style: compressed
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

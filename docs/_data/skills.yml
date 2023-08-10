@@ -1,0 +1,13 @@
+- category: Blogging
+  skills:
+    - name: Writing
+      rating: 5
+    - name: SEO
+      rating: 4
+
+- category: Languages
+  skills:
+    - name: English
+      rating: 5
+    - name: Spanish
+      rating: 3
