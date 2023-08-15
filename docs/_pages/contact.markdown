@@ -1,5 +1,6 @@
 ---
 layout: default
+apply_h_100: false
 title: Contact
 permalink: /contact
 ---
