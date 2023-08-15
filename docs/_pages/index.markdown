@@ -1,5 +1,6 @@
 ---
 layout: default
+apply_h_100: true
 title: Home
 permalink: /
 ---

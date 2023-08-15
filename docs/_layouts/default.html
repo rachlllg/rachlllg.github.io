@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
   
-<body class="d-flex h-100 text-center text-bg-dark">  
+<body class="d-flex text-center text-bg-dark {% if page.apply_h_100 %} h-100 {% endif %}">  
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <!--header-->
     <header class="mb-auto">
       <div>
         <h3 class="float-md-start mb-0">Rachel Gao</h3>
@@ -26,13 +27,14 @@
       </div>
     </header>
 
+    <!--content to be included visa _includes folder-->
     {{content}}
 
+    <!--footer-->
     <footer class="mt-auto text-white-50">
       <h4>Thank you for visiting!</h4>
       <p><a href={{site.youtube_link}} class="text-white">YouTube</a> | <a href={{site.github_link}} class="text-white">GitHub</a> | <a href={{site.linkedin_link}} class="text-white">LinkedIn</a> | <a href={{site.email}} class="text-white">Email</a> </p>
     </footer>
-
   </div>
 
   <script src="/assets/js/bootstrap.bundle.min.js"></script>
