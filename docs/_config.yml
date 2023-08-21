@@ -33,28 +33,12 @@ theme: null
 plugins:
   - jekyll-feed
 
-# Set Front Matter Defaults 
-defaults:
-  -
-    scope:
-      type: posts
-      path: _posts
-    values:
-      is_post: true
-      layout: post
-  -
-    scope:
-      type: pages
-      path: _pages
-    values:
-      is_post: false
-      layout: default
-
 # Go to the _pages directory to build the website
 include: [_pages]
 
-# Set Blog Posts Defaults
+
 defaults:
+# Set Blog Posts Defaults
   -
     scope:
       type: posts
@@ -63,6 +47,16 @@ defaults:
       is_post: true
       layout: post
       permalink: /blog/:title/
+# Set Project Posts Defaults
+  -
+    scope:
+      type: projects
+      path: _projects
+    values:
+      is_post: false
+      layout: project
+      permalink: /project/:title/
+# Set Pages Defaults
   -
     scope:
       type: pages

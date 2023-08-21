@@ -1,0 +1,29 @@
+<!--Project Page Content-->
+<main class="px-3 mt-5 mx-auto container">
+
+  <hr class="m-0 mb-4">
+  <h2 class="mb-4">All Projects</h2>
+  <hr class="m-0 mb-4">
+  <div class="mt-5 mb-5 mx-auto">
+    <div class="row mb-2">
+      {% for project in site.projects %}
+      <div class="col-md-12">
+        <div class="border mb-4">
+          <div class="col p-4 d-flex text-start flex-column">
+            <strong class="d-inline-block mb-2">
+            {% for category in project.categories %}
+              <a href="/blog/{{category}}">{{ category }}</a> |
+            {% endfor %}
+            </strong>
+            <h3 class="mb-0">{{ project.title }}</h3>
+            <div class="mb-1 text-body-secondary">{{ project.date | date: "%Y-%m-%d"}}</div>
+            <p class="card-text mb-auto">{{ project.description }}</p>
+            <a href="{{project.url}}">Continue Reading...</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr class="m-0 mb-5">
+</main>
