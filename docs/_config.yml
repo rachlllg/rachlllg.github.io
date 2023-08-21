@@ -36,6 +36,13 @@ plugins:
 # Go to the _pages directory to build the website
 include: [_pages]
 
+# Add Projects collection
+collections:
+  projects:
+    output: true
+    permalink: /projects/:title/
+    sort_by: date
+    order: 'desc'
 
 defaults:
 # Set Blog Posts Defaults

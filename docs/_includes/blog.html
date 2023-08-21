@@ -10,11 +10,11 @@
       <div class="col-md-6">
         <div class="border mb-4">
           <div class="col p-4 d-flex text-start flex-column">
-            <strong class="d-inline-block mb-2">
+            <div class="d-inline-block mb-2">
             {% for category in post.categories %}
-              <a href="/blog/{{category}}">{{ category }}</a> |
+              <a href="/blog/{{category}}" class="text-success-emphasis" style="text-decoration: none;" >{{ category }}</a> |
             {% endfor %}
-            </strong>
+            </div>
             <h3 class="mb-0">{{ post.title }}</h3>
             <div class="mb-1 text-body-secondary">{{ post.date | date: "%Y-%m-%d"}}</div>
             <p class="card-text mb-auto">{{ post.description }}</p>
