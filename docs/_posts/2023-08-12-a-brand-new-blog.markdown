@@ -2,8 +2,7 @@
 layout: post
 title:  "A Brand New Blog"
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-keywords: [new, blog]
-categories: new blog
+categories: NoSQL SQL
 ---
 
 Here is another blog!

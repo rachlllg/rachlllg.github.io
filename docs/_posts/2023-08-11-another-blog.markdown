@@ -2,8 +2,7 @@
 layout: post
 title:  "Another Blog"
 description: This is another blog
-keywords: [new, blog]
-categories: new blog
+categories: SQL Git
 ---
 
 Here is another blog!

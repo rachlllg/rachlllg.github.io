@@ -2,8 +2,7 @@
 layout: post
 title:  "Test Blog"
 description: This is a test blog
-keywords: [test, blog]
-categories: test blog
+categories: Python Machine-Learning
 ---
 
 Here is a test blog.

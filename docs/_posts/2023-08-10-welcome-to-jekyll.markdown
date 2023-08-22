@@ -2,8 +2,7 @@
 layout: post
 title:  "A new Blog"
 description: This is a new blog
-keywords: [new, blog]
-categories: new blog
+categories: R Statistics
 ---
 
 Welcome to my post! 

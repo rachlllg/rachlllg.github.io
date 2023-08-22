@@ -2,8 +2,7 @@
 layout: post
 title:  "Another Blog 4"
 description: This is another blog
-keywords: [new, blog]
-categories: new blog
+categories: R Statistics
 ---
 
 Here is another blog!

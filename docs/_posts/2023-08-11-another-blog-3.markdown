@@ -2,8 +2,7 @@
 layout: post
 title:  "Another Blog 3"
 description: This is another blog
-keywords: [new, blog]
-categories: new blog
+categories: Python Machine-Learning
 ---
 
 Here is another blog!
