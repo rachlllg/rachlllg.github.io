@@ -3,7 +3,7 @@ layout: project
 title:  "Test Project"
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 ft_img: assets/img/project/project_2.webp
-categories: test project
+categories: NoSQL SQL
 ---
 
 Here is a test project.

@@ -30,10 +30,6 @@
 
   <!--Show only blog posts of select category-->
   {% else %}
-  {% for permalink in page.my_permalinks %}
-  {% assign page.url = permalink %}
-  <!-- Include necessary content here -->
-  {% endfor %}
   {% assign category_name = page.url | split: '/' | last %}
   <h2 class="mb-4">{{category_name}} Blog Posts</h2>
   <hr class="m-0 mb-4">

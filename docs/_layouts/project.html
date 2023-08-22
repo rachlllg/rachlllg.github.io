@@ -10,11 +10,11 @@ layout: default
     <header class="post-header">
       <h1 class="post-title mb-3">{{ page.title }}</h1>
       <div class="post-date mb-3 text-body-secondary">{{ page.date | date: "%Y-%m-%d"}}</div>
-      <strong class="post-categories mb-5 d-inline-block">
+      <div class="post-categories mb-5 d-inline-block">
         {% for category in page.categories %}
-          <a class="post-category" href="/project/{{category}}">{{ category }}</a> |
+          <a class="post-category text-success-emphasis" style="text-decoration: none;" href="/projects/{{category}}">{{ category }}</a> |
         {% endfor %}
-      </strong>
+      </div>
     </header>
     <div class="post-content text-start mb-5">
       {{ content }}

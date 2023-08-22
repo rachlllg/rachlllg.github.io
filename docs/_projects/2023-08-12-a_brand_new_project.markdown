@@ -3,7 +3,7 @@ layout: project
 title:  "A Brand New Project"
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 ft_img: assets/img/project/project_1.jpg
-categories: test project
+categories: R Machine-Learning
 ---
 
 Here is a brand new project.
