@@ -543,7 +543,7 @@ categories: R Statistics Regression
 <!-- MEMBER CONTRIBUTION -->
 <div class='mb-5' id='member-contribution'>
   <h3 class='mb-3'><u>MEMBER CONTRIBUTION</u></h3>
-  <p>To ensure the confidentiality of the team members, I will designate them as Member A, Member B, and Member C. As the sole team member without a full-time job during the project's execution, I undertook a substantial portion of the workload. Nevertheless, the project would not have been possible without every member of the team working together! Thank you all!</p>
+  <p>For the confidentiality of the team members, I will designate them as Member A, Member B, and Member C. As the sole team member without a full-time job during the project's execution, I undertook a substantial portion of the workload. Nevertheless, the project would not have been possible without every member of the team working together! Thank you all!</p>
   <ul>
     <li>Rachel: Find dataset, propose research question, data cleaning, EDA, model, report (data & methodology, results, limitations), slides (Model & Results)</li>
     <li>Member A: Review cleaned data & model, report (introduction & conclusion), slides (Data)</li>
