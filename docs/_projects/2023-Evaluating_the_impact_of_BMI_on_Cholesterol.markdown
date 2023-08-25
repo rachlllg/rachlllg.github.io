@@ -377,11 +377,35 @@ categories: R Statistics Regression
       <img class="img-fluid mx-auto w-50 d-none d-md-block" src="/assets/img/projects/bmi_cholesterol/hist_gender.png" alt="histogram of gender">
       <img class="img-fluid mx-auto w-100 d-md-none" src="/assets/img/projects/bmi_cholesterol/hist_gender.png" alt="histogram of gender">
     </div>
-    <li class='mb-3'>Check for a correlation between each independent variable and cholesterol ratio. Based on the correlation table below, each independent variable is somewhat correlated to the cholesterol ratio, with BMI being the most correlated.</li>
-      <div class='mb-3'>
-        <img class="img-fluid mx-auto w-50 d-none d-md-block" src="/assets/img/projects/bmi_cholesterol/correlation.png" alt="correlation table">
-        <img class="img-fluid mx-auto w-100 d-md-none" src="/assets/img/projects/bmi_cholesterol/correlation.png" alt="correlation table">
-      </div>
+    <li>Check for a correlation between each independent variable and cholesterol ratio. Based on the correlation table below, each independent variable is somewhat correlated to the cholesterol ratio, with BMI being the most correlated.</li>
+    <pre>
+      <table class='w-50 csv-table mx-auto'>
+        <thead>
+          <tr>
+            <th>Independent Variables</th>
+            <th>Correlation With Cholesterol Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BMI</td>
+            <td>0.3712956</td>
+          </tr>
+          <tr>
+            <td>Glycohemoglobin</td>
+            <td>0.1711966</td>
+          </tr>
+          <tr>
+            <td>Age</td>
+            <td>0.1791255</td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td>-0.2011416</td>
+          </tr>
+        </tbody>
+      </table>
+    </pre>
     <li class='mb-3'>Visually inspect the scatter plot of each independent variable and cholesterol ratio to identify any potential extreme clustering and evaluate the relationship between each independent variable and cholesterol ratio. The blue line on each plot indicates the general relationship trend between the two variables. Based on the scatter plots below, we can see no extreme clustering, and BMI has a positive relationship with cholesterol ratio, consistent with the correlation table above.</li>
       <div class='mb-3'>
         <img class="img-fluid mx-auto w-50 d-none d-md-block" src="/assets/img/projects/bmi_cholesterol/scatter_bmi.png" alt="scatter plot of bmi and cholesterol ratio">
