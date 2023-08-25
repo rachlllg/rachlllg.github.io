@@ -7,7 +7,7 @@
   <hr class="m-0">
   <div class="mb-5 mx-auto">
     <div class="row mb-4">
-      {% assign sorted = site.projects | sort: 'date' | reverse %}
+      {% assign sorted = site.projects | sort: 'year' | reverse %}
       {% for project in sorted %}
         <div class="col-md-8">
             <div class="col p-4 d-flex text-start flex-column">
@@ -17,13 +17,13 @@
               {% endfor %}
               </div>
               <h3 class="mb-0">{{ project.title }}</h3>
-              <div class="mb-1 text-body-secondary">{{ project.date | date: "%Y-%m-%d"}}</div>
+              <div class="mb-1 text-body-secondary">{{ project.year }}</div>
               <p class="card-text mb-2">{{ project.description }}</p>
-              <a href="{{project.url}}">Project Details...</a>
+              <a href="{{project.url}}">Learn More...</a>
             </div>
         </div>
         <div class="col-md-4">
-          <img class="img-fluid p-3" src="../{{project.ft_img}}" alt="Bird Image"> 
+          <img class="img-fluid p-3" src="../{{project.ft_img}}" alt="Project Image"> 
         </div>
         <hr class="m-0">
       {% endfor %}
@@ -35,9 +35,9 @@
   {% assign category_name = page.url | split: '/' | last %}
   <h2 class="mb-4">{{ category_name }} Projects</h2>
   <hr class="m-0">
-  <div class="mb-5 mx-auto">
+  <div class="mb-3 mx-auto">
     <div class="row mb-4">
-      {% assign sorted = site.projects | sort: 'date' | reverse %}
+      {% assign sorted = site.projects | sort: 'year' | reverse %}
       {% for project in sorted %}
       {% if project.categories contains category_name %}
         <div class="col-md-8">
@@ -48,13 +48,13 @@
               {% endfor %}
               </div>
               <h3 class="mb-0">{{ project.title }}</h3>
-              <div class="mb-1 text-body-secondary">{{ project.date | date: "%Y-%m-%d"}}</div>
+              <div class="mb-1 text-body-secondary">{{ project.year }}</div>
               <p class="card-text mb-2">{{ project.description }}</p>
-              <a href="{{project.url}}">Project Details...</a>
+              <a href="{{project.url}}">Learn More...</a>
             </div>
         </div>
-        <div class="col-md-4">
-          <img class="img-fluid p-3" src="../{{project.ft_img}}" alt="Bird Image"> 
+        <div class="col-md-4 d-flex align-items-center">
+          <img class="img-fluid p-3" src="../{{project.ft_img}}" alt="Project Image"> 
         </div>
         <hr class="m-0">
       {% endif %}

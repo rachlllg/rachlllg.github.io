@@ -1,6 +1,7 @@
 ---
 layout: project
 title:  "Test Project"
+year: 2023
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 ft_img: assets/img/project/project_2.webp
 categories: NoSQL SQL

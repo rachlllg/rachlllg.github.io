@@ -51,3 +51,21 @@ body {
   color: #fff;
   border-bottom-color: #fff;
 }
+
+.csv-table {
+  white-space: pre-wrap;
+  color: #333;
+  background-color: #fff;
+  padding: 10px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.csv-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.csv-table th, .csv-table td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+}

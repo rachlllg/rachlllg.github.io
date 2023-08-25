@@ -9,6 +9,17 @@
   <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="/assets/css/cover.css" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <!--mathjax for latex rendering-->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { scale: 100 },
+      "HTML-CSS": { scale: 100 },
+      SVG: { scale: 100 }
+    });
+  </script>
 </head>
   
 <body class="d-flex text-center text-bg-dark {% if page.apply_h_100 %} h-100 {% endif %}">  
@@ -33,12 +44,12 @@
     <footer class="mt-auto text-white-50">
       <h4>Thank you for visiting!</h4>
       <p><a href={{site.youtube_link}} class="text-white">YouTube</a> | <a href={{site.github_link}} class="text-white">GitHub</a> | <a href={{site.linkedin_link}} class="text-white">LinkedIn</a> | <a href={{site.email}} class="text-white">Email</a> </p>
+      <p style="font-size:0.75em;">The website was optimized for use on screens with a minimum width of 800px.</p>
     </footer>
   </div>
 
   <script src="/assets/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/main.js"></script>
-
 </body>
 
 </html>
