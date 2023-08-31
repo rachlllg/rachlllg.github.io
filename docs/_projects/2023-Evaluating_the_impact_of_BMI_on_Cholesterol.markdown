@@ -299,7 +299,7 @@ categories: R Statistics Regression
 <!-- DATA CLEANING -->
 <div class='mb-5' id='data-cleaning'>
   <h3 class='mb-3'><u>DATA CLEANING</u></h3>
-  <p>Below is a summary of data cleaning steps performed, details can be found in the <a href='https://github.com/rachlllg/Evaluating-the-impact-of-BMI-on-Cholesterol/blob/main/data_cleaning.Rmd'>data_cleaning.Rmd</a> file in the GitHub repo. </p>
+  <p>Below is a summary of data cleaning steps performed, details can be found in the data_cleaning.Rmd file in the GitHub repo. </p>
   <ol>
     <li>Include only respondents with valid BMI, cholesterol, and glycohemoglobin measurements.</li>
     <li>Include only respondents with valid age and gender.</li>
@@ -360,7 +360,7 @@ categories: R Statistics Regression
 <div class='mb-5' id='eda'>
   <h3 class='mb-3'><u>EDA</u></h3>
   <p>As a note, all EDAs were performed on the exploration set only. Before EDA, we removed any cases of extreme BMI above 30, extreme cholesterol ratio above 10, and extreme glycohemoglobin above 12 as they are likely not representative of the underlying overall population.</p>
-  <p>Below is a summary of EDA performed, details can be found in the <a href='https://github.com/rachlllg/Evaluating-the-impact-of-BMI-on-Cholesterol/blob/main/explore.Rmd'>explore.Rmd</a> file in the GitHub repo.</p>
+  <p>Below is a summary of EDA performed, details can be found in the explore.Rmd file in the GitHub repo.</p>
   <ol>
     <li>Evaluate the normality of each variable to ensure it's not heavy-tailed. Based on the histogram below, we see no strong indication of extreme heavy-tailed distribution in any variables.</li>
       <div class='row mb-3'>
