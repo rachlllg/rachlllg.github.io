@@ -3,7 +3,7 @@ layout: project
 title:  "Evaluating the Impact of BMI on Cholesterol"
 year: 2023
 description: Utilizing Large Sample Ordinary Least Squares (OLS) Regression to evaluate the possible causal relationships between Body Mass Index (BMI) and cholesterol ratio.
-ft_img: /assets/img/projects/bmi_cholesterol/1_in_3.png
+ft_img: /assets/img/projects/bmi_cholesterol/foods.jpeg
 categories: R Statistics Regression
 ---
 
