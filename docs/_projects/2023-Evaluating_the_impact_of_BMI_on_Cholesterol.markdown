@@ -27,7 +27,7 @@ categories: R Statistics Regression
 <!-- DESCRIPTION -->
 <div class='mb-5' id='description'>
   <h3 class='mb-3'><u>DESCRIPTION</u></h3>
-  <p>This project utilized Large Sample Ordinary Least Squares (OLS) Regression to evaluate the possible causal relationships between Body Mass Index (BMI) and cholesterol ratio. Data was sourced from the 2005-2006 National Health and Nutrition Examination Survey (NHANES), and the analysis was conducted primarily using the R programming language.</p>
+  <p>This project utilized Large Sample Ordinary Least Squares (OLS) Regression to evaluate the possible causal relationships between Body Mass Index (BMI) and cholesterol ratio. Data was sourced from the 2005-2006 National Health and Nutrition Examination Survey (NHANES), and all data cleaning, analysis, and model building were conducted using the R programming language.</p>
 </div>
 
 <!-- BACKGROUND -->
@@ -36,6 +36,13 @@ categories: R Statistics Regression
   <p>This was the final project for the Statistics for Data Science class in my Masters in Data Science program, a collaborative effort involving me and three other classmates.</p>
   <p>The objective was to formulate a research question that distinctly identifies an independent variable (X), representing a <em>modifiable</em> 'product feature' and a dependent variable (Y), representing a 'metric of success'. The interpretation of 'product feature' and 'metric of success' was broad and extended beyond tangible products and sales.</p>
   <p>Guided by the project requirements, we utilized R as our programming language and conducted an <em>explanatory study</em> using Ordinary Least Squares (OLS) regression. While OLS regression might not be the most appropriate approach to establish causal relationships with observational data, the assignment emphasized constructing a model that is <em>reasonably plausible</em>.</p>
+  <p>Notable R packages used:
+    <ul>
+      <li>general: tidyverse/dplyr</li>
+      <li>modeling: effsize, car, lmtest, sandwich</li>
+      <li>visualization: ggplot2, stargazer, knitr </li>
+    </ul>
+  </p>
 </div>
 
 <!-- MOTIVATION -->
