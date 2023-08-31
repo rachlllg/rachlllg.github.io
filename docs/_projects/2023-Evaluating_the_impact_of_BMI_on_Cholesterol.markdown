@@ -10,16 +10,16 @@ categories: R Statistics Regression
 <!-- LINKS -->
 <div class='mb-5'>
 <p class='mt-3 mb-3 text-center' style="font-size:0.75em;">
-  <a href="#description">DESCRIPTION</a> -
-  <a href="#background">BACKGROUND</a> -
-  <a href="#motivation">MOTIVATION</a> -
-  <a href="#data-source">DATA SOURCE</a> -
-  <a href="#data-cleaning">DATA CLEANING</a> -
-  <a href="#eda">EDA</a> -
-  <a href="#model">MODEL</a> -
-  <a href="#limitations">LIMITATIONS</a> -
-  <a href="#github">GITHUB</a> -
-  <a href="#member-contribution">MEMBER CONTRIBUTIONS</a>
+  <a href="#description" style='text-decoration: none;'>DESCRIPTION</a> &#183;
+  <a href="#background" style='text-decoration: none;'>BACKGROUND</a> &#183;
+  <a href="#motivation" style='text-decoration: none;'>MOTIVATION</a> &#183;
+  <a href="#data-source" style='text-decoration: none;'>DATA SOURCE</a> &#183;
+  <a href="#data-cleaning" style='text-decoration: none;'>DATA CLEANING</a> &#183;
+  <a href="#eda" style='text-decoration: none;'>EDA</a> &#183;
+  <a href="#model" style='text-decoration: none;'>MODEL</a> &#183;
+  <a href="#limitations" style='text-decoration: none;'>LIMITATIONS</a> &#183;
+  <a href="#github" style='text-decoration: none;'>GITHUB</a> &#183;
+  <a href="#member-contribution" style='text-decoration: none;'>MEMBER CONTRIBUTIONS</a>
 </p>
 <div>
 <hr class="m-0 mb-3">
@@ -476,7 +476,7 @@ categories: R Statistics Regression
         <li>No perfect collinearity: There was no perfect collinearity within the independent variables, as no independent variables were automatically dropped.</li>
         <li>No multicollinearity: Generally, a variance inflation factor of more than 5 would indicate high multicollinearity within the independent variables. Based on the variance inflation factor table below, we can see that no independent variables exhibited evidence of multicollinearity.</li>
         <pre>
-          <table class='w-50 csv-table'>
+          <table class='w-50 csv-table mx-auto'>
             <thead>
               <tr>
                 <th>BMI</th>
@@ -527,7 +527,7 @@ categories: R Statistics Regression
       </tbody>
     </table>
   </pre>
-  <p>We also considered the possibility of diet and physical activities as omitted variables, but as an individual's diet and physical activities directly contribute to their BMI, the effect of diet and physical activities was already reflected by BMI. Therefore, we do not believe diet and physical activities are omitted variables in our analysis.</p>
+  <p>In addition to familial hypercholesterolemia and drinking habits, we also considered the possibility of diet and physical activities as omitted variables, but as an individual's diet and physical activities directly contribute to their BMI, the effect of diet and physical activities was already reflected by BMI. Therefore, we do not believe diet and physical activities are omitted variables in our analysis.</p>
   <h5 class='mb-3'><u>Reverse Causality</u></h5>
   <p>We also acknowledge the possibility of reverse causality, where an individual's cholesterol ratio could affect their glycohemoglobin levels. Although the relationship between high cholesterol and diabetes is under debate, we recognize that the positive reverse causality bias could result in overconfident estimates. We do not believe BMI is an outcome variable of any covariates in our model.</p>
   <h5 class='mb-3'><u>Explanatory Power</u></h5>
@@ -537,7 +537,7 @@ categories: R Statistics Regression
 <!-- GITHUB -->
 <div class='mb-5' id='github'>
   <h3 class='mb-3'><u>GITHUB</u></h3>
-  <p>Please see my <a href="https://github.com/rachlllg/Evaluating-the-impact-of-BMI-on-Cholesterol/tree/main">GitHub</a> for the code and final report for the project.</p>
+  <p>Please see my <a href="https://github.com/rachlllg/Project_Evaluating-the-impact-of-BMI-on-Cholesterol">GitHub</a> for the code and final report for the project.</p>
 </div>
 
 <!-- MEMBER CONTRIBUTION -->
