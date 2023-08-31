@@ -36,7 +36,7 @@ categories: R Statistics Regression
   <p>This was the final project for the Statistics for Data Science class in my Masters in Data Science program, a collaborative effort involving me and three other classmates.</p>
   <p>The objective was to formulate a research question that distinctly identifies an independent variable (X), representing a <em>modifiable</em> 'product feature' and a dependent variable (Y), representing a 'metric of success'. The interpretation of 'product feature' and 'metric of success' was broad and extended beyond tangible products and sales.</p>
   <p>Guided by the project requirements, we utilized R as our programming language and conducted an <em>explanatory study</em> using Ordinary Least Squares (OLS) regression. While OLS regression might not be the most appropriate approach to establish causal relationships with observational data, the assignment emphasized constructing a model that is <em>reasonably plausible</em>.</p>
-  <p>Notable R packages used:
+  <p>All work was done in RStudio, with R as the programming language. Notable R packages used:
     <ul>
       <li>general: tidyverse/dplyr</li>
       <li>modeling: effsize, car, lmtest, sandwich</li>
