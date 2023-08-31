@@ -322,7 +322,7 @@ categories: R Statistics Regression
         </tr>
       </thead>
       <tbody>
-        {% assign main = site.data.projects.bmi_cholesterol.main %}
+        {% assign main = site.data.projects.bmi_cholesterol.main_first_5 %}
         {% for row in (0..4) %}
         <tr>
           <td>{{ main[row].SEQN }}</td>
