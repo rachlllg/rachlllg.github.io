@@ -1,0 +1,6 @@
+primary_label,secondary_labels,type,latitude,longitude,scientific_name,common_name,author,license,rating,url,filename
+abethr1,[],['song'],4.3906,38.2788,Turdus tephronotus,African Bare-eyed Thrush,Rolf A. de By,Creative Commons Attribution-NonCommercial-ShareAlike 3.0,4.0,https://www.xeno-canto.org/128013,abethr1/XC128013.ogg
+abethr1,[],['call'],-2.9524,38.2921,Turdus tephronotus,African Bare-eyed Thrush,James Bradley,Creative Commons Attribution-NonCommercial-ShareAlike 4.0,3.5,https://www.xeno-canto.org/363501,abethr1/XC363501.ogg
+abethr1,[],['song'],-2.9524,38.2921,Turdus tephronotus,African Bare-eyed Thrush,James Bradley,Creative Commons Attribution-NonCommercial-ShareAlike 4.0,3.5,https://www.xeno-canto.org/363502,abethr1/XC363502.ogg
+abethr1,[],['song'],-2.9524,38.2921,Turdus tephronotus,African Bare-eyed Thrush,James Bradley,Creative Commons Attribution-NonCommercial-ShareAlike 4.0,5.0,https://www.xeno-canto.org/363503,abethr1/XC363503.ogg
+abethr1,[],"['call', 'song']",-2.9524,38.2921,Turdus tephronotus,African Bare-eyed Thrush,James Bradley,Creative Commons Attribution-NonCommercial-ShareAlike 4.0,4.5,https://www.xeno-canto.org/363504,abethr1/XC363504.ogg
