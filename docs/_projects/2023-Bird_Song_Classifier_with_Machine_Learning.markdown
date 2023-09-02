@@ -174,12 +174,16 @@ categories: Python Machine-Learning
   <h3 class='mb-3'><u>DATA PREPROCESSING</u></h3>
   <p>Below is a summary and a video recording of the top level data preprocessing steps performed, the Google Colab notebook shown in the video can be found in the preprocessing.ipynb file in the GitHub repo.</p>
   <div class='text-center mb-3'>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/cIsSjAP4Tj8?si=9IhL6LRpBJELg55l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/cIsSjAP4Tj8?si=9IhL6LRpBJELg55l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>Preprocessing</p>
   </div>
   <ol>
-    <li>Include only the 3 species selected (barswa, comsan, eaywag1).</li>
-    <li>Remove duplicate instances where the 'duration', 'type', 'location', 'primary_label', and 'author' are the same.</li>
-    <li>Randomly select 30% of the total training samples to set aside as test set, the remaining 70% are used for training and validation.</li>
+    <li>Include only the species selected.</li>
+    <p>As noted in the previous section, only 3 species (barswa, comsan, and eaywag1) were selected for this project.</p>
+    <li>Remove duplicate.</li>
+    <p>Instances with the same 'duration', 'type', 'location', 'primary_label', and 'author' appear to be duplicates and was removed from the dataset.</p>
+    <li>Train/Test split.</li>
+    <p>To prevent data leakage, the data was split to train and test dataset at 70/30 split.</p>
   </ol>
   <div class='row mb-3 w-75 mx-auto'>
     <div class='col-8 p-2 text-center' style="background-color: #ffab40; color: #333; border: 1px solid #333;">
@@ -191,7 +195,28 @@ categories: Python Machine-Learning
       <p class='mb-0'>30%</p>
     </div>
   </div>
-  <p>After the top level preprocessing steps, I further performed some data extraction and data cleaning for the train and test dataframes, as well as split the train dataframe to train and validation set before moving on to EDA and model building.</p>
+  <p>After the top level preprocessing steps, I further performed some data cleaning on the train and test dataframes, as summarized and shown in the video recordings below. The Google Colab notebook shown in the video can be found in the data_cleaning.ipynb file in the GitHub repo.</p>
+  <div class='row mb-3'>
+    <div class='col-md-6 text-center'>      
+      <iframe src="https://www.youtube.com/embed/KBQjOAEZZSc?si=qjQ_SxYiDCYKWAXJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p class='text-center'>Data Cleaning Part 1</p>
+    </div>
+    <div class='col-md-6 text-center'>
+      <iframe src="https://www.youtube.com/embed/uf9nMfKFgnc?si=ccDk4JHG1rQ_PX_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p class='text-center'>Data Cleaning Part 2</p>
+    </div>
+  </div>
+  <ol>
+    <li>Inspect each column for NaN values.</li>
+    <p>Only latitude and longitude columns contains NaN values, which would result in unknown country and continent, but only 17 out of the more than 1000 training examples had NaN latitude and longitude so I just left them as is.</p>
+    <li>Inspect each column for outliers or things that would require special attention.</li>
+    <p></P>
+    <li>Drop unused columns.</li>
+    <p>'secondary_labels', 'scientific_name', 'common_name', 'author', 'license', and 'url' columns are not useful for our analysis so they were dropped from our data.</p>
+    <li>Clean up the 'type' column.</li>
+    <p>Some 'type' contains the bird gender and lifestage which is not particularly related to call or song types so they were summarized to a handful of types only.</p>
+    <li>Extract country and continent from latitude and longitude.</li>
+  </ol>
 </div>
 
 <!-- EDA -->
