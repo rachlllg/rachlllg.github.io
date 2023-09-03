@@ -1,0 +1,61 @@
+<!--Blog Page Content-->
+<main class="px-3 mt-5 mx-auto container">
+  <hr class="m-0 mb-4">
+  <!--Show all blog posts-->
+  {% if page.url == '/blog' %}
+  <h2 class="mb-4">All Blog Posts</h2>
+  <hr class="m-0 mb-4">
+  <div class="mt-5 mb-5 mx-auto">
+    <div class="row mb-2">
+      {% for post in site.posts %}
+      <div class="col-md-6">
+        <div class="border mb-4">
+          <div class="col p-4 d-flex text-start flex-column">
+            <div class="d-inline-block mb-2">
+            {% for category in post.categories %}
+              <a href="/blog/{{category}}" class="text-success-emphasis" style="text-decoration: none;" >{{ category }}</a> |
+            {% endfor %}
+            </div>
+            <h3 class="mb-0">{{ post.title }}</h3>
+            <div class="mb-1 text-body-secondary">{{ post.date | date: "%Y-%m-%d"}}</div>
+            <p class="card-text mb-2">{{ post.description }}</p>
+            <a href="{{post.url}}">Continue Reading...</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr class="m-0 mb-5">
+
+  <!--Show only blog posts of select category-->
+  {% else %}
+  {% assign category_name = page.url | split: '/' | last %}
+  <h2 class="mb-4">{{category_name}} Blog Posts</h2>
+  <hr class="m-0 mb-4">
+  <div class="mt-5 mb-5 mx-auto">
+    <div class="row mb-2">
+      {% for post in site.posts %}
+      {% if post.categories contains category_name %}
+      <div class="col-md-6">
+        <div class="border mb-4">
+          <div class="col p-4 d-flex text-start flex-column">
+            <div class="d-inline-block mb-2">
+            {% for category in post.categories %}
+              <a href="/blog/{{category}}" class="text-success-emphasis" style="text-decoration: none;" >{{ category }}</a> |
+            {% endfor %}
+            </div>
+            <h3 class="mb-0">{{ post.title }}</h3>
+            <div class="mb-1 text-body-secondary">{{ post.date | date: "%Y-%m-%d"}}</div>
+            <p class="card-text mb-2">{{ post.description }}</p>
+            <a href="{{post.url}}">Continue Reading...</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <hr class="m-0 mb-5">
+  {% endif %}
+</main>
