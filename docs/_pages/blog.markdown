@@ -1,6 +1,6 @@
 ---
 layout: default
-apply_h_100: true
+apply_h_100: false
 title: Blog
 permalink: /blog
 ---
