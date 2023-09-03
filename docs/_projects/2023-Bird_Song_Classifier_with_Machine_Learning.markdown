@@ -3,7 +3,7 @@ layout: project
 title:  "Bird Song Classifier with Machine Learning"
 year: 2023
 description: Utilizing various machine learning algorithms (traditional, shallow neural networks, and deep neural networks) to classify bird species based on bird songs/calls.
-ft_img: /assets/img/projects/bird_song_classifier/birds.png
+ft_img: /assets/img/projects/bird_song_classifier/birds.jpeg
 categories: Python Machine-Learning
 ---
 
@@ -16,7 +16,7 @@ categories: Python Machine-Learning
   <a href="#data-source" style='text-decoration: none;'>DATA SOURCE</a> &#183;
   <a href="#data-preprocessing" style='text-decoration: none;'>DATA PREPROCESSING</a> &#183;
   <a href="#eda" style='text-decoration: none;'>EDA</a> &#183;
-  <a href="#model" style='text-decoration: none;'>MODELS</a> &#183;
+  <a href="#models" style='text-decoration: none;'>MODELS</a> &#183;
   <a href="#limitations" style='text-decoration: none;'>LIMITATIONS</a> &#183;
   <a href="#github" style='text-decoration: none;'>GITHUB</a>
 </p>
@@ -224,9 +224,9 @@ categories: Python Machine-Learning
   <h3 class='mb-3'><u>EDA</u></h3>
 </div>
 
-<!-- MODEL -->
-<div class='mb-5' id='model'>
-  <h3 class='mb-3'><u>MODEL</u></h3>
+<!-- MODELS -->
+<div class='mb-5' id='models'>
+  <h3 class='mb-3'><u>MODELS</u></h3>
 </div>
 
 <!-- LIMITATIONS -->
