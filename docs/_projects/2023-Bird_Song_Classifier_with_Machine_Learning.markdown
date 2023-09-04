@@ -14,7 +14,7 @@ categories: Python Machine-Learning
   <a href="#background" style='text-decoration: none;'>BACKGROUND</a> &#183;
   <a href="#motivation" style='text-decoration: none;'>MOTIVATION</a> &#183;
   <a href="#data-source" style='text-decoration: none;'>DATA SOURCE</a> &#183;
-  <a href="#data-preprocessing" style='text-decoration: none;'>DATA PREPROCESSING</a> &#183;
+  <a href="#data-processing" style='text-decoration: none;'>DATA PROCESSING</a> &#183;
   <a href="#eda" style='text-decoration: none;'>EDA</a> &#183;
   <a href="#models" style='text-decoration: none;'>MODELS</a> &#183;
   <a href="#limitations" style='text-decoration: none;'>LIMITATIONS</a> &#183;
@@ -107,7 +107,8 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p>For our project, however, due to limitation in computing resources, we did not attempt to build a classifier for all 264 bird species. We selected 3 species from 3 different families to build a bird song classifier for the 3 selected species only. The training data was filtered to include only the 3 selected species and then was split to training, validation, and test sets for building our machine learning models. As the test data provided by the competition contained unknown labels, we did not use the test data provided by the competition for our project.</p>
+  <p>Notably, at the time of this project, the BirdCLEF 2023 competition had already ended, so the goal of the project was not to create a model for the competition submission, but rather to use the dataset to create a bird species classifier using machine learning techniques.</p>
+  <p>Since the audio data for all 264 species cannot fit into Google Colab free version, we selected 3 species from 3 different families to build a bird song classifier for the 3 selected species only. As the test data provided by the competition contained unknown labels, we did not use the test data provided by the competition for our project. Instead, we split the training data to training, validation, and test sets for building our machine learning models.</p>
   <p>The 3 species selected for the project are as follows:</p>
   <div class="container w-75" style="color: #333; background-color: #fff;">
   <div class="row">
@@ -169,19 +170,21 @@ categories: Python Machine-Learning
 </div>
 </div>
 
-<!-- DATA PREPROCESSING -->
-<div class='mb-5' id='data-preprocessing'>
-  <h3 class='mb-3'><u>DATA PREPROCESSING</u></h3>
-  <p>Below is a summary and a video recording of the top level data preprocessing steps performed, the Google Colab notebook shown in the video can be found in the preprocessing.ipynb file in the GitHub repo.</p>
+<!-- DATA PROCESSING -->
+<div class='mb-5' id='data-processing'>
+  <h3 class='mb-3'><u>DATA PROCESSING</u></h3>
+  <!-- Data Preprocessing -->
+  <h5 class='mb-3'><strong>1. Data Preprocessing</strong></h5>
+  <p>Below is a summary and a video recording of the top level data preprocessing steps I performed, the Google Colab notebook shown in the video is the preprocessing.ipynb file in the GitHub repo.</p>
   <div class='text-center mb-3'>
     <iframe src="https://www.youtube.com/embed/cIsSjAP4Tj8?si=9IhL6LRpBJELg55l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    <p>Preprocessing</p>
+    <p>Data Preprocessing</p>
   </div>
   <ol>
     <li>Include only the species selected.</li>
     <p>As noted in the previous section, only 3 species (barswa, comsan, and eaywag1) were selected for this project.</p>
     <li>Remove duplicate.</li>
-    <p>Instances with the same 'duration', 'type', 'location', 'primary_label', and 'author' appear to be duplicates and was removed from the dataset.</p>
+    <p>Instances with the same 'duration', 'type', 'location', 'primary_label', and 'author' appear to be duplicates and were removed from the dataset.</p>
     <li>Train/Test split.</li>
     <p>To prevent data leakage, the data was split to train and test dataset at 70/30 split.</p>
   </ol>
@@ -195,33 +198,48 @@ categories: Python Machine-Learning
       <p class='mb-0'>30%</p>
     </div>
   </div>
-  <p>After the top level preprocessing steps, I further performed some data cleaning on the train and test dataframes, as summarized and shown in the video recordings below. The Google Colab notebook shown in the video can be found in the data_cleaning.ipynb file in the GitHub repo.</p>
+  <!-- Data Cleaning -->
+  <h5 class='mb-3'><strong>2. Data Cleaning</strong></h5>
+  <p>After the top level preprocessing steps, I performed data cleaning on the train and test datasets, as summarized and shown in the video recordings below. The Google Colab notebook shown in the videos is the data_cleaning.ipynb file in the GitHub repo.</p>
   <div class='row mb-3'>
     <div class='col-md-6 text-center'>      
       <iframe src="https://www.youtube.com/embed/KBQjOAEZZSc?si=qjQ_SxYiDCYKWAXJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <p class='text-center'>Data Cleaning Part 1</p>
+      <p class='text-center'>Data Cleaning - Part 1</p>
     </div>
     <div class='col-md-6 text-center'>
       <iframe src="https://www.youtube.com/embed/uf9nMfKFgnc?si=ccDk4JHG1rQ_PX_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <p class='text-center'>Data Cleaning Part 2</p>
+      <p class='text-center'>Data Cleaning - Part 2</p>
     </div>
   </div>
   <ol>
     <li>Inspect each column for NaN values.</li>
-    <p>Only latitude and longitude columns contains NaN values, which would result in unknown country and continent, but only 17 out of the more than 1000 training examples had NaN latitude and longitude so I just left them as is.</p>
+    <p>Only latitude and longitude columns contained NaN values, but only 17 out of the more than 1000 training examples had NaN latitude and longitude so I just left them as is.</p>
     <li>Inspect each column for outliers or things that would require special attention.</li>
-    <p></P>
+    <p>There wasn't outliers that really stood out in this step, but instead, I noted down some columns that should be removed and some columns that could be cleaned up a bit which I performed below.</P>
     <li>Drop unused columns.</li>
     <p>'secondary_labels', 'scientific_name', 'common_name', 'author', 'license', and 'url' columns are not useful for our analysis so they were dropped from our data.</p>
     <li>Clean up the 'type' column.</li>
-    <p>Some 'type' contains the bird gender and lifestage which is not particularly related to call or song types so they were summarized to a handful of types only.</p>
+    <p>Some 'type' contained the bird gender and lifestage which were not related to call or song types so I summarized all types to either 'call', 'song', 'blank', or 'both'.</p>
     <li>Extract country and continent from latitude and longitude.</li>
   </ol>
+  <!-- Data Extraction -->
+  <h5 class='mb-3'><strong>3. Data Extraction</strong></h5>
+  <p>As we already saw, the primary feature of the project is audio clips of bird song recordings. When working with the data, I discovered that it is time consuming to reload the audio clips using librosa.load() every time I want to access and use the audio objects, therefore, I used librosa.load() to load the audio files once and then extracted and save the returned NumPy array object to be used as my primary feature instead. The video below goes over the steps I performed to extract and save the NumPy array objects. The Google Colab notebook shown in the videos is the data_extraction.ipynb file in the GitHub repo.</p>
+  <div class='text-center mb-3'>
+    <iframe src="https://www.youtube.com/embed/se0_icqomLo?si=I5gecCw4N1XqdOcN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>Data Extraction</p>
+  </div>
 </div>
 
 <!-- EDA -->
 <div class='mb-5' id='eda'>
   <h3 class='mb-3'><u>EDA</u></h3>
+  <p>The data is now cleaned up and ready for EDA. As I had never worked with audio data before, I looked at the notebooks from prior year BirdCLEF competitions to gauge how to work with audio data more efficiently. Listed below are some notebooks that I looked at.</p>
+  <ul>
+    <li><a href="https://www.kaggle.com/competitions/birdclef-2021/discussion/243463">BirdCLEF 2021 2nd place</a></li>
+    <li><a href="https://www.kaggle.com/competitions/birdclef-2022/discussion/327047">BirdCLEF 2022 1st place</a></li>
+    <li><a href="https://www.kaggle.com/competitions/birdclef-2023/discussion/412808">BirdCLEF 2023 1st place</a></li>
+  </ul>
 </div>
 
 <!-- MODELS -->
