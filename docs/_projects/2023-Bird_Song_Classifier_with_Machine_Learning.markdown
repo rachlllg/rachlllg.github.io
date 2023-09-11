@@ -169,8 +169,8 @@ categories: Python Machine-Learning
 <div class='mb-5' id='data-processing'>
   <h3 class='mb-3'><u>DATA PROCESSING</u></h3>
   <!-- Data Preprocessing -->
-  <h5 class='mb-3'><strong>1. Data Preprocessing</strong></h5>
-  <p>Summarized below are the top level data preprocessing steps I performed, the Google Colab notebook shown in the video is the 0.preprocessing.ipynb file in the GitHub repo.</p>
+  <h5 class='mb-3'><strong>A. Data Preprocessing</strong></h5>
+  <p>Summarized below are the top level data preprocessing steps I performed, the Google Colab notebook shown in the video is the a.preprocessing.ipynb file in the GitHub repo.</p>
   <div class="row mb-4">
     <div class="col-md-6">
       <ol>
@@ -197,8 +197,8 @@ categories: Python Machine-Learning
     </div>
   </div>
   <!-- Data Cleaning -->
-  <h5 class='mb-3'><strong>2. Data Cleaning</strong></h5>
-  <p>After the top level preprocessing steps, the data was cleaned as summarized below. The Google Colab notebook shown in the videos is the 1.data_cleaning.ipynb file in the GitHub repo.</p>
+  <h5 class='mb-3'><strong>B. Data Cleaning</strong></h5>
+  <p>After the top level preprocessing steps, the data was cleaned as summarized below. The Google Colab notebook shown in the videos is the b.data_cleaning.ipynb file in the GitHub repo.</p>
   <div class="row mb-4">
     <div class="col-md-6">
       <ol>
@@ -225,10 +225,10 @@ categories: Python Machine-Learning
     </div>
   </div>
   <!-- Data Extraction -->
-  <h5 class='mb-3'><strong>3. Data Extraction</strong></h5>
+  <h5 class='mb-3'><strong>C. Data Extraction</strong></h5>
   <div class="row mb-4">
     <div class="col-md-6">
-      <p>One thing I discovered while working on the project was that loading the audio clips using librosa.load() is time consuming. librosa.load() takes in audio files as parameter and returns the audio object in a NumPy array. The same NumPy array object can be passed as parameters to other librosa functions to extract audio features. To save downstream processing time, I used librosa.load() to load the audio files and saved the returned NumPy array object to disk, which enabled me to use the NumPy array object directly when extracting audio features. The Google Colab notebook shown in the videos is the 3.data_extraction.ipynb file in the GitHub repo.</p>
+      <p>One thing I discovered while working on the project was that loading the audio clips using librosa.load() is time consuming. librosa.load() takes in audio files as parameter and returns the audio object in a NumPy array. The same NumPy array object can be passed as parameters to other librosa functions to extract audio features. To save downstream processing time, I used librosa.load() to load the audio files and saved the returned NumPy array object to disk, which enabled me to use the NumPy array object directly when extracting audio features. The Google Colab notebook shown in the videos is the c.data_extraction.ipynb file in the GitHub repo.</p>
     </div>
     <div class="col-md-6 d-flex align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/se0_icqomLo?si=I5gecCw4N1XqdOcN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -240,7 +240,7 @@ categories: Python Machine-Learning
 <div class='mb-5' id='eda'>
   <h3 class='mb-3'><u>EDA</u></h3>
   <p>To get a better understanding of what audio features would be appropriate for this project, what EDA could be performed on the features, and what machine learning algorithms are most suited for audio classification tasks, I looked at the notebooks from prior year BirdCLEF competitions and read a number of articles/papers that used audio features to build machine learning model. Listed below are some notable resources that was considered when performing feature extraction, EDA, and model building for this project.</p>
-  <ul>
+  <ul class='mb-4'>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2021/discussion/243463">BirdCLEF 2021 2nd place</a></li>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2022/discussion/327047">BirdCLEF 2022 1st place</a></li>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2023/discussion/412808">BirdCLEF 2023 1st place</a></li>
@@ -249,15 +249,44 @@ categories: Python Machine-Learning
     <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6479959/">Environment Sound Classification Using a Two-Stream CNN Based on Decision-Level Fusion</a></li>
     <li><a href="https://towardsdatascience.com/data-augmentation-techniques-for-audio-data-in-python-15505483c63c">Data Augmentation Techniques for Audio Data in Python</a></li>
   </ul>
-  <!-- Feature Selection -->
-  <h5 class='mb-3'><strong>0. Audio Feature Selection</strong></h5>
-  <p>Once the audio NumPy array objects had been extracted from the raw audio files using librosa.load(), they were passed as parameters to various librosa feature extraction function to extract the relevant audio features. Below summarized are some of the key audio features commonly used for audio classification tasks, in particular, MFCC and melspectrograms appear to be the most useful based on existing research.</p>
-  <p>Here is a visual representation of the different features derived from the 5 second audio clip below. The code used to generate this visualization can be found in the 0.feature_selection.ipynb file in the GitHub repo.</p>
+  <!-- General EDA -->
+  <h5 class='mb-3'><strong>A. General EDA</strong></h5>
+  <div class="row">
+    <div class="col-md-6">
+      <p>To build more generalizable models, EDAs are performed on training set only, so as to not gaining any information from the test set.</p>
+      <p>Summarized below are some general EDA performed on the training set. The Google Colab notebook shown in the video is the a.EDA.ipynb file in the GitHub repo.</p>
+    </div>
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/2U3mY00rDeA?si=G7tSgU-Ld0Cnmovz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+  <ol class='mb-4'>
+    <li>Check for class imbalance by number of samples.</li>
+      <p>The three species are relatively balanced by number of samples, with barswa having slightly fewer number of samples than the other two, but the difference is not alarming.</p>
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/num_samples.png" alt="check for class imbalance by number of samples">
+    <li>Check for class imbalance by total duration.</li>
+      <p>In general, we expect features to be of the same shape when passed into machine learning models as inputs. In the case of audio inputs, each audio clip should be of the same duration. Since audio clips in our dataset are of different duration, we will need to split the audio clips to a set duration before passing into the models. Therefore, I also checked for class imbalance by total duration.</p>
+      <p>At first glance, it may seem the three classes have similar total duration, however, if each audio clip is split to 5 seconds inputs without overlapping, a 10 minutes difference would result in a difference of 120 input samples. This difference would be even larger if the audio clips are split to 3 seconds clips, or if the audio clips are split with overlapping. This imbalance in total duration could result in the model favoring the species with longer duration during training. To overcome this imbalance, we can either drop some of the oversampled class (barswa), or we can stretch the audios of the undersampled classes (comsan and eaywag1) to make the three classes having similar total duration.</p>
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/total_duration.png" alt="check for class imbalance by total duration">
+    <li>Check for total duration by call types.</li>
+      <p>The call types were cleaned up as part of the data preprocessing steps mentioned above. While barswa made both 'call' and 'song' types almost equally, eaywag1 made more 'call' type than 'song', and comsan made almost exclusively only 'call' type. This might be useful information if we want to use call types as one of the input features.</p>
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/call_types.png" alt="check for total duration by call types">
+    <li>Check for total duration by quality rating.</li>
+      <p>In the original dataset, the quality rating attribute is on a scale of 0.0-5.0, presumably with 0.0 being the worst quality and 5.0 being the best quality. To better visualize the quality rating, I turned the attribute to binary, with audios of ratings above 3.0 being 'good'. All three classes had similar total durations of 'good' quality recordings, while barswa had more 'bad' quality recordings than the other two. Downsampling the 'bad' quality barswa recordings could be another way to overcome the class imbalance by total duration issue mentioned above.</p>
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/quality_rating.png" alt="check for total duration by quality rating">
+    <li>Check for geolocation distribution by species.</li>
+      <p>As part of the preprocessing, I extracted the continents of each audio sample based on the latitude and longitude. Majority of the audio clips were recorded in Europe with some in Asia and Africa. Interestingly, none of the comsan and eaywag1 audios were recorded in Americas, which might be a valuable distinguishing feature between barswa and the other two species.</p>
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/continent.png" alt="check for geolocation distribution by species">
+  </ol>
+  <!--  Audio Features -->
+  <h5 class='mb-3'><strong>B. Audio Features</strong></h5>
+  <p>Once the audio NumPy array objects had been extracted from the raw audio files using librosa.load(), they were passed as parameters to various librosa feature extraction functions to extract the relevant audio features. Below summarized are some of the key audio features commonly used for audio classification tasks, in particular, MFCC and melspectrograms appear to be the most useful based on existing research.</p>
+  <p>Here is a visual representation of the different features derived from the 5 second audio clip below. The code used to generate this visualization can be found in the b.audio_features.ipynb file in the GitHub repo.</p>
   <audio controls class="mb-3">
     <source src="/assets/img/projects/bird_song_classifier/XC587730.ogg" type="audio/ogg">
     Your browser does not support the audio element.
   </audio>
-  <ul>
+  <ul class='mb-4'>
     <li class='mb-3'>Soundwave.</li>
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/soundwave.png" alt="soundwave">
     <li class='mb-3'>Melspectrogram & Mel-Frequency Cepstral Coefficients (MFCC): visualization of the power distribution of audio frequencies, transformed into the mel scale to better represent human perception of sound.</li>
@@ -270,31 +299,21 @@ categories: Python Machine-Learning
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/chroma.png" alt="chroma">
   </ul>
   <!-- Audio Augmentation -->
-  <h5 class='mb-3'><strong>1. Audio Augmentation</strong></h5>
-  <p>Augmentation is an important technique and consideration when working with audio data. Some common augmentation techniques are:</p>
+  <h5 class='mb-3'><strong>C. Audio Augmentation</strong></h5>
+  <p>Augmentation is an important consideration when working with audio data. Some common augmentation techniques are:</p>
   <ul>
-    <li>Noisy: Adding gaussian noise to the audio.</li>
-    <li>Shifted: Shift the entire audio along the time axis.</li>
-    <li>Pitched: Change the pitch of the audio.</li>
-    <li>Stretched: Stretch the entire audio along the time axis.</li>
+    <li>Adding gaussian noise to the audio.</li>
+    <li>Shifting the entire audio along the time axis.</li>
+    <li>Changing the pitch of the audio.</li>
+    <li>Stretching the entire audio along the time axis.</li>
   </ul>
-  <p>Below is a visual representation of how the origianl 5 second audio soundwave is changed after applying each augmentation technique. The code used to generate this visualization can be found in the 1.augmentation.ipynb file in the GitHub repo.</p>
-  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/augmented.png" alt="augmented vs original audio soundwave">
-  <!-- Non-Audio Feature EDA -->
-  <h5 class='mb-3'><strong>2. Non-Audio Feature EDA</strong></h5>
-
-  
-
-
+  <p>Below is a visual representation of how the origianl 5 second audio soundwave changes with each augmentation technique. The code used to generate this visualization can be found in the c.augmentation.ipynb file in the GitHub repo.</p>
+  <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/augmented.png" alt="augmented vs original audio soundwave">
 </div>
 
 <!-- MODELS -->
 <div class='mb-5' id='models'>
   <h3 class='mb-3'><u>MODELS</u></h3>
-
-  <!-- Train/Validation Split -->
-  <h5 class='mb-3'><strong>0. Train/Validation Split</strong></h5>
-
 </div>
 
 <!-- LIMITATIONS -->
