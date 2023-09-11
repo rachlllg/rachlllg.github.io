@@ -314,6 +314,80 @@ categories: Python Machine-Learning
 <!-- MODELS -->
 <div class='mb-5' id='models'>
   <h3 class='mb-3'><u>MODELS</u></h3>
+  <h4 class='mb-3'><u>TRAINING</u></h4>
+  <!-- Train/Validation Split -->
+  <h5 class='mb-3'><strong>A. Train/Validation Split</strong></h5>
+  <p>Since the test dataset is reserved for final inference purpose, I further split the training dataset to train and validation sets for hyperparameter tuning during training. The code used to split the training dataset can be found in the a.train_val_split.ipynb file in the GitHub repo.</p>
+  <div class='row mx-auto'>
+    <div class='col-8 p-2 text-center' style="background-color: #ffab40; color: #333; border: 1px solid #333;">
+      <p class='mb-0'>Train</p>
+      <p class='mb-0'>70%</p>
+    </div>
+    <div class='col-4 p-2 text-center' style="background-color: #eeeeee; color: #333; border: 1px solid #333;">
+      <p class='mb-0'>Test</p>
+      <p class='mb-0'>30%</p>
+    </div>
+  </div>
+  <div class='row mb-3 mx-auto'>
+    <div class='col-6 p-2 text-center' style="background-color: #ffd9a8; color: #333; border: 1px solid #333;">
+      <p class='mb-0'>Train</p>
+      <p class='mb-0'>70%</p>
+    </div>
+    <div class='col-2 p-2 text-center' style="background-color: #fcead2; color: #333; border: 1px solid #333;">
+      <p class='mb-0'>Val</p>
+      <p class='mb-0'>30%</p>
+    </div>
+  </div>
+  <p>To overcome the class imbalance in total duration, during train/validation split, I downsampled the oversampled species in training set and put the rest in validation set. By doing this, the training set is now balanced, which would allow the models to learn features from the three classes equally well during training.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/train_duration.png" alt="total duration by species in training set">
+  <p>The total duration in the validation set is imbalanced after splitting to train/val sets, as it should be representative of the potential imbalance in the test set.</p>
+  <img class="img-fluid mb-5" src="/assets/img/projects/bird_song_classifier/val_duration.png" alt="total duration by species in validation set">
+  <!-- Create Class Methods -->
+  <h5 class='mb-3'><strong>B. Create Class Methods</strong></h5>
+  <p>Even though only 3 species were selected for the project, the audio features for the training and validation set are still too large to fit into memory of Google Colab (the free version only provides 12.7GB RAM). I therefore created two class methods which allowed me to manage the memory usage more efficiently.</p>
+  <p>One class (Framed) is used to frame the audios (split audios of varying length to set lengths clips with or without augmentation, and with or without overlapping). Another class (Extraction) is used to extract the audio features and labels from each of the framed clips (with or without normalization and/or average pooling) in a shape that's ready to be passed into the models. The code used to create and test the class methods can be found in the b.class_methods.ipynb file in the GitHub repo. The class methods are also included at the top of each model notebook.</p>
+  <!-- C1. Ensemble - Random Forest -->
+  <h5 class='mb-3'><strong>C1. Ensemble - Random Forest</strong></h5>
+  <p></p>
+
+  <!-- C2. Ensemble - XGBoost -->
+  <h5 class='mb-3'><strong>C2. Ensemble - XGBoost</strong></h5>
+  <p></p>
+
+  <!-- D1. Support Vector Machine -->
+  <h5 class='mb-3'><strong>D1. Support Vector Machine (SVM)</strong></h5>
+  <p></p>
+
+  <!-- E1. Logistic Regression -->
+  <h5 class='mb-3'><strong>E1. Logistic Regression</strong></h5>
+  <p></p>
+
+  <!-- F1. Feed Forward Neural Network (FFNN) -->
+  <h5 class='mb-3'><strong>F1. Feed Forward Neural Network (FFNN)</strong></h5>
+  <p></p>
+
+  <!-- G1. 1D Convolutional Neural Networks (1D-CNN) -->
+  <h5 class='mb-3'><strong>G1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
+  <p></p>
+
+  <!-- G2. 2D Convolutional Neural Networks (2D-CNN) -->
+  <h5 class='mb-3'><strong>G2. 2D Convolutional Neural Networks (2D-CNN)</strong></h5>
+  <p></p>
+
+  <!-- H1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
+  <h5 class='mb-3'><strong>H1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
+  <p></p>
+
+  <!-- H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
+  <h5 class='mb-3'><strong>H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
+  <p></p>
+
+  <!-- I1. Transformer -->
+  <h5 class='mb-3'><strong>I1. Transformer</strong></h5>
+  <p></p>
+
+
+  <h4 class='mb-3'><u>INFERENCE</u></h4>
 </div>
 
 <!-- LIMITATIONS -->
