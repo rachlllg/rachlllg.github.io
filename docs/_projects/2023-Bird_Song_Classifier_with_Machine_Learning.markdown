@@ -369,8 +369,8 @@ categories: Python Machine-Learning
   </div>
   <p>As mentioned earlier, many different audio features (such as MFCC, RMS, etc) could be extracted and used as features in machine learning models, so I implemented random forest models with 16 different combinations of various audio features to find the features with the strongest predictive power. I also experimented with different framed audio duration (3 seconds with 1 second overlap, 5 seconds with 2.5 seconds overlap, and 8 seconds with 4 seconds overlap) in case the audio frame duration made a difference in the models.</p>
   <p>Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration, with no augmentation. All models were generated with 50 estimators, with entropy as the criterion, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
-  <pre>
-    <table class="table table-sm">
+  <pre class='csv-table'>
+    <table>
       <thead>
         <tr>
           <th scope="col">Framed Duration (secs)</th>
@@ -416,7 +416,7 @@ categories: Python Machine-Learning
           <td>100%</td>
           <td>71%</td>
         </tr>
-        <tr class="table-warning">
+        <tr style="background-color: #99FF99;">
           <td>8.0</td>
           <td>4.0</td>
           <td>MFCC(20) + RMS(1) + Continents(5)</td>
