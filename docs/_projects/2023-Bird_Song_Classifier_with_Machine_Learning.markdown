@@ -369,61 +369,63 @@ categories: Python Machine-Learning
   </div>
   <p>As mentioned earlier, many different audio features (such as MFCC, RMS, etc) could be extracted and used as features in machine learning models, so I implemented random forest models with 16 different combinations of various audio features to find the features with the strongest predictive power. I also experimented with different framed audio duration (3 seconds with 1 second overlap, 5 seconds with 2.5 seconds overlap, and 8 seconds with 4 seconds overlap) in case the audio frame duration made a difference in the models.</p>
   <p>Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration, with no augmentation. All models were generated with 50 estimators, with entropy as the criterion, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th scope="col">Framed Duration (secs)</th>
-        <th scope="col">Overlap Duration (secs)</th>
-        <th scope="col">Features</th>
-        <th scope="col">Training Accuracy</th>
-        <th scope="col">Validation Accuracy</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>3.0</td>
-        <td>1.0</td>
-        <td>MFCC(20) + Spectral_Centoid(1) + Continents(5)</td>
-        <td>100%</td>
-        <td>69%</td>
-      </tr>
-      <tr>
-        <td>3.0</td>
-        <td>1.0</td>
-        <td>MFCC(20) + RMS(1) + Continents(5)</td>
-        <td>100%</td>
-        <td>69%</td>
-      </tr>
-      <tr>
-        <td>5.0</td>
-        <td>2.5</td>
-        <td>MFCC(20) + Continents(5)</td>
-        <td>100%</td>
-        <td>69%</td>
-      </tr>
-      <tr>
-        <td>5.0</td>
-        <td>2.5</td>
-        <td>MFCC(20) + Chroma(12) + Continents(5)</td>
-        <td>100%</td>
-        <td>70%</td>
-      </tr>
-      <tr>
-        <td>8.0</td>
-        <td>4.0</td>
-        <td>MFCC(20) + Spectral_Centoid(1) + Continents(5)</td>
-        <td>100%</td>
-        <td>71%</td>
-      </tr>
-      <tr class="table-warning">
-        <td>8.0</td>
-        <td>4.0</td>
-        <td>MFCC(20) + RMS(1) + Continents(5)</td>
-        <td>100%</td>
-        <td>73%</td>
-      </tr>
-    </tbody>
-  </table>
+  <pre>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Framed Duration (secs)</th>
+          <th scope="col">Overlap Duration (secs)</th>
+          <th scope="col">Features</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3.0</td>
+          <td>1.0</td>
+          <td>MFCC(20) + Spectral_Centoid(1) + Continents(5)</td>
+          <td>100%</td>
+          <td>69%</td>
+        </tr>
+        <tr>
+          <td>3.0</td>
+          <td>1.0</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>100%</td>
+          <td>69%</td>
+        </tr>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Continents(5)</td>
+          <td>100%</td>
+          <td>69%</td>
+        </tr>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>100%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + Spectral_Centoid(1) + Continents(5)</td>
+          <td>100%</td>
+          <td>71%</td>
+        </tr>
+        <tr class="table-warning">
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>100%</td>
+          <td>73%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
   <p>From this summary, we can see MFCC is predominently a better predictor than melspectrogram, and MFCC + continents are the strongest predictor among all combinations. The predictive power of RMS, chroma, and spectral centroid is not conclusive from this exercise alone, and even though framed audios with 8 seconds in length had the highest validation accuracy, the different to that of 5 seconds is not glaring so I would not conclude framed audios with 8 seconds in length are better than those with 5 seconds in length (at least not just yet). Notabily, framing audios to 3 seconds created more training sample counts, but the accuracy was actually lower than framing audios to longer durations. Going forward, I will only work with framing duration of 5 seconds or 8 seconds.</p>
   <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but the highest valication accuracy was actually lower than those without augmentation. This is not to say augmentation will not help with model performance, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20), which did not make a difference in model performance.</p>
   <p class='mb-4'>For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
