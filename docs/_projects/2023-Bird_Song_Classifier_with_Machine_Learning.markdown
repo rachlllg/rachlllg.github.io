@@ -16,6 +16,7 @@ categories: Python Machine-Learning
   <a href="#data-source" style='text-decoration: none;'>DATA SOURCE</a> &#183;
   <a href="#data-processing" style='text-decoration: none;'>DATA PROCESSING</a> &#183;
   <a href="#eda" style='text-decoration: none;'>EDA</a> &#183;
+  <a href="#model-prep" style='text-decoration: none;'>MODEL PREPARATION</a> &#183;
   <a href="#training" style='text-decoration: none;'>TRAINING</a> &#183;
   <a href="#inference" style='text-decoration: none;'>INFERENCE</a> &#183;
   <a href="#limitations" style='text-decoration: none;'>LIMITATIONS</a> &#183;
@@ -312,9 +313,10 @@ categories: Python Machine-Learning
   <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/augmented.png" alt="augmented vs original audio soundwave">
 </div>
 
-<!-- TRAINING -->
-<div class='mb-5' id='training'>
-  <h3 class='mb-3'><u>TRAINING</u></h3>
+
+<!-- MODEL PREPARATION -->
+<div class='mb-5' id='model-prep'>
+  <h3 class='mb-3'><u>MODEL PREPARATION</u></h3>
   <!-- Train/Validation Split -->
   <h5 class='mb-3'><strong>A. Train/Validation Split</strong></h5>
   <p>Since the test dataset is reserved for final inference purpose, I further split the training dataset to train and validation sets for hyperparameter tuning during training. The code used to split the training dataset can be found in the a.train_val_split.ipynb file in the 3.model folder of the GitHub repo.</p>
@@ -344,17 +346,54 @@ categories: Python Machine-Learning
   <img class="img-fluid mb-5" src="/assets/img/projects/bird_song_classifier/val_duration.png" alt="total duration by species in validation set">
   <!-- Create Class Methods -->
   <h5 class='mb-3'><strong>B. Create Class Methods</strong></h5>
+      <p>Even though only 3 species were selected for the project, the audio features for the training and validation set are still too large to fit into memory of Google Colab (the free version only provides 12.7GB RAM). I therefore created two class methods which allowed me to manage the memory usage more efficiently.</p>
   <div class="row">
     <div class="col-md-6">
-      <p>Even though only 3 species were selected for the project, the audio features for the training and validation set are still too large to fit into memory of Google Colab (the free version only provides 12.7GB RAM). I therefore created two class methods which allowed me to manage the memory usage more efficiently.</p>
+      <p class='mb-4'>The Framed class is used to frame the audios (split audios of varying length to set lengths clips with or without augmentation, and with or without overlapping). The Extraction class is used to extract the audio features and labels from each of the framed clips (with or without normalization and/or average pooling) in a shape that's ready to be passed into the models. The code used to create and test the class methods can be found in the b.class_methods.ipynb file in the 3.model_prep folder of the GitHub repo.</p>
     </div>
-    <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center">
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/44BFY5bFt10?si=jVPH70Kzb0EfFWgp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p class='text-center'>Part 1 (Train/Val split & class methods)</p>
     </div>
   </div>
-  <p class='mb-4'>The Framed class is used to frame the audios (split audios of varying length to set lengths clips with or without augmentation, and with or without overlapping). The Extraction class is used to extract the audio features and labels from each of the framed clips (with or without normalization and/or average pooling) in a shape that's ready to be passed into the models. The code used to create and test the class methods can be found in the b.class_methods.ipynb file in the 3.model folder of the GitHub repo. The class methods are also included at the top of each model notebook.</p>
-  <!-- C1. Baseline -->
-  <h5 class='mb-3'><strong>C1. Baseline</strong></h5>
+  <!-- Extract Framed Audios -->
+  <h5 class='mb-3'><strong>C. Extract Framed Audios</strong></h5>
+    <p>Since I intend to experiment various machine learning algorithms, it would be inefficient to frame the audios and extract the features everytime in each model notebook. Therefore, I used the Framed class method (discussed above) to extract the framed audios with below specifications and saved the updated dataframe (including the 'framed' column) to disk for future use.</p>
+    <ul>
+      <li>5.0 seconds frame with 2.5 seconds overlap - with and without augmentation</li>
+      <li>8.0 seconds frame with 4.0 seconds overlap - with and without augmentation</li>
+    </ul>
+    <p>Usually, pandas dataframes can be saved to disk in csv format to be reloaded as dataframes when needed, however, since the framed audios are framed using the tf.signal.frame method which returns the framed audios as an array of Tensor objects, saving arrays of Tensor objects to csv format would render the objects unusuable (or at least very difficult to parse). So, in order to save the updated dataframe in a reloadable format, the dataframes were saved to disk using the pickle library in pkl format. The code used to extract the framed audios and save the updated dataframes can be found in the c.extract_framed_audios folder in the 3.model_prep folder of the GitHub repo.</p>
+  <p class='mb-4'></p>
+  <!-- Extract Features & Labels -->
+  <h5 class='mb-3'><strong>D. Extract Features & Labels</strong></h5>
+  <p>Once the framed audios have been extracted, I then used the Extraction class method (discussed above) to extract the various features with below specifications (all numeric features were normalized) and saved the extracted features to disk (using pickle) for future use. The numbers in brackets indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <ul>
+        <li>MFCC(20) with and without average pooling</li>
+        <li>Chroma(12) with and without average pooling</li>
+        <li>RMS(1) with and without average pooling</li>
+        <li>Spectral Centroid(1) with and without average pooling</li>
+        <li>Melspectrogram(20) with and without average pooling</li>
+        <li>Continent</li>
+        <li>Type</li>
+        <li>Rating</li>
+      </ul>
+    </div>
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/4rdYVgKYAE8?si=H3-T70HWETzls1gg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p class='text-center'>Part 2 (Extract framed audio & features)</p>
+    </div>
+  </div>
+  <p class='mb-4'></p>
+</div>
+
+<!-- TRAINING -->
+<div class='mb-5' id='training'>
+  <h3 class='mb-3'><u>TRAINING</u></h3>
+  <!-- A1. Baseline -->
+  <h5 class='mb-3'><strong>A1. Baseline</strong></h5>
   <p>Each species represent 1/3 of the total duration in the training set, if one were to randomly guess the species, we would expect a 33% accuracy, which will serve as our baseline.</p>
   <p class='mb-4'>All notes for the models can be found in the 3.model folder in the GitHub repo.</p>
   <!-- D1. Ensemble - Random Forest -->
