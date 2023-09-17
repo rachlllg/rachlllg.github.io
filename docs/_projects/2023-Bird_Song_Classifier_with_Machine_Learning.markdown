@@ -353,7 +353,7 @@ categories: Python Machine-Learning
     </div>
     <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/44BFY5bFt10?si=jVPH70Kzb0EfFWgp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <p class='text-center'>Part 1 (Train/Val split & class methods)</p>
+      <p class='text-center mt-2'>Part 1 (Train/Val split & class methods)</p>
     </div>
   </div>
   <!-- Extract Framed Audios -->
@@ -383,7 +383,7 @@ categories: Python Machine-Learning
     </div>
     <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/4rdYVgKYAE8?si=H3-T70HWETzls1gg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <p class='text-center'>Part 2 (Extract framed audio & features)</p>
+      <p class='text-center mt-2'>Part 2 (Extract framed audio & features)</p>
     </div>
   </div>
   <p class='mb-4'></p>
@@ -521,7 +521,14 @@ categories: Python Machine-Learning
     </table>
   </pre>
   <p>Similar to the findings from the random forest models, MFCC is predominently a better predictor than melspectrogram, and MFCC + chroma or MFCC + RMS together with continents are consistently the better predictor than any other feature combinations. The framed audios with 8 seconds in length again had higher validation accuracy than those with 5 seconds in length, and the random augmentation applied to the audios did not play a role in improving the models.</p>
-  <p class='mb-4'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <p class='mb-4'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
+    </div>
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/XOpfbJHPTOg?si=O7wyz7TcvxeYjXkh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
   <!-- C1. Support Vector Machine -->
   <h5 class='mb-3'><strong>C1. Support Vector Machine (SVM)</strong></h5>
   <p>Another tranditional machine learning algorithm commonly used for classification tasks is support vector machine (SVM), which is an algorithm used to identify a hyperplane that segregates/classifies the data points in an N-dimensional space. I used <a href='https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html'>SVC</a> from sklearn to implement the SVM models.</p>
@@ -576,11 +583,17 @@ categories: Python Machine-Learning
   </pre>
   <p>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy.</p>
   <p class='mb-4'>For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
+
+
+  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
+
+
+
   <!-- D1. Logistic Regression -->
   <h5 class='mb-3'><strong>D1. Logistic Regression</strong></h5>
   <p></p>
 
-  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERYDAY!</strong></h5>
+
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
   <p></p>
