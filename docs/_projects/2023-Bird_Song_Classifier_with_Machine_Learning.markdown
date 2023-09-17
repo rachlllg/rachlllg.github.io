@@ -319,7 +319,7 @@ categories: Python Machine-Learning
   <h3 class='mb-3'><u>MODEL PREPARATION</u></h3>
   <!-- Train/Validation Split -->
   <h5 class='mb-3'><strong>A. Train/Validation Split</strong></h5>
-  <p>Since the test dataset is reserved for final inference purpose, I further split the training dataset to train and validation sets for hyperparameter tuning during training. The code used to split the training dataset can be found in the a.train_val_split.ipynb file in the 3.model folder of the GitHub repo.</p>
+  <p>Since the test dataset is reserved for final inference purpose, I further split the training dataset to train and validation sets for hyperparameter tuning during training. The code used to split the training dataset can be found in the a.train_val_split.ipynb file in the 3.model_prep folder of the GitHub repo.</p>
   <div class='row mx-auto'>
     <div class='col-8 p-2 text-center' style="background-color: #ffab40; color: #333; border: 1px solid #333;">
       <p class='mb-0'>Train</p>
@@ -358,7 +358,7 @@ categories: Python Machine-Learning
   </div>
   <!-- Extract Framed Audios -->
   <h5 class='mb-3'><strong>C. Extract Framed Audios</strong></h5>
-    <p>Since I intend to experiment various machine learning algorithms, it would be inefficient to frame the audios and extract the features everytime in each model notebook. Therefore, I used the Framed class method (discussed above) to extract the framed audios with below specifications and saved the updated dataframe (including the 'framed' column) to disk for future use.</p>
+    <p>Since I intend to experiment various machine learning algorithms, it would be inefficient to frame the audios and extract the features everytime in each model notebook. Therefore, I used the Framed class (discussed above) to extract the framed audios with below specifications and saved the updated dataframe (including the 'framed' column) to disk for future use.</p>
     <ul>
       <li>5.0 seconds frame with 2.5 seconds overlap - with and without augmentation</li>
       <li>8.0 seconds frame with 4.0 seconds overlap - with and without augmentation</li>
@@ -367,7 +367,7 @@ categories: Python Machine-Learning
   <p class='mb-4'></p>
   <!-- Extract Features & Labels -->
   <h5 class='mb-3'><strong>D. Extract Features & Labels</strong></h5>
-  <p>Once the framed audios have been extracted, I then used the Extraction class method (discussed above) to extract the various features with below specifications (all numeric features were normalized) and saved the extracted features to disk (using pickle) for future use. The numbers in brackets indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
+  <p>Once the framed audios have been extracted, I then used the Extraction class (discussed above) to extract the various features with below specifications (all numeric features were normalized), and then saved the extracted features to disk (using pickle) for future use. The numbers in brackets indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
   <div class="row">
     <div class="col-md-6">
       <ul>
@@ -394,19 +394,19 @@ categories: Python Machine-Learning
   <h3 class='mb-3'><u>TRAINING</u></h3>
   <!-- A1. Baseline -->
   <h5 class='mb-3'><strong>A1. Baseline</strong></h5>
-  <p>Each species represent 1/3 of the total duration in the training set, if one were to randomly guess the species, we would expect a 33% accuracy, which will serve as our baseline.</p>
-  <p class='mb-4'>All notes for the models can be found in the 3.model folder in the GitHub repo.</p>
-  <!-- D1. Ensemble - Random Forest -->
-  <h5 class='mb-3'><strong>D1. Ensemble - Random Forest</strong></h5>
+  <p>Each species represent 1/3 of the total duration in the training set, if one were to randomly guess the species, we would expect a 33% accuracy. This will serve as our baseline.</p>
+  <p class='mb-4'>All notebooks for the models can be found in the 4.training folder in the GitHub repo.</p>
+  <!-- B1. Ensemble - Random Forest -->
+  <h5 class='mb-3'><strong>B1. Ensemble - Random Forest</strong></h5>
   <div class="row">
     <div class="col-md-6">
-      <p>Ensemble is a machine learning technique that combined multiple models to one model. Random Forest, rooted from decision tree, is one of the ensemble techniques, where multiple decision trees are used to find the most optimal predictive feature at each 'branch'. I used the RandomForestClassifier from sklearn to implement the random forest models.</p>
+      <p>Ensemble is a machine learning technique that combined multiple models to one model. Random Forest, rooted from decision tree, is one of the ensemble techniques, where multiple decision trees are used to find the most optimal predictive feature at each 'branch'. I used the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">RandomForestClassifier</a> from sklearn to implement the random forest models.</p>
     </div>
     <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/dhUUCJntQrg?si=gME3Xs15kPjPb3MU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
-  <p>As mentioned earlier, many different audio features (such as MFCC, RMS, etc) could be extracted and used as features in machine learning models, so I implemented random forest models with 16 different combinations of various audio features to find the features with the strongest predictive power. I also experimented with different framed audio duration (3 seconds with 1 second overlap, 5 seconds with 2.5 seconds overlap, and 8 seconds with 4 seconds overlap) in case the audio frame duration made a difference in the models.</p>
+  <p>As mentioned earlier, many different audio features (such as MFCC, RMS, etc) could be extracted and used as features in machine learning models, so I implemented random forest models with 16 different combinations of various features to find the features with the strongest predictive power. I also experimented with different framed audio duration (3 seconds with 1 second overlap, 5 seconds with 2.5 seconds overlap, and 8 seconds with 4 seconds overlap) in case the audio frame duration made a difference in the models.</p>
   <p>Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration, with no augmentation. All models were generated with 50 estimators, with entropy as the criterion, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
   <pre class='csv-table'>
     <table>
@@ -468,42 +468,141 @@ categories: Python Machine-Learning
   <p>From this summary, we can see MFCC is predominently a better predictor than melspectrogram, and MFCC + continents are the strongest predictor among all combinations. The predictive power of RMS, chroma, and spectral centroid is not conclusive from this exercise alone, and even though framed audios with 8 seconds in length had the highest validation accuracy, the different to that of 5 seconds is not glaring so I would not conclude framed audios with 8 seconds in length are better than those with 5 seconds in length (at least not just yet). Notabily, framing audios to 3 seconds created more training sample counts, but the accuracy was actually lower than framing audios to longer durations. Going forward, I will only work with framing duration of 5 seconds or 8 seconds.</p>
   <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but the highest valication accuracy was actually lower than those without augmentation. This is not to say augmentation will not help with model performance, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20), which did not make a difference in model performance.</p>
   <p class='mb-4'>For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
+  <!-- B2. Ensemble - XGBoost -->
+  <h5 class='mb-3'><strong>B2. Ensemble - XGBoost</strong></h5>
+  <p><a href="https://xgboost.readthedocs.io/en/stable/index.html#">XGBoost</a> is another ensemble machine learning technique that utilizes the gradient boosting framework to provide parallel tree boosting in decision tree algorithms. In the random forest notebooks, I used the Framed and Extraction classes for framing the audios and extracting the features, but starting from XGBoost, I will be directly using the features saved in .pkl format to improve efficiency.</p>
+  <p>Similar to the random forest models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with 100 estimators, with dart as the booster, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Framed Duration (secs)</th>
+          <th scope="col">Overlap Duration (secs)</th>
+          <th scope="col">Features</th>
+          <th scope="col">Augment</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>No</td>
+          <td>100%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>Yes</td>
+          <td>100%</td>
+          <td>69%</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>No</td>
+          <td>100%</td>
+          <td>72%</td>
+        </tr>
+        <tr>
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>Yes</td>
+          <td>100%</td>
+          <td>72%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>Similar to the findings from the random forest models, MFCC is predominently a better predictor than melspectrogram, and MFCC + chroma or MFCC + RMS together with continents are consistently the better predictor than any other feature combinations. The framed audios with 8 seconds in length again had higher validation accuracy than those with 5 seconds in length, and the random augmentation applied to the audios did not play a role in improving the models.</p>
+  <p class='mb-4'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
+  <!-- C1. Support Vector Machine -->
+  <h5 class='mb-3'><strong>C1. Support Vector Machine (SVM)</strong></h5>
+  <p>Another tranditional machine learning algorithm commonly used for classification tasks is support vector machine (SVM), which is an algorithm used to identify a hyperplane that segregates/classifies the data points in an N-dimensional space. I used <a href='https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html'>SVC</a> from sklearn to implement the SVM models.</p>
+  <p>I again experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with C=4 (regularization parameter), with rbf as the kernel, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Framed Duration (secs)</th>
+          <th scope="col">Overlap Duration (secs)</th>
+          <th scope="col">Features</th>
+          <th scope="col">Augment</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>No</td>
+          <td>90%</td>
+          <td>72%</td>
+        </tr>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>Yes</td>
+          <td>87%</td>
+          <td>69%</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>All Features</td>
+          <td>No</td>
+          <td>92%</td>
+          <td>74%</td>
+        </tr>
+        <tr>
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>Yes</td>
+          <td>87%</td>
+          <td>72%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy.</p>
+  <p class='mb-4'>For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
+  <!-- D1. Logistic Regression -->
+  <h5 class='mb-3'><strong>D1. Logistic Regression</strong></h5>
+  <p></p>
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERYDAY!</strong></h5>
-  <!-- D2. Ensemble - XGBoost -->
-  <h5 class='mb-3'><strong>D2. Ensemble - XGBoost</strong></h5>
+  <!-- E1. Feed Forward Neural Network (FFNN) -->
+  <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
   <p></p>
 
-  <!-- E1. Support Vector Machine -->
-  <h5 class='mb-3'><strong>E1. Support Vector Machine (SVM)</strong></h5>
+  <!-- F1. 1D Convolutional Neural Networks (1D-CNN) -->
+  <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
   <p></p>
 
-  <!-- F1. Logistic Regression -->
-  <h5 class='mb-3'><strong>F1. Logistic Regression</strong></h5>
+  <!-- F2. 2D Convolutional Neural Networks (2D-CNN) -->
+  <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D-CNN)</strong></h5>
   <p></p>
 
-  <!-- G1. Feed Forward Neural Network (FFNN) -->
-  <h5 class='mb-3'><strong>G1. Feed Forward Neural Network (FFNN)</strong></h5>
+  <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
+  <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
   <p></p>
 
-  <!-- H1. 1D Convolutional Neural Networks (1D-CNN) -->
-  <h5 class='mb-3'><strong>H1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
+  <!-- H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
+  <h5 class='mb-3'><strong>H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
   <p></p>
 
-  <!-- H2. 2D Convolutional Neural Networks (2D-CNN) -->
-  <h5 class='mb-3'><strong>H2. 2D Convolutional Neural Networks (2D-CNN)</strong></h5>
-  <p></p>
-
-  <!-- I1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
-  <h5 class='mb-3'><strong>I1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
-  <p></p>
-
-  <!-- I2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
-  <h5 class='mb-3'><strong>I2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
-  <p></p>
-
-  <!-- J1. Transformer -->
-  <h5 class='mb-3'><strong>J1. Transformer</strong></h5>
+  <!-- I1. Transformer -->
+  <h5 class='mb-3'><strong>I1. Transformer</strong></h5>
   <p></p>
 
 </div>
