@@ -465,13 +465,13 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p>From this summary, we can see MFCC is predominently a better predictor than melspectrogram, and MFCC + continents are the strongest predictor among all combinations. The predictive power of RMS, chroma, and spectral centroid is not conclusive from this exercise alone, and even though framed audios with 8 seconds in length had the highest validation accuracy, the different to that of 5 seconds is not glaring so I would not conclude framed audios with 8 seconds in length are better than those with 5 seconds in length (at least not just yet). Notabily, framing audios to 3 seconds created more training sample counts, but the accuracy was actually lower than framing audios to longer durations. Going forward, I will only work with framing duration of 5 seconds or 8 seconds.</p>
-  <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but the highest valication accuracy was actually lower than those without augmentation. This is not to say augmentation will not help with model performance, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20), which did not make a difference in model performance.</p>
-  <p class='mb-4'>For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
+  <p>From this summary, we can see MFCC is predominently a better predictor than melspectrogram, and MFCC + continents are the strongest predictor among all combinations. The predictive power of RMS, chroma, and spectral centroid is not conclusive from this exercise alone, and even though framed audios with 8 seconds in length had the highest validation accuracy, the different to that of 5 seconds is not glaring so I would not conclude framed audios with 8 seconds in length are better than those with 5 seconds in length (at least not just yet). Notabily, framing audios to 3 seconds created more training samples, but did not improve the results. Going forward, I will only work with framing duration of 5 seconds or 8 seconds.</p>
+  <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but it did not improve the model performance. This is not to say augmentation is not useful, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20) which did not make a difference in model performance.</p>
+  <p class='mb-4'>The best performing model had 73% validation accuracy, which is much higher than our baseline of 33% (random guess), the algorithm is performing better than I expected but consistent with the general characteristics of random forest, all models are severely overfitted to the training data. For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
   <!-- B2. Ensemble - XGBoost -->
   <h5 class='mb-3'><strong>B2. Ensemble - XGBoost</strong></h5>
-  <p><a href="https://xgboost.readthedocs.io/en/stable/index.html#">XGBoost</a> is another ensemble machine learning technique that utilizes the gradient boosting framework to provide parallel tree boosting in decision tree algorithms. In the random forest notebooks, I used the Framed and Extraction classes for framing the audios and extracting the features, but starting from XGBoost, I will be directly using the features saved in .pkl format to improve efficiency.</p>
-  <p>Similar to the random forest models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with 100 estimators, with dart as the booster, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
+  <p><a href="https://xgboost.readthedocs.io/en/stable/index.html#">XGBoost</a> is another ensemble machine learning technique that utilizes the gradient boosting framework to provide parallel tree boosting in decision tree algorithms. I used the Framed and Extraction classes for framing the audios and extracting the features in the random forest notebooks, but starting from XGBoost, I will be directly using the features saved in .pkl format to improve efficiency.</p>
+  <p>Similar to the random forest models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with 100 estimators, with dart as the booster.</p>
   <pre class='csv-table'>
     <table>
       <thead>
@@ -520,7 +520,7 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p>Similar to the findings from the random forest models, MFCC is predominently a better predictor than melspectrogram, and MFCC + chroma or MFCC + RMS together with continents are consistently the better predictor than any other feature combinations. The framed audios with 8 seconds in length again had higher validation accuracy than those with 5 seconds in length, and the random augmentation applied to the audios did not play a role in improving the models.</p>
+  <p>Similar to the findings from the random forest models, MFCC is predominently a better predictor than melspectrogram, and MFCC + chroma or MFCC + RMS together with continents are consistently the better predictor than any other feature combinations. The 8 seconds framed audios again had higher validation accuracy than those with 5 seconds, and the random augmentation applied to the audios did not play a role in improving the models. The models had similar performance as random forest and are still severely overfitted to the training data.</p>
   <div class="row">
     <div class="col-md-6">
       <p class='mb-4'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
@@ -532,7 +532,7 @@ categories: Python Machine-Learning
   <!-- C1. Support Vector Machine -->
   <h5 class='mb-3'><strong>C1. Support Vector Machine (SVM)</strong></h5>
   <p>Another tranditional machine learning algorithm commonly used for classification tasks is support vector machine (SVM), which is an algorithm used to identify a hyperplane that segregates/classifies the data points in an N-dimensional space. I used <a href='https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html'>SVC</a> from sklearn to implement the SVM models.</p>
-  <p>I again experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with C=4 (regularization parameter), with rbf as the kernel, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
+  <p>I again experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with C=4 (regularization parameter), with rbf as the kernel.</p>
   <pre class='csv-table'>
     <table>
       <thead>
@@ -581,18 +581,69 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy.</p>
-  <p class='mb-4'>For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
+  <p class='mb-4'>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy. For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
+  <!-- D1. Logistic Regression -->
+  <h5 class='mb-3'><strong>D1. Logistic Regression</strong></h5>
+  <div class="row">
+    <div class="col-md-6">
+      <p>Logistic regression is perhaps the most basic machine learning algorithm for classification tasks. Similar to the earlier models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models used Adam optimizer, 0.005 learning rate, batch size of 32, and ran for 100 epochs.</p>
+    </div>
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/rT3tpKXxj3Y?si=59Z0vLndKZcIADg8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Framed Duration (secs)</th>
+          <th scope="col">Overlap Duration (secs)</th>
+          <th scope="col">Features</th>
+          <th scope="col">Augment</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + Spectral Centroid(1) + Continents(5)</td>
+          <td>No</td>
+          <td>70%</td>
+          <td>65%</td>
+        </tr>
+        <tr>
+          <td>5.0</td>
+          <td>2.5</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>Yes</td>
+          <td>68%</td>
+          <td>60%</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + Spectral Centroid(1) + Continents(5)</td>
+          <td>No</td>
+          <td>72%</td>
+          <td>65%</td>
+        </tr>
+        <tr>
+          <td>8.0</td>
+          <td>4.0</td>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>Yes</td>
+          <td>71%</td>
+          <td>65%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p class='mb-4'>As expected, the logistic regression models performed poorly (still better than baseline but worse than any of the previous traditional machine learning algorithms), they are less overfitted (which is good), but the validation accuracy are not great. Logistic regression is generally better suited for simpler classification tasks, where the data is linearly separable, which is rarely the case for most real life datasets. But nevertheless, I wanted to give it a try so I can compare the performance against FFNN. I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
 
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-
-
-
-  <!-- D1. Logistic Regression -->
-  <h5 class='mb-3'><strong>D1. Logistic Regression</strong></h5>
-  <p></p>
-
 
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
