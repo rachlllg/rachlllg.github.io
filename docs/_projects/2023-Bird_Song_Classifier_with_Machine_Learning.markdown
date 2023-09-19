@@ -640,15 +640,16 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p class='mb-4'>As expected, the logistic regression models performed poorly (still better than baseline but worse than any of the previous traditional machine learning algorithms), they are less overfitted (which is good), but the validation accuracy are not great. Logistic regression is generally better suited for simpler classification tasks, where the data is linearly separable, which is rarely the case for most real life datasets. But nevertheless, I wanted to give it a try so I can compare the performance against FFNN. I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
-
-
-  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-
+  <p>As expected, the logistic regression models performed poorly (still better than baseline but worse than any of the previous traditional machine learning algorithms), they are less overfitted (which is good), but the validation accuracy are consistently lower than prior models. Logistic regression is generally better suited for simpler classification tasks, where the data is linearly separable, which is rarely the case for most real life datasets. But nevertheless, I wanted to give it a try so I can compare the performance between shallow neural network (logistic regression) and deep neural networks (FFNN, CNN, etc).</p>
+  <p>To visualize the learning progress for the best performing logistic regression model (highlighted above), I plotted the below loss and accuracy progression curves for training and validation over the 100 epochs. We can see the model is making steady learning progress one epoch after another. The validation curve is pretty far apart from the training curve, indicating signs of overfitting. I also observed the zig zag pattern in the learning curves, more prominently in the validation curves, indicating the performance is unsteady, a sign that the model is struggling with the validation data one epoch after another. I should expect the two learning curves (train and validation) be closer together, with less zig zag, with a more complex architecture.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/logistic_regression.png" alt="logistic regression learning curves">
+  <p class='mb-4'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
   <p></p>
 
+  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
+  
   <!-- F1. 1D Convolutional Neural Networks (1D-CNN) -->
   <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
   <p></p>
