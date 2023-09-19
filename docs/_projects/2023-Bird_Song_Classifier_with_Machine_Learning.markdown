@@ -646,10 +646,143 @@ categories: Python Machine-Learning
   <p class='mb-4'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
-  <p></p>
+  <p>The first deep neural network I tried is Feed Forward Neural Network (FFNN), it is essentially a logistic regression model but with hidden layers added.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <p>Based on observations from the models above, it appears framed audios with 8 seconds in duration without augmentation have consistently outperformed others, so I will be using 8 seconds framed audios going forward. This is not to say other durations are inferior, it's just for this dataset (and with the way I processed the data), framing audios to 8 seconds seems to work better. Similarly, models with MFCC as the primary audio feature have consistently outperformed those with melspectrogram, so I will also be using only MFCC as the primary audio feature going forward. Again, many other audio models have found success in using melspectrogram and I have no doubt it is equally good or even better than MFCC, it's just I've had better performance with MFCC for this project so far.</p>
+    </div>
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/OoLZd-mXjA0?si=cbeh1QDvE65SUFOB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p>Summarized below are the results with different feature combinations. All models used Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes respectively.
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Features</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MFCC(20) + RMS(1) + Spectral Centroid(1)</td>
+          <td>81%</td>
+          <td>66%</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + RMS(1) + Continents(5)</td>
+          <td>79%</td>
+          <td>69%</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Spectral Centroid(1) + Continents(5)</td>
+          <td>81%</td>
+          <td>71%</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>MFCC(20) + Chroma(12) + Continents(5)</td>
+          <td>84%</td>
+          <td>75%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>Compared to logistic regression and all prior models, FFNN had the highest validation accuracy and was the least overfitted. Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from logistic regression above, we still observe the zig zag in the validation curves, suggesting the model is still struggling with the validation data from one epoch to another.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/ffnn.png" alt="feed forward neural network learning curves">
+  <p>To better understand how each hyperparameter changes the model performance, I did an ablation study on the best performing model (highlighted above) by changing the learning rate, batch size, number of epochs, the number of hidden layers, and the number of nodes in each hidden layer. Summarized below is the results from the ablation study, the study is not exhaustive but based on the study, the default hyperparameter settings (Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes) performed the best with this dataset. The validation accuracy changed slightly from the original model (highlighted above) due to randomness in initial weight initialization and shuffling.</p>
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Hidden Layer</th>
+          <th scope="col">Num_Epochs</th>
+          <th scope="col">Batch Size</th>
+          <th scope="col">Learning Rate</th>
+          <th scope="col">Train Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #99FF99;">
+          <td>[128,64,32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.84</td>
+          <td>0.77</td>
+        </tr>
+        <tr>
+          <td>[128,64,32]</td>
+          <td style="color: red;">200</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.90</td>
+          <td>0.73</td>
+        </tr>
+        <tr>
+          <td>[128,64,32]</td>
+          <td>100</td>
+          <td style="color: red;">8</td>
+          <td>0.0001</td>
+          <td>0.88</td>
+          <td>0.71</td>
+        </tr>
+        <tr>
+          <td>[128,64,32]</td>
+          <td>100</td>
+          <td style="color: red;">64</td>
+          <td>0.0001</td>
+          <td>0.82</td>
+          <td>0.71</td>
+        </tr>
+        <tr>
+          <td>[128,64,32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td style="color: red;">0.01</td>
+          <td>0.88</td>
+          <td>0.70</td>
+        </tr>
+        <tr>
+          <td>[128,64,32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td style="color: red;">0.0005</td>
+          <td>0.92</td>
+          <td>0.68</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.67</td>
+          <td>0.56</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[64,32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.77</td>
+          <td>0.66</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[256,128,64]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.91</td>
+          <td>0.74</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-  
+
   <!-- F1. 1D Convolutional Neural Networks (1D-CNN) -->
   <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
   <p></p>
