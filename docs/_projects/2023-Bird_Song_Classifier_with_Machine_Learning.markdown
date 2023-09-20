@@ -313,7 +313,6 @@ categories: Python Machine-Learning
   <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/augmented.png" alt="augmented vs original audio soundwave">
 </div>
 
-
 <!-- MODEL PREPARATION -->
 <div class='mb-5' id='model-prep'>
   <h3 class='mb-3'><u>MODEL PREPARATION</u></h3>
@@ -364,7 +363,6 @@ categories: Python Machine-Learning
       <li>8.0 seconds frame with 4.0 seconds overlap - with and without augmentation</li>
     </ul>
     <p>Usually, pandas dataframes can be saved to disk in csv format to be reloaded as dataframes when needed, however, since the framed audios are framed using the tf.signal.frame method which returns the framed audios as an array of Tensor objects, saving arrays of Tensor objects to csv format would render the objects unusuable (or at least very difficult to parse). So, in order to save the updated dataframe in a reloadable format, the dataframes were saved to disk using the pickle library in pkl format. The code used to extract the framed audios and save the updated dataframes can be found in the c.extract_framed_audios folder in the 3.model_prep folder of the GitHub repo.</p>
-  <p class='mb-4'></p>
   <!-- Extract Features & Labels -->
   <h5 class='mb-3'><strong>D. Extract Features & Labels</strong></h5>
   <p>Once the framed audios have been extracted, I then used the Extraction class (discussed above) to extract the various features with below specifications (all numeric features were normalized), and then saved the extracted features to disk (using pickle) for future use. The numbers in brackets indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
@@ -381,12 +379,11 @@ categories: Python Machine-Learning
         <li>Rating</li>
       </ul>
     </div>
-    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/4rdYVgKYAE8?si=H3-T70HWETzls1gg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       <p class='text-center mt-2'>Part 2 (Extract framed audio & features)</p>
     </div>
   </div>
-  <p class='mb-4'></p>
 </div>
 
 <!-- TRAINING -->
@@ -655,7 +652,7 @@ categories: Python Machine-Learning
       <iframe src="https://www.youtube.com/embed/OoLZd-mXjA0?si=cbeh1QDvE65SUFOB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
-  <p>Summarized below are the results with different feature combinations. All models used Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes respectively.
+  <p>Summarized below are the results with different feature combinations. All models used Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes respectively.</p>
   <pre class='csv-table'>
     <table>
       <thead>
@@ -697,7 +694,7 @@ categories: Python Machine-Learning
       <thead>
         <tr>
           <th scope="col">Hidden Layer</th>
-          <th scope="col">Num_Epochs</th>
+          <th scope="col">Num Epochs</th>
           <th scope="col">Batch Size</th>
           <th scope="col">Learning Rate</th>
           <th scope="col">Train Accuracy</th>
@@ -712,6 +709,30 @@ categories: Python Machine-Learning
           <td>0.0001</td>
           <td>0.84</td>
           <td>0.77</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.67</td>
+          <td>0.56</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[64,32]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.77</td>
+          <td>0.66</td>
+        </tr>
+        <tr>
+          <td style="color: red;">[256,128,64]</td>
+          <td>100</td>
+          <td>32</td>
+          <td>0.0001</td>
+          <td>0.91</td>
+          <td>0.74</td>
         </tr>
         <tr>
           <td>[128,64,32]</td>
@@ -752,30 +773,6 @@ categories: Python Machine-Learning
           <td style="color: red;">0.0005</td>
           <td>0.92</td>
           <td>0.68</td>
-        </tr>
-        <tr>
-          <td style="color: red;">[32]</td>
-          <td>100</td>
-          <td>32</td>
-          <td>0.0001</td>
-          <td>0.67</td>
-          <td>0.56</td>
-        </tr>
-        <tr>
-          <td style="color: red;">[64,32]</td>
-          <td>100</td>
-          <td>32</td>
-          <td>0.0001</td>
-          <td>0.77</td>
-          <td>0.66</td>
-        </tr>
-        <tr>
-          <td style="color: red;">[256,128,64]</td>
-          <td>100</td>
-          <td>32</td>
-          <td>0.0001</td>
-          <td>0.91</td>
-          <td>0.74</td>
         </tr>
       </tbody>
     </table>
