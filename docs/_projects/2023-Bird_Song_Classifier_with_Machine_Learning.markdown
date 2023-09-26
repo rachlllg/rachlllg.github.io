@@ -781,12 +781,12 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <!-- F1. 1D Convolutional Neural Networks (1D-CNN) -->
-  <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
+  <!-- F1. 1D Convolutional Neural Networks (1D CNN) -->
+  <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D CNN)</strong></h5>
   <div class="row">
     <div class="col-md-9">
-      <p>Similar to FFNN models implemented above, I implemented the 1D-CNN models with tensorflow functional API architecture, with 8 seconds framed audios, MFCC as the main audio feature, and without augmentation.</p>
-      <p>Different from FFNN (and any other models implemented above), the audio features are no longer average pooled, but instead kept in the original 2-D dimension, to be convoluted along the time axis. To the right is an animated illustration of 1D convolute along the time axis for an 8-second audio sample (at 16000 sample rate) with 20 MFCC and 12 chroma features, the features are concetenated and the yellow box represents one filter. </p>
+      <p>Similar to FFNN models implemented above, I implemented the 1D CNN models with tensorflow functional API architecture, with 8 seconds framed audios, MFCC as the main audio feature, and without augmentation.</p>
+      <p>Different from FFNN (and any other models implemented above), the audio features are no longer average pooled, but instead kept in the original 2D dimension, to be convoluted along the time axis. To the right is an animated illustration of 1D convolute along the time axis for an 8-second audio sample (at 16000 sample rate) with 20 MFCC and 12 chroma features, the features are concetenated and the yellow box represents one filter. </p>
     </div>
     <div class="col-md-3 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN.gif" alt="visualization of 1D convolute process">
@@ -865,23 +865,20 @@ categories: Python Machine-Learning
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
 
-  <!-- F2. 2D Convolutional Neural Networks (2D-CNN) -->
-  <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D-CNN)</strong></h5>
+  <!-- F2. 2D Convolutional Neural Networks (2D CNN) -->
+  <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D CNN)</strong></h5>
   <p></p>
-
-
-
 
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
   <p></p>
 
-  <!-- H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
-  <h5 class='mb-3'><strong>H2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
+  <!-- G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
+  <h5 class='mb-3'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
   <p></p>
 
-  <!-- I1. Transformer -->
-  <h5 class='mb-3'><strong>I1. Transformer</strong></h5>
+  <!-- H1. Transformer -->
+  <h5 class='mb-3'><strong>H1. Transformer</strong></h5>
   <p></p>
 
 </div>
