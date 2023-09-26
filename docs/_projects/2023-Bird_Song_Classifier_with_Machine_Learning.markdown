@@ -365,7 +365,7 @@ categories: Python Machine-Learning
     <p>Usually, pandas dataframes can be saved to disk in csv format to be reloaded as dataframes when needed, however, since the framed audios are framed using the tf.signal.frame method which returns the framed audios as an array of Tensor objects, saving arrays of Tensor objects to csv format would render the objects unusuable (or at least very difficult to parse). So, in order to save the updated dataframe in a reloadable format, the dataframes were saved to disk using the pickle library in pkl format. The code used to extract the framed audios and save the updated dataframes can be found in the c.extract_framed_audios folder in the 3.model_prep folder of the GitHub repo.</p>
   <!-- Extract Features & Labels -->
   <h5 class='mb-3'><strong>D. Extract Features & Labels</strong></h5>
-  <p>Once the framed audios have been extracted, I then used the Extraction class (discussed above) to extract the various features with below specifications (all numeric features were normalized), and then saved the extracted features to disk (using pickle) for future use. The numbers in brackets indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
+  <p>Once the framed audios have been extracted, I then used the Extraction class (discussed above) to extract the various features with below specifications (all numeric features were normalized), and then saved the extracted features to disk (using pickle) for future use. The numbers in parenthesis indicate the number of each feature extracted from each audio. The code used to extract and save the features can be found in the d.extract_features_labels folder in the 3.model_prep folder of the GitHub repo.</p>
   <div class="row">
     <div class="col-md-6">
       <ul>
@@ -384,6 +384,10 @@ categories: Python Machine-Learning
       <p class='text-center mt-2'>Part 2 (Extract framed audio & features)</p>
     </div>
   </div>
+  <p>To better understand the dimension of the audio features, let's assume we have one audio sample of 8 seconds in duration, sampled at 16000 sample_rate. The audio input signal would then have shape [n,] where n = (duration_in_seconds * sample_rate) = (8 * 16000) = 128000. The number of frames (n_frame) can then be calculated as (n / hop_length + 1) = (128000 / 512 + 1) = 251, where hop_length is default to window_length // 4 = 2048 // 4 = 512, where window_length is default to 2048 in librosa. If we then extracted 20 MFCCs at each time step, the resulting MFCC feature dimension would be [n_frame, n_mfcc] = [251, 20]. It's worth noting that the features returned from librosa feature extraction functions takes on dimension of [n_feature, n_frame] by default, I transposed the features to take on dimension of [n_frame, n_feature] instead so average pools and convolutions are applied along the time axis.</p>
+  <p>When average pooling is applied, each audio feature of shape [n_frame, n_feature] are average pooled along the time axis, resulting in audio feature of shape [,n_feature]. In our example, the 8 seconds audio sample with 20 MFCCs would produce an average pooled feature of shape [,20]. We can therefore view average pooling as a dimensionality reduction technique, where a 2-D feature of shape [251, 20] is reduce to 1-D of shape [,20] by taking the average of the 251 frames for each MFCC. This process can be visualized as below.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/avgpool.png" alt="visualization of average pooling process">
+  <p>When average pooling is not applied, each audio feature of shape [n_frame, n_feature] keeps its original dimension. If we have 100 8-seconds samples, each with 20 MFCCs, our inputs with average pooling would then have dimension [n_samples, n_features] = [100, 20], our inputs without average pooling would then have dimension [n_samples, n_frame, n_features] = [100, 251, 20]. If we were to extract and concatenate more than one feature, let's say 20 MFCCs and 12 Chroma, our 100 sample inputs would then have dimension [100, 32] with average pooling, or [100, 251, 32] without average pooling, where 32 = 20 MFCCs + 12 Chroma.</p>
 </div>
 
 <!-- TRAINING -->
@@ -404,7 +408,7 @@ categories: Python Machine-Learning
     </div>
   </div>
   <p>As mentioned earlier, many different audio features (such as MFCC, RMS, etc) could be extracted and used as features in machine learning models, so I implemented random forest models with 16 different combinations of various features to find the features with the strongest predictive power. I also experimented with different framed audio duration (3 seconds with 1 second overlap, 5 seconds with 2.5 seconds overlap, and 8 seconds with 4 seconds overlap) in case the audio frame duration made a difference in the models.</p>
-  <p>Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration, with no augmentation. All models were generated with 50 estimators, with entropy as the criterion, and with combinations of normalized and average pooled 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
+  <p>Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration, with no augmentation. All models were generated with 50 estimators, with entropy as the criterion, and with combinations of normalized and average pooled (along time axis) 20 MFCC, 20 melspectrogram, 12 chroma, 1 RMS, 1 spectral Centroid, and/or 5 one-hot encoded continents.</p>
   <pre class='csv-table'>
     <table>
       <thead>
@@ -643,7 +647,7 @@ categories: Python Machine-Learning
   <p class='mb-4'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
-  <p>The first deep neural network I tried is Feed Forward Neural Network (FFNN), it is essentially a logistic regression model but with hidden layers added.</p>
+  <p>The first deep neural network I tried is Feed Forward Neural Network (FFNN), it is essentially a logistic regression model but with hidden layers added. The hidden layers (actived with some non-linear activation function) allow the model to find non-linear relationships between the features and the labels.</p>
   <div class="row">
     <div class="col-md-6">
       <p>Based on observations from the models above, it appears framed audios with 8 seconds in duration without augmentation have consistently outperformed others, so I will be using 8 seconds framed audios going forward. This is not to say other durations are inferior, it's just for this dataset (and with the way I processed the data), framing audios to 8 seconds seems to work better. Similarly, models with MFCC as the primary audio feature have consistently outperformed those with melspectrogram, so I will also be using only MFCC as the primary audio feature going forward. Again, many other audio models have found success in using melspectrogram and I have no doubt it is equally good or even better than MFCC, it's just I've had better performance with MFCC for this project so far.</p>
@@ -652,7 +656,7 @@ categories: Python Machine-Learning
       <iframe src="https://www.youtube.com/embed/OoLZd-mXjA0?si=cbeh1QDvE65SUFOB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
-  <p>Summarized below are the results with different feature combinations. All models used Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes respectively.</p>
+  <p>Summarized below are the results with different feature combinations. All models used Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes respectively and activated with the ReLU activation function.</p>
   <pre class='csv-table'>
     <table>
       <thead>
@@ -689,7 +693,7 @@ categories: Python Machine-Learning
   <p>Compared to logistic regression and all prior models, FFNN had the highest validation accuracy and was the least overfitted. Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from logistic regression above, we still observe the zig zag in the validation curves, suggesting the model is still struggling with the validation data from one epoch to another.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/ffnn.png" alt="feed forward neural network learning curves">
   <p>To better understand how each hyperparameter changes the model performance, I did an ablation study on the best performing model (highlighted above) by changing the learning rate, batch size, number of epochs, the number of hidden layers, and the number of nodes in each hidden layer. Summarized below is the results from the ablation study, the study is not exhaustive but based on the study, the default hyperparameter settings (Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes) performed the best with this dataset. The validation accuracy changed slightly from the original model (highlighted above) due to randomness in initial weight initialization and shuffling.</p>
-  <pre class='csv-table'>
+  <pre class='csv-table mb-4'>
     <table>
       <thead>
         <tr>
@@ -777,16 +781,96 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-
-  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-
   <!-- F1. 1D Convolutional Neural Networks (1D-CNN) -->
   <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D-CNN)</strong></h5>
-  <p></p>
+  <div class="row">
+    <div class="col-md-9">
+      <p>Similar to FFNN models implemented above, I implemented the 1D-CNN models with tensorflow functional API architecture, with 8 seconds framed audios, MFCC as the main audio feature, and without augmentation.</p>
+      <p>Different from FFNN (and any other models implemented above), the audio features are no longer average pooled, but instead kept in the original 2-D dimension, to be convoluted along the time axis. To the right is an animated illustration of 1D convolute along the time axis for an 8-second audio sample (at 16000 sample rate) with 20 MFCC and 12 chroma features, the features are concetenated and the yellow box represents one filter. </p>
+    </div>
+    <div class="col-md-3 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN.gif" alt="visualization of 1D convolute process">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_summary.png" alt="1D CNN model summary">
+    </div>
+    <div class="col-md-6">
+      <p>Also different from previous models, instead of one hot encoding the continents, I decided to create embedding representations of the continents. Embeddings are used for natural language processing tasks as learned representations of words or tokens. Since continents are words, I thought why not give embeddings a try.</p>
+      <p>I used tensorflow keras Embedding() layer to create embeddings with output dimension 2 for the 6 tokens, each token represents one continent (there are 5 continents in our training data, including one 'unknown' continent), plus an additional token reserved for out-of-dictionary word. To make the embedding dimensions match the audio features dimensions, I tiled the embeddings along the time axis to change embeddings of shape [,embedding_dim] = [,2] to shape [n_frame,embedding_dim] = [251,2], effectively the embeddings for each continent for the respective audio sample is repeated along the time axis. Once the embeddings were tiled to the same shape as the audio features, the audio features and embeddings were concatenated, resulting in input features of shape [251, 34] in the example of 20 MFCC + 12 Chroma + 2 Embeddings.</p>
+      <p>All models were ran with the same architecture: two 1-D conv layers (each with kernel_size=5, strides=1, activated with the ReLU activation function, and L2 regularization=0.02, with the first layer having 32 filters and the second layer having 64 filters), each followed by a max pooling layer (each with pool_size=2), followed by a flattening layer and then a fully connected layer (with units=1024), before being passed to a 50% dropout layer, which finally leads to the output layer. In addition, I also utilized the 'rating' feature to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.001 learning rate, and batch size of 32. To the left is a visualization of the model architecture (with 20 MFCC and 12 Chroma + continents embeddings as features).</p>
+    </div>
+  </div>
+  <p>Summarized below are the results with different feature combinations, utilizing the same architecture and hyper-parameters mentioned above. Compared to all prior models, there is a clear jump in performance, from 75% highest validation accuracy (FFNN) to 91% highest validation accuracy, and the models are noticeabily less overfitted than all prior models.</p>
+  <pre class='csv-table'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Features</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MFCC(20) + Chroma(12) + Continents(2)</td>
+          <td>98%</td>
+          <td>87%</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Chroma(12) + RMS(1) + Spectral Centroid(1) +Continents(2)</td>
+          <td>97%</td>
+          <td>87%</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Spectral Centroid(1) + Continents(2)</td>
+          <td>98%</td>
+          <td>90%</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + RMS(1) + Continents(2)</td>
+          <td>98%</td>
+          <td>91%</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>MFCC(20) + RMS(1) + Spectral Centroid(1) + Continents(2)</td>
+          <td>97%</td>
+          <td>91%</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>Below is the learning curves from the best performing model (highlighted above). It's worth noting that the learning curves are not exactly apple-to-apple comparison to all prior models, since I utilized callback technique when training the 1-D CNN models, so the progression is only up until the best epoch (epoch 35) here.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_progression.png" alt="1D CNN learning curves">
+  <p>Now that the model is finally performing decently well, it's important to review the confusion matrix and classification reports for the training and validation sets to get a better understanding of which species the model struggles with. To interpret the confusion matrix, let's take barswa as example. From the validation confusion matrix, we can see that when the true label is barswa, the model mistook barswa for comsan in 67 instances and mistook barswa for eaywag1 in 25 instances. In our EDA performed earlier, we know that barswa had proportionally more poor quality recordings in the training set than the other two species, but the performance on barswa is actually comparable to the other two,  this can be seen from the f1 score in the classification report as well. Notabily comsan had lower precision and eaywag1 had lower recall, where as barswa has balanced precision and recall, but the overall f1 score among all three species were comparable.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_cm.png" alt="1D CNN train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_cm.png" alt="1D CNN validation confusion matrix">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_report.png" alt="1D CNN train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_report.png" alt="1D CNN validation classification report">
+    </div>
+  </div>
+  <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
+  <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. </p>
+
+  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
 
   <!-- F2. 2D Convolutional Neural Networks (2D-CNN) -->
   <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D-CNN)</strong></h5>
   <p></p>
+
+
+
 
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
