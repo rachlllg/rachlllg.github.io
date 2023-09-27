@@ -860,8 +860,17 @@ categories: Python Machine-Learning
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_report.png" alt="1D CNN validation classification report">
     </div>
   </div>
-  <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
-  <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. </p>
+  <div class="row">
+    <div class="col-md-6">
+      <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
+      <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization.</p>
+    </div>
+    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/YDNtZlLNBdM?si=Nqbs_gUDu3LX3_if" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+  
+
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
 
