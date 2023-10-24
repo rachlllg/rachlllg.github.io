@@ -339,7 +339,7 @@ categories: Python Machine-Learning
       <p class='mb-0'>30%</p>
     </div>
   </div>
-  <p>To overcome the class imbalance in total duration, during train/validation split, I downsampled the oversampled species in training set and put the rest in validation set. By doing this, the training set is now balanced, which would allow the models to learn features from the three classes equally well during training.</p>
+  <p>To overcome the class imbalance in total duration, I downsampled the oversampled species in training set and put the rest in validation set. By doing this, the training set is now balanced, which would allow the models to learn features from the three classes equally well during training.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/train_duration.png" alt="total duration by species in training set">
   <p>The total duration in the validation set is imbalanced after splitting to train/val sets, as it should be representative of the potential imbalance in the test set.</p>
   <img class="img-fluid mb-5" src="/assets/img/projects/bird_song_classifier/val_duration.png" alt="total duration by species in validation set">
@@ -843,7 +843,15 @@ categories: Python Machine-Learning
   </pre>
   <p>Below is the learning curves from the best performing model (highlighted above). It's worth noting that the learning curves are not exactly apple-to-apple comparison to all prior models, since I utilized callback technique when training the 1-D CNN models, so the progression is only up until the best epoch (epoch 35) here.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_progression.png" alt="1D CNN learning curves">
-  <p>Now that the model is finally performing decently well, it's important to review the confusion matrix and classification reports for the training and validation sets to get a better understanding of which species the model struggles with. To interpret the confusion matrix, let's take barswa as example. From the validation confusion matrix, we can see that when the true label is barswa, the model mistook barswa for comsan in 67 instances and mistook barswa for eaywag1 in 25 instances. In our EDA performed earlier, we know that barswa had proportionally more poor quality recordings in the training set than the other two species, but the performance on barswa is actually comparable to the other two,  this can be seen from the f1 score in the classification report as well. Notabily comsan had lower precision and eaywag1 had lower recall, where as barswa has balanced precision and recall, but the overall f1 score among all three species were comparable.</p>
+  <p>Now that the model is finally performing decently well, it's important to review the confusion matrix and classification reports for the training and validation sets to get a better understanding of which species the model struggles with.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <p>To interpret the confusion matrix, let's take barswa as example. From the validation confusion matrix, we can see that when the true label is barswa, the model mistook barswa for comsan in 67 instances and mistook barswa for eaywag1 in 25 instances. In our EDA performed earlier, we know that barswa had proportionally more poor quality recordings in the training set than the other two species, but the performance on barswa is actually comparable to the other two,  this can be seen from the f1 score in the classification report as well. Notabily comsan had lower precision and eaywag1 had lower recall, where as barswa has balanced precision and recall, but the overall f1 score among all three species were comparable.</p>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/YDNtZlLNBdM?si=Nqbs_gUDu3LX3_if" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_cm.png" alt="1D CNN train confusion matrix">
@@ -860,24 +868,20 @@ categories: Python Machine-Learning
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_report.png" alt="1D CNN validation classification report">
     </div>
   </div>
-  <div class="row">
+  <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
+  <div class="row mb-4">
     <div class="col-md-6">
-      <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
       <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. Hyperparameters selected for hyperparameter tuning are: learning rate, number of hidden layers, filter size, kernel size, stride size, pooling size, regularization strength, dropout rate, number of nodes in the last fully connected layer, and batch size. The different hyperarameters did not make a notable difference in the model performance, details can be seen in the c.1DCNN_8sec_w_continents_hyperopt.ipynb file.</p>
     </div>
-    <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
-      <iframe src="https://www.youtube.com/embed/YDNtZlLNBdM?si=Nqbs_gUDu3LX3_if" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/rN0bJVRuxmw?si=2a6RUSnJSkI8PSc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
-  
-
-
-  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-
   <!-- F2. 2D Convolutional Neural Networks (2D CNN) -->
   <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D CNN)</strong></h5>
   <p></p>
-
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN.png" alt="2D CNN architecture">
+  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
   <p></p>
