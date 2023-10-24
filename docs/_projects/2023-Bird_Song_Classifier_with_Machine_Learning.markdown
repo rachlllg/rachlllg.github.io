@@ -2,7 +2,7 @@
 layout: project
 title:  "Bird Song Classifier with Machine Learning"
 year: 2023
-description: Utilizing various machine learning algorithms (traditional, shallow neural networks, and deep neural networks) to classify bird species based on bird songs/calls.
+description: Utilizing various machine learning algorithms (traditional, shallow neural networks, and deep neural networks) to classify bird species based on bird songs/calls. Data was sourced from the BirdCLEF 2023 kaggle competition, and all data cleaning, analysis, and model building were conducted using the Python programming language.
 ft_img: /assets/img/projects/bird_song_classifier/birds.jpeg
 categories: Python Machine-Learning
 ---
@@ -385,7 +385,7 @@ categories: Python Machine-Learning
     </div>
   </div>
   <p>To better understand the dimension of the audio features, let's assume we have one audio sample of 8 seconds in duration, sampled at 16000 sample_rate. The audio input signal would then have shape [n,] where n = (duration_in_seconds * sample_rate) = (8 * 16000) = 128000. The number of frames (n_frame) can then be calculated as (n / hop_length + 1) = (128000 / 512 + 1) = 251, where hop_length is default to window_length // 4 = 2048 // 4 = 512, where window_length is default to 2048 in librosa. If we then extracted 20 MFCCs at each time step, the resulting MFCC feature dimension would be [n_frame, n_mfcc] = [251, 20]. It's worth noting that the features returned from librosa feature extraction functions takes on dimension of [n_feature, n_frame] by default, I transposed the features to take on dimension of [n_frame, n_feature] instead so average pools and convolutions are applied along the time axis.</p>
-  <p>When average pooling is applied, each audio feature of shape [n_frame, n_feature] are average pooled along the time axis, resulting in audio feature of shape [,n_feature]. In our example, the 8 seconds audio sample with 20 MFCCs would produce an average pooled feature of shape [,20]. We can therefore view average pooling as a dimensionality reduction technique, where a 2-D feature of shape [251, 20] is reduce to 1-D of shape [,20] by taking the average of the 251 frames for each MFCC. This process can be visualized as below.</p>
+  <p>When average pooling is applied, each audio feature of shape [n_frame, n_feature] are average pooled along the time axis, resulting in audio feature of shape [,n_feature]. In our example, the 8 seconds audio sample with 20 MFCCs would produce an average pooled feature of shape [,20]. We can therefore view average pooling as a dimensionality reduction technique, where a 2D feature of shape [251, 20] is reduce to 1D of shape [,20] by taking the average of the 251 frames for each MFCC. This process can be visualized as below.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/avgpool.png" alt="visualization of average pooling process">
   <p>When average pooling is not applied, each audio feature of shape [n_frame, n_feature] keeps its original dimension. If we have 100 8-seconds samples, each with 20 MFCCs, our inputs with average pooling would then have dimension [n_samples, n_features] = [100, 20], our inputs without average pooling would then have dimension [n_samples, n_frame, n_features] = [100, 251, 20]. If we were to extract and concatenate more than one feature, let's say 20 MFCCs and 12 Chroma, our 100 sample inputs would then have dimension [100, 32] with average pooling, or [100, 251, 32] without average pooling, where 32 = 20 MFCCs + 12 Chroma.</p>
 </div>
@@ -799,7 +799,7 @@ categories: Python Machine-Learning
     <div class="col-md-6">
       <p>Also different from previous models, instead of one hot encoding the continents, I decided to create embedding representations of the continents. Embeddings are used for natural language processing tasks as learned representations of words or tokens. Since continents are words, I thought why not give embeddings a try.</p>
       <p>I used tensorflow keras Embedding() layer to create embeddings with output dimension 2 for the 6 tokens, each token represents one continent (there are 5 continents in our training data, including one 'unknown' continent), plus an additional token reserved for out-of-dictionary word. To make the embedding dimensions match the audio features dimensions, I tiled the embeddings along the time axis to change embeddings of shape [,embedding_dim] = [,2] to shape [n_frame,embedding_dim] = [251,2], effectively the embeddings for each continent for the respective audio sample is repeated along the time axis. Once the embeddings were tiled to the same shape as the audio features, the audio features and embeddings were concatenated, resulting in input features of shape [251, 34] in the example of 20 MFCC + 12 Chroma + 2 Embeddings.</p>
-      <p>All models were ran with the same architecture: two 1-D conv layers (each with kernel_size=5, strides=1, activated with the ReLU activation function, and L2 regularization=0.02, with the first layer having 32 filters and the second layer having 64 filters), each followed by a max pooling layer (each with pool_size=2), followed by a flattening layer and then a fully connected layer (with units=1024), before being passed to a 50% dropout layer, which finally leads to the output layer. In addition, I also utilized the 'rating' feature to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.001 learning rate, and batch size of 32. To the left is a visualization of the model architecture (with 20 MFCC and 12 Chroma + continents embeddings as features).</p>
+      <p>All models were ran with the same architecture: two 1D conv layers (each with kernel_size=5, strides=1, activated with the ReLU activation function, and L2 regularization=0.02, with the first layer having 32 filters and the second layer having 64 filters), each followed by a max pooling layer (each with pool_size=2), followed by a flattening layer and then a fully connected layer (with units=1024), before being passed to a 50% dropout layer, which finally leads to the output layer. In addition, I also utilized the 'rating' feature to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.001 learning rate, and batch size of 32. To the left is a visualization of the model architecture (with 20 MFCC and 12 Chroma + continents embeddings as features).</p>
     </div>
   </div>
   <p>Summarized below are the results with different feature combinations, utilizing the same architecture and hyper-parameters mentioned above. Compared to all prior models, there is a clear jump in performance, from 75% highest validation accuracy (FFNN) to 91% highest validation accuracy, and the models are noticeabily less overfitted than all prior models.</p>
@@ -819,7 +819,7 @@ categories: Python Machine-Learning
           <td>87%</td>
         </tr>
         <tr>
-          <td>MFCC(20) + Chroma(12) + RMS(1) + Spectral Centroid(1) +Continents(2)</td>
+          <td>MFCC(20) + Chroma(12) + RMS(1) + Spectral Centroid(1) + Continents(2)</td>
           <td>97%</td>
           <td>87%</td>
         </tr>
@@ -841,7 +841,7 @@ categories: Python Machine-Learning
       </tbody>
     </table>
   </pre>
-  <p>Below is the learning curves from the best performing model (highlighted above). It's worth noting that the learning curves are not exactly apple-to-apple comparison to all prior models, since I utilized callback technique when training the 1-D CNN models, so the progression is only up until the best epoch (epoch 35) here.</p>
+  <p>Below is the learning curves from the best performing model (highlighted above). It's worth noting that the learning curves are not exactly apple-to-apple comparison to all prior models, since I utilized callback technique when training the 1D CNN models, so the progression is only up until the best epoch (epoch 35) here.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_progression.png" alt="1D CNN learning curves">
   <p>Now that the model is finally performing decently well, it's important to review the confusion matrix and classification reports for the training and validation sets to get a better understanding of which species the model struggles with.</p>
   <div class="row">
@@ -854,18 +854,18 @@ categories: Python Machine-Learning
   </div>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_cm.png" alt="1D CNN train confusion matrix">
-    </div>
-    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_cm.png" alt="1D CNN validation confusion matrix">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_report.png" alt="1D CNN train classification report">
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_report.png" alt="1D CNN validation classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_train_cm.png" alt="1D CNN train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_cm.png" alt="1D CNN validation confusion matrix">
     </div>
   </div>
   <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
@@ -879,8 +879,45 @@ categories: Python Machine-Learning
   </div>
   <!-- F2. 2D Convolutional Neural Networks (2D CNN) -->
   <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D CNN)</strong></h5>
-  <p></p>
-  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN.png" alt="2D CNN architecture">
+  <div class="row">
+    <div class="col-md-6">
+      <p>Since the 1D CNN model (and prior models) showed 8 seconds framed audios without augmentation with MFCC(20) + RMS(1) + Spectral Centroid(1) + Continents(2) as features had the best performance, I implemented the 2D CNN model with tensorflow functional API architecture with these features.</p>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/rN0bJVRuxmw?si=2a6RUSnJSkI8PSc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p>Compare to 1D CNN models where the filters only move down, the filters in 2D CNN models move in 2 directions: to the right and down. There are two ways of constructing the features for the 2D CNN model:</p>
+  <ol>
+    <li>use the same features as what was used in the 1D CNN model by concatenating the features so we have features of shape [n_frame, n_features], or</li>
+    <li>consider each feature as a different channel, effectively creating features of shape [n_frame, n_features, n_channels]</li>
+  </ol>
+  <p>I decided to go with the second option, below is an illustration of the features using the second option.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN.png" alt="2D CNN features">
+  <p>With MFCC as the main feature of shape [n_frames, n_features] = [251, 20], RMS is tiled/repeated 20 times at each time step to match the shape of MFCC, the same was done for Spectral Centroid. Since continents embeddings had shape of [,embedding_dim] = [,2], the continents embeddings were first tiled/repeated 10 times along the features dimension and then repeated 251 times along the time dimension to match the shape of MFCC. After all features have shape [251, 20], they are stacked on top of each other to create a combined 3D features with shape [n_frame, n_features, n_channels] = [251, 20, 4], where the n_channels can be viewed similar to the number of colors in an image classification 2D CNN task, except an image would only have 3 channels (Red, Green, and Blue).</p>
+  <div class='text-center'>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_summary.png" alt="2D CNN architecture">
+  </div>
+  <p>As can be seen in the model summary above, the model consisted of three 2D conv layers (each with kernel_size=(5,5), strides=(1,1), activated with the ReLU activation function, and L2 regularization=0.02, with the first layer having 64 filters and the two following layers having 32 filters each), each layer is followed by a max pooling layer (each with pool_size=(2,2)). The model is then followed by a flattening layer and then a fully connected layer (with units=1024), before being passed to a 50% dropout layer, which finally leads to the output layer. Similar to the 1D CNN model, I also utilized the 'rating' feature to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. The model was trained with the Adam optimizer, 0.001 learning rate, and batch size of 32.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_progression.png" alt="2D CNN learning curves">
+  <p>The model reached its highest validation accuracy of 86% at epoch 31, this validation accuracy is slightly lower than that of the best performing 1D CNN model above, but still outperforms any other previously implemented models. Notably 2D CNN is much more computationally expensive compared to 1D but the performance was not any better, this could be attributed to the fact that the model was not hypertuned and 2D CNNs are generally better for image classification tasks. The classification reports and confusion matrixes are presented below for completeness sake, but I will omit detailed discussion.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_train_report.png" alt="2D CNN train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_val_report.png" alt="2D CNN validation classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_train_cm.png" alt="2D CNN train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_val_cm.png" alt="2D CNN validation confusion matrix">
+    </div>
+  </div>
+
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
