@@ -393,12 +393,25 @@ categories: Python Machine-Learning
 <!-- TRAINING -->
 <div class='mb-5' id='training'>
   <h3 class='mb-3'><u>TRAINING</u></h3>
+  <p class='mt-3 mb-3 text-center' style="font-size:0.8em;">
+    <a href="#baseline" style='text-decoration: none;'>Baseline</a> &#183;
+    <a href="#rf" style='text-decoration: none;'>Random Forest</a> &#183;
+    <a href="#xgboost" style='text-decoration: none;'>XGBoost</a> &#183;
+    <a href="#svm" style='text-decoration: none;'>Support Vector Machine</a> &#183;
+    <a href="#logistic" style='text-decoration: none;'>Logistic Regression</a> &#183;
+    <a href="#ffnn" style='text-decoration: none;'>FFNN</a> &#183;
+    <a href="#1d" style='text-decoration: none;'>1D CNN</a> &#183;
+    <a href="#2d" style='text-decoration: none;'>2D CNN</a> &#183;
+    <a href="#lstm" style='text-decoration: none;'>LSTM RNN</a> &#183;
+    <a href="#gru" style='text-decoration: none;'>GRU RNN</a> &#183;
+    <a href="#transformer" style='text-decoration: none;'>Transformer</a>
+  </p>
   <!-- A1. Baseline -->
-  <h5 class='mb-3'><strong>A1. Baseline</strong></h5>
+  <h5 class='mb-3' id='baseline'><strong>A1. Baseline</strong></h5>
   <p>Each species represent 1/3 of the total duration in the training set, if one were to randomly guess the species, we would expect a 33% accuracy. This will serve as our baseline.</p>
   <p class='mb-4'>All notebooks for the models can be found in the 4.training folder in the GitHub repo.</p>
   <!-- B1. Ensemble - Random Forest -->
-  <h5 class='mb-3'><strong>B1. Ensemble - Random Forest</strong></h5>
+  <h5 class='mb-3' id='rf'><strong>B1. Ensemble - Random Forest</strong></h5>
   <div class="row">
     <div class="col-md-6">
       <p>Ensemble is a machine learning technique that combined multiple models to one model. Random Forest, rooted from decision tree, is one of the ensemble techniques, where multiple decision trees are used to find the most optimal predictive feature at each 'branch'. I used the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">RandomForestClassifier</a> from sklearn to implement the random forest models.</p>
@@ -470,7 +483,7 @@ categories: Python Machine-Learning
   <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but it did not improve the model performance. This is not to say augmentation is not useful, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20) which did not make a difference in model performance.</p>
   <p class='mb-4'>The best performing model had 73% validation accuracy, which is much higher than our baseline of 33% (random guess), the algorithm is performing better than I expected but consistent with the general characteristics of random forest, all models are severely overfitted to the training data. For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
   <!-- B2. Ensemble - XGBoost -->
-  <h5 class='mb-3'><strong>B2. Ensemble - XGBoost</strong></h5>
+  <h5 class='mb-3' id='xgboost'><strong>B2. Ensemble - XGBoost</strong></h5>
   <p><a href="https://xgboost.readthedocs.io/en/stable/index.html#">XGBoost</a> is another ensemble machine learning technique that utilizes the gradient boosting framework to provide parallel tree boosting in decision tree algorithms. I used the Framed and Extraction classes for framing the audios and extracting the features in the random forest notebooks, but starting from XGBoost, I will be directly using the features saved in .pkl format to improve efficiency.</p>
   <p>Similar to the random forest models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with 100 estimators, with dart as the booster.</p>
   <pre class='csv-table'>
@@ -531,7 +544,7 @@ categories: Python Machine-Learning
     </div>
   </div>
   <!-- C1. Support Vector Machine -->
-  <h5 class='mb-3'><strong>C1. Support Vector Machine (SVM)</strong></h5>
+  <h5 class='mb-3' id='svm'><strong>C1. Support Vector Machine (SVM)</strong></h5>
   <p>Another tranditional machine learning algorithm commonly used for classification tasks is support vector machine (SVM), which is an algorithm used to identify a hyperplane that segregates/classifies the data points in an N-dimensional space. I used <a href='https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html'>SVC</a> from sklearn to implement the SVM models.</p>
   <p>I again experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models were generated with C=4 (regularization parameter), with rbf as the kernel.</p>
   <pre class='csv-table'>
@@ -584,7 +597,7 @@ categories: Python Machine-Learning
   </pre>
   <p class='mb-4'>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy. For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
   <!-- D1. Logistic Regression -->
-  <h5 class='mb-3'><strong>D1. Logistic Regression</strong></h5>
+  <h5 class='mb-3' id='logistic'><strong>D1. Logistic Regression</strong></h5>
   <div class="row">
     <div class="col-md-6">
       <p>Logistic regression is perhaps the most basic machine learning algorithm for classification tasks. Similar to the earlier models, I experimented with different combinations of features from 5 seconds framed audios and 8 seconds framed audios, with and without augmentation. Summarized below are the feature combinations from the models with the highest validation accuracy for each framed audio duration. All models used Adam optimizer, 0.005 learning rate, batch size of 32, and ran for 100 epochs.</p>
@@ -646,7 +659,7 @@ categories: Python Machine-Learning
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/logistic_regression.png" alt="logistic regression learning curves">
   <p class='mb-4'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
   <!-- E1. Feed Forward Neural Network (FFNN) -->
-  <h5 class='mb-3'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
+  <h5 class='mb-3' id='ffnn'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
   <p>The first deep neural network I tried is Feed Forward Neural Network (FFNN), it is essentially a logistic regression model but with hidden layers added. The hidden layers (actived with some non-linear activation function) allow the model to find non-linear relationships between the features and the labels.</p>
   <div class="row">
     <div class="col-md-6">
@@ -782,7 +795,7 @@ categories: Python Machine-Learning
     </table>
   </pre>
   <!-- F1. 1D Convolutional Neural Networks (1D CNN) -->
-  <h5 class='mb-3'><strong>F1. 1D Convolutional Neural Networks (1D CNN)</strong></h5>
+  <h5 class='mb-3' id='1d'><strong>F1. 1D Convolutional Neural Networks (1D CNN)</strong></h5>
   <div class="row">
     <div class="col-md-9">
       <p>Similar to FFNN models implemented above, I implemented the 1D CNN models with tensorflow functional API architecture, with 8 seconds framed audios, MFCC as the main audio feature, and without augmentation.</p>
@@ -874,17 +887,17 @@ categories: Python Machine-Learning
       <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. Hyperparameters selected for hyperparameter tuning are: learning rate, number of hidden layers, filter size, kernel size, stride size, pooling size, regularization strength, dropout rate, number of nodes in the last fully connected layer, and batch size. The different hyperarameters did not make a notable difference in the model performance, details can be seen in the c.1DCNN_8sec_w_continents_hyperopt.ipynb file.</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <iframe src="https://www.youtube.com/embed/rN0bJVRuxmw?si=2a6RUSnJSkI8PSc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/_JG7Aa8thgE?si=az_qSSPaVsmKfhBE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
   <!-- F2. 2D Convolutional Neural Networks (2D CNN) -->
-  <h5 class='mb-3'><strong>F2. 2D Convolutional Neural Networks (2D CNN)</strong></h5>
+  <h5 class='mb-3' id='2d'><strong>F2. 2D Convolutional Neural Networks (2D CNN)</strong></h5>
   <div class="row">
     <div class="col-md-6">
       <p>Since the 1D CNN model (and prior models) showed 8 seconds framed audios without augmentation with MFCC(20) + RMS(1) + Spectral Centroid(1) + Continents(2) as features had the best performance, I implemented the 2D CNN model with tensorflow functional API architecture with these features.</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <iframe src="https://www.youtube.com/embed/rN0bJVRuxmw?si=2a6RUSnJSkI8PSc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/fmBY6HNCwuk?si=5FfSopQVYZaoyD3-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
   <p>Compare to 1D CNN models where the filters only move down, the filters in 2D CNN models move in 2 directions: to the right and down. There are two ways of constructing the features for the 2D CNN model:</p>
@@ -900,7 +913,7 @@ categories: Python Machine-Learning
   </div>
   <p>As can be seen in the model summary above, the model consisted of three 2D conv layers (each with kernel_size=(5,5), strides=(1,1), activated with the ReLU activation function, and L2 regularization=0.02, with the first layer having 64 filters and the two following layers having 32 filters each), each layer is followed by a max pooling layer (each with pool_size=(2,2)). The model is then followed by a flattening layer and then a fully connected layer (with units=1024), before being passed to a 50% dropout layer, which finally leads to the output layer. Similar to the 1D CNN model, I also utilized the 'rating' feature to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. The model was trained with the Adam optimizer, 0.001 learning rate, and batch size of 32.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_progression.png" alt="2D CNN learning curves">
-  <p>The model reached its highest validation accuracy of 86% at epoch 31, this validation accuracy is slightly lower than that of the best performing 1D CNN model above, but still outperforms any other previously implemented models. Notably 2D CNN is much more computationally expensive compared to 1D but the performance was not any better, this could be attributed to the fact that the model was not hypertuned and 2D CNNs are generally better for image classification tasks. The classification reports and confusion matrixes are presented below for completeness sake, but I will omit detailed discussion.</p>
+  <p>The model reached its highest validation accuracy of 86% at epoch 31, this validation accuracy is slightly lower than that of the best performing 1D CNN model above, but still outperforms any other previously implemented models. The model is also more overfitted than the 1D CNN model above, suggesting stronger regularization or more dropout between the hidden layers might be beneficial. Notably 2D CNN is much more computationally expensive compared to 1D but the performance was not any better, this could be attributed to the fact that the model was not hypertuned and that 2D CNNs are generally better for image classification tasks when we have an audio classification task. The classification reports and confusion matrixes are presented below for completeness sake, but I won't discuss them in detail.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_train_report.png" alt="2D CNN train classification report">
@@ -917,18 +930,17 @@ categories: Python Machine-Learning
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_val_cm.png" alt="2D CNN validation confusion matrix">
     </div>
   </div>
+  <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
+  <h5 class='mb-3' id='lstm'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
+  <p>Long Short-Term Memory (LSTM) is one of the Recurrent Neural Networks (RNN), developed to solve the vanishing gradient and memoery loss issue with the traditional RNNs. Like RNNs in generally, LSTM are commonly used for sequential data, such as text and audios.</p>
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-  <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
-  <h5 class='mb-3'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
-  <p></p>
-
   <!-- G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
-  <h5 class='mb-3'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
+  <h5 class='mb-3' id='gru'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
   <p></p>
 
   <!-- H1. Transformer -->
-  <h5 class='mb-3'><strong>H1. Transformer</strong></h5>
+  <h5 class='mb-3' id='transformer'><strong>H1. Transformer</strong></h5>
   <p></p>
 
 </div>
