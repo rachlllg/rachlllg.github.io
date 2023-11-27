@@ -4,7 +4,7 @@ title:  "Bird Song Classifier with Machine Learning"
 year: 2023
 description: Utilizing various machine learning algorithms (traditional, shallow neural networks, and deep neural networks) to classify bird species based on bird songs/calls. Data was sourced from the BirdCLEF 2023 kaggle competition, and all data cleaning, analysis, and model building were conducted using the Python programming language.
 ft_img: /assets/img/projects/bird_song_classifier/birds.jpeg
-categories: Python Machine-Learning
+categories: Python MachineLearning Classification DSP
 ---
 
 <!-- LINKS -->

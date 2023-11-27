@@ -2,7 +2,7 @@
 layout: default
 apply_h_100: false
 title: Blogs By Category
-permalink: /blog/Causal-Inference
+permalink: /blog/MachineLearning
 ---
 
 {% include blog.html %}
