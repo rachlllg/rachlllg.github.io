@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "YOU TOO SHALL PASS! How to make Lakera's Gandalf reveal its secrets."
-description: Discover the wizardry behind unlocking Lakera's Gandalf 🧙‍♂️ as I spill the beans on unraveling its secrets ✨ all the way to level 7️⃣.  
+title:  "YOU TOO SHALL PASS! How to make Gandalf reveal its secrets."
+description: Discover the wizardry behind unlocking Lakera's Gandalf 🧙‍♂️ as I spill the beans 🫘 on its secrets all the way to level 7️⃣.  
 categories: GenAI ResponsibleAI NLP
 ---
 
@@ -13,7 +13,8 @@ categories: GenAI ResponsibleAI NLP
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Instructions.png" alt="Instructions">
 </div>
-<p class='mt-2'>In this blog, I will reveal the secrets of how to beat the first 7 levels of Gandalf, with a separate post dedicated to level 8. Don't worry, I won't take away the fun of figuring out the password yourself by giving away the passwords in this blog! 😉</p>
+<p class='mt-2'>In this blog, I will reveal the secrets of beating the first 7 levels of Gandalf, with a <a href="/blog/GANDALF-THE-WHITE/">separate post</a> dedicated to level 8. If you haven't already, be sure to read <a href='https://www.lakera.ai/blog/guide-to-prompt-injection?ref=gandalf'>Lakera's article</a> on prompt injection, you may find some of the techniques I used familiar.</p>
+<p>Don't worry, the passwords are masked in this blog, can't take away the fun of figuring out the password yourself! 😉 </p>
 
 <!-- Level 1 -->
 <div class='mb-2 mt-5' style="text-align: center;">
@@ -21,7 +22,7 @@ categories: GenAI ResponsibleAI NLP
     <h1>Level 1</h1>
     <span>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨</span>
 </div>
-<p>WWell, level 1 was straightforward. Baby Gandalf says I should ask for the password, so I did exactly that!</p>
+<p>Well, level 1 was straightforward. Baby Gandalf says I should ask for the password, so I did exactly that!</p>
 <div class="text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level1.png" alt="Level 1">
 </div>
@@ -87,7 +88,7 @@ categories: GenAI ResponsibleAI NLP
     <h1>Level 5</h1>
     <span>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨</span>
 </div>
-<p>We've now reached level 5. Looks like Gandalf is ready to throw hands 🤣 and is refusing to discuss the password at all!</p>
+<p>We've now reached level 5. Looks like Gandalf is ready to throw hands and is refusing to discuss the password at all!</p>
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level5.png" alt="Level 5">
 </div>
@@ -133,11 +134,11 @@ categories: GenAI ResponsibleAI NLP
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level7_fail1.png" alt="Level 7 Fail 1">
 </div>
-<p>Since I cannot directly ask it for the length of the word, I thought I would change the wording, and ask if the word is of a certain length. Funny it doesn't recognize this as 'trickery' even though the answer provides explicit information about the password. 🤔</p>
+<p>Since I cannot directly ask it for the length of the word, I thought why not change the wording, and ask if the word is of a certain length. Funny it doesn't recognize this as 'trickery' even though the answer provides explicit information about the password.</p>
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level7_probe1.png" alt="Level 7 Probe 1">
 </div>
-<p>Alright, following my previous success, I thought the next logical step would be to ask it to define the password in a roundabout way, by giving me a word that's similar to the password but not the password itself (surely this is not trickery, as I'm explicitly asking about a word that's NOT the password 😜)</p>
+<p>Alright, following my previous success, I thought the next logical step would be to ask it to define the password in a roundabout way, by giving me a word that's similar to the password but not the password itself (surely this is not trickery, as I'm explicitly asking about a word that's NOT the password 🤣)</p>
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level7_probe2.png" alt="Level 7 Probe 2">
 </div>
@@ -152,6 +153,5 @@ categories: GenAI ResponsibleAI NLP
     <h1>Conclusion</h1>
     <span>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨</span>
 </div>
-<p>This is all for the first 7 levels of Gandalf! I hope you had fun following this along and were able to give it a try and hopefully figure out the password! I spent several hours playing around with this as I found it fascinating. If you are interested in AI security for LLMs and prompt injection, give this article a read!</p>
-<p>Although Gandalf could do much better at guarding the password, I found it interesting how 'polite' it is, apologizing left and right! If you enjoyed this blog post and are curious about level 8, here is the blog post on how I got past level 8!</p>
+<p>This is all for the first 7 levels of Gandalf! I hope you had fun following this along and were able to give it a try and hopefully figure out the password! I spent several hours playing around with this as I found it fascinating. Next up is <a href="/blog/GANDALF-THE-WHITE/">level 8 GANDALF THE WHITE</a>!</p>
 </div>
