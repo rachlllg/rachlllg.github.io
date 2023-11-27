@@ -33,7 +33,7 @@
   <!--Show only projects of select category-->
   {% else %}
   {% assign category_name = page.url | split: '/' | last %}
-  <h2 class="mb-4">{{ category_name }} Projects</h2>
+  <h2 class="mb-4">Filter: {{ category_name }}</h2>
   <hr class="m-0">
   <div class="mb-3 mx-auto">
     <div class="row mb-4">

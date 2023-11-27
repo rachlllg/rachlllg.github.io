@@ -2,7 +2,7 @@
 layout: default
 apply_h_100: false
 title: Projects By Category
-permalink: /projects/Machine-Learning
+permalink: /projects/Causal-Inference
 ---
 
 {% include projects.html %}

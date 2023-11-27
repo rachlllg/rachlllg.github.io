@@ -6,19 +6,19 @@ layout: default
 <main class="px-3 mt-5 mx-auto container">
   <!--Back to top button-->
   <button onclick="topFunction()" id="topBtn" title="Go to top">
-    Top
   </button>
   <hr class="m-0 mb-4">
   <article id="post">
     <header class="post-header">
       <h1 class="post-title mb-3">{{ page.title }}</h1>
-      <div class="post-date mb-3 text-body-secondary">{{ page.date | date: "%Y-%m-%d"}}</div>
-      <div class="post-categories mb-5 d-inline-block">
+      <div class="post-date mb-3 text-body-secondary">{{ page.date | date: "%Y-%m-%d" }}</div>
+      <div class="post-categories mb-3 d-inline-block">
         {% for category in page.categories %}
           <a class="post-category text-success-emphasis" style="text-decoration: none;" href="/blog/{{category}}">{{ category }}</a> |
         {% endfor %}
       </div>
     </header>
+    <hr class="m-0">
     <div class="post-content text-start mb-5">
       {{ content }}
     </div>
