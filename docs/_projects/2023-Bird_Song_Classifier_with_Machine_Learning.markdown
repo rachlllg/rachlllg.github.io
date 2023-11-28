@@ -947,7 +947,7 @@ categories: Python MachineLearning Classification DSP
 
 
 <!-- INFERENCE -->
-<div class='mb-5' id='training'>
+<div class='mb-5' id='inference'>
   <h3 class='mb-3'><u>INFERENCE</u></h3>
 </div>
 
