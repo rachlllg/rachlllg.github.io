@@ -279,6 +279,7 @@ categories: Python MachineLearning Classification NLP
 <div class='mb-5' id='inference'>
   <h3 class='mb-3'><u>INFERENCE</u></h3>
   <p>As the test set is hidden, I did not run the model on the test set. Given the results on the validation set are comparable to the results presented in the original RoBERTa paper, we can reasonably infer the test results will be similar to that of the original paper as well.</p>
+  <p>For evaluating the model performance on unseen sentences, I wrote a <a href='/blog/How-well-do-LLMs-understand-grammar/'>separate blog post</a> where I extracted the grammatical score on some real-life examples using the fine tuned GAC model and discussed the limitation in the model's interpretation of grammar. The blog post also includes a Google Colab notebook that's ready to be run on your own instances in case you want to try you hands on some examples of your own. Be sure to check it out!</p>
 </div>
 
 <!-- LIMITATIONS -->

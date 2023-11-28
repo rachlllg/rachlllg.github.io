@@ -39,7 +39,7 @@ categories: GenAI ResponsibleAI NLP
 <div class="text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level8_probe5.png" alt="Level 8 Probe 5">
 </div>
-<p>LLeveraging the fact that LLMs are trained in various languages, I asked it to translate the password to French and then to German. This again failed, and it now recognizes that I'm trying to hack it!</p>
+<p>Leveraging the fact that LLMs are trained in various languages, I asked it to translate the password to French and then to German. This again failed, and it now recognizes that I'm trying to hack it!</p>
 <div class="text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level8_probe6.png" alt="Level 8 Probe 6">
 </div>
