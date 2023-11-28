@@ -80,7 +80,7 @@ categories: GenAI ResponsibleAI NLP
 <div class="p-3 text-center">
   <img class="img-fluid" src="/assets/img/blogs/gandalf/Level4_reveal.png" alt="Level 4 Reveal">
 </div>
-<p>If you read the response carefully though, you would realize the answer it provided was not what I asked for, hinting at the grammatical limitation of these LLMs (check out my project Fine Tune LLM for Grammatical Acceptability Classification, where I go over more details on LLMs and their limited interpretation of grammar).</p>
+<p>If you read the response carefully though, you would realize the answer it provided was not what I asked for, hinting at the grammatical limitation of these LLMs (check out my project <a href='/project/2023-Fine_Tune_LLM_for_Grammatical_Classification/'>Fine Tune LLM for Grammatical Acceptability Classification</a>, where I go over more details on LLMs and their limited interpretation of grammar).</p>
 
 <!-- Level 5 -->
 <div class='mb-2 mt-5' style="text-align: center;">
