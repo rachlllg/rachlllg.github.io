@@ -36,7 +36,7 @@ categories: Python MachineLearning Classification DSP
   <h3 class='mb-3'><u>BACKGROUND</u></h3>
   <p>This was the final project for the Applied Machine Learning class in my Masters in Data Science program. The original project involved four team members including myself, for the showcase here, I have only presented the work I have done, unless noted otherwise.</p>
   <p>The project was very open-ended, the teams are free to select any topic of interest and any dataset pertaining to that topic, with the objective to build a machine learning model. </p>
-  <p>All work was done in Google Colab (Free) with CPU only, with Python as the programming language. Notable Python packages used:
+  <p>All work was done in Google Colab (Free), with Python as the programming language. Notable Python packages used:
     <ul>
       <li>standard: numpy, pandas</li>
       <li>audio processing: librosa</li>
@@ -714,7 +714,7 @@ categories: Python MachineLearning Classification DSP
           <th scope="col">Num Epochs</th>
           <th scope="col">Batch Size</th>
           <th scope="col">Learning Rate</th>
-          <th scope="col">Train Accuracy</th>
+          <th scope="col">Training Accuracy</th>
           <th scope="col">Validation Accuracy</th>
         </tr>
       </thead>
@@ -881,7 +881,7 @@ categories: Python MachineLearning Classification DSP
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_val_cm.png" alt="1D CNN validation confusion matrix">
     </div>
   </div>
-  <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, providing that including continents as feature in our models does improve the model performance.</p>
+  <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, evidence that including continents as feature in our models does improve the model performance.</p>
   <div class="row mb-4">
     <div class="col-md-6">
       <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. Hyperparameters selected for hyperparameter tuning are: learning rate, number of hidden layers, filter size, kernel size, stride size, pooling size, regularization strength, dropout rate, number of nodes in the last fully connected layer, and batch size. The different hyperarameters did not make a notable difference in the model performance, details can be seen in the c.1DCNN_8sec_w_continents_hyperopt.ipynb file.</p>
@@ -931,13 +931,139 @@ categories: Python MachineLearning Classification DSP
     </div>
   </div>
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
-  <h5 class='mb-3' id='lstm'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
+  <h5 class='mt-3 mb-3' id='lstm'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
   <p>Long Short-Term Memory (LSTM) is one of the Recurrent Neural Networks (RNN), developed to solve the vanishing gradient and memoery loss issue with the traditional RNNs. Like RNNs in generally, LSTM are commonly used for sequential data, such as text and audios.</p>
+  <div class="row">
+    <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-4" src="/assets/img/projects/bird_song_classifier/LSTM_summary.png" alt="LSTM model summary">
+    </div>
+    <div class="col-md-10">
+      <p>For the LSTM models, I used 8 seconds framed audios without augmentation with audio features only. Similar to what I had done with the previous models, I experimented with different combinations of audio features using the same model architecture and hyperparameters and found that the combination of 20 MFCC + 1 Spectral Centroid had the best performance, as evidenced in the table below.</p>
+      <p>All models were ran with the same architecture: one LSTM layer with 256 nodes, followed by a BatchNormalization layer and a dropout layer with dropout=0.3, followed by three dense layers (each with 256, 128, and 48 nodes respectively, activated with the ReLU activation function, and L2 regularization=0.01) each followed by a dropout layer (dropout=0.3), before being passed to the output layer. Differ from the FFNN and CNNs where the Keras Functional API architecture was used, I used the Keras Sequential modeling for the LSTMs, adhering to the sequential nature of the LSTM model architecture. The 'rating' feature was used to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.002 learning rate, and batch size of 64.</p>
+      <p>A visualization of the model architecture can be seen on the left, this visualization uses 20 MFCC + 12 Chroma as the audio features for each 8 seconds framed audio.</p>
+    </div>
+  </div>
+  <pre class='csv-table mb-4'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Features</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MFCC(20) + Chroma(12)</td>
+          <td>0.98</td>
+          <td>0.86</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + RMS(1) + Spectral Centroid(1)</td>
+          <td>0.99</td>
+          <td>0.89</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Chroma(12) + RMS(1) + Spectral Centroid(1)</td>
+          <td>0.99</td>
+          <td>0.90</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + RMS(1)</td>
+          <td>0.98</td>
+          <td>0.91</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>MFCC(20) + Spectral Centroid(1)</td>
+          <td>0.97</td>
+          <td>0.91</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from the CNN models, we observe more prominent zig zags, suggesting the model is still struggling from one epoch to another.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_progression.png" alt="LSTM learning curves">
+  <p>By comparing the confusion matrix and classification reports for the training and validation sets against the best performing 1D CNN model above, we see that the performance between the two models are comparable, with the LSTM model being ever so slightly less overfitted and showing marginally better recall for barswa and comsan than the 1D CNN model.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_train_report.png" alt="LSTM train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_val_report.png" alt="LSTM validation classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_train_cm.png" alt="LSTM train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_val_cm.png" alt="LSTM validation confusion matrix">
+    </div>
+  </div>
+  <!-- G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
+  <h5 class='mt-3 mb-3' id='gru'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
+  <p>Similar to LSTM, Gated Recurrent Unit (GRU) is also a Recurrent Neural Network (RNN). Differ from LSTM, it employs a gated mechanism and uses fewer parameters. The GRU models were ran using the same features, model archiecture, and hyperparameters as the LSTM models, with the only difference being the LSTM layer was replaced with the GRU layer. Below is a summary of the model results.</p>
+  <pre class='csv-table mb-4'>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Features</th>
+          <th scope="col">Training Accuracy</th>
+          <th scope="col">Validation Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MFCC(20) + Spectral Centroid(1)</td>
+          <td>0.98</td>
+          <td>0.91</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Chroma(12) + RMS(1) + Spectral Centroid(1)</td>
+          <td>1.00</td>
+          <td>0.92</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + Chroma(12)</td>
+          <td>1.00</td>
+          <td>0.93</td>
+        </tr>
+        <tr>
+          <td>MFCC(20) + RMS(1) + Spectral Centroid(1)</td>
+          <td>0.99</td>
+          <td>0.93</td>
+        </tr>
+        <tr style="background-color: #99FF99;">
+          <td>MFCC(20) + RMS(1)</td>
+          <td>0.99</td>
+          <td>0.93</td>
+        </tr>
+      </tbody>
+    </table>
+  </pre>
+  <p>The model with 20 MFCC + 1 RMS + 1 Spectral Centroid performed equally well as the model without Spectral Centroid, suggesting the addition of Spectral Centroid did not add substantial value to the model performance, therefore, I will focus on the model without Spectral Centroid for the analysis of the results. This is the best performing model so far, with the validation accuracy at 93%, exceeding the validation accuracy of all previous models.</p>
+  <p>Compared to the learning curves from the LSTM model, the zig zags are less predominent.</p>
+  <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_progression.png" alt="GRU learning curves">
+  <p>By comparing the confusion matrix and classification reports for the training and validation sets against the best performing 1D CNN model above, we see that the GRU model outperforms the 1D CNN model in almost all metrics for all three species.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_train_report.png" alt="GRU train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_val_report.png" alt="GRU validation classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_train_cm.png" alt="GRU train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_val_cm.png" alt="GRU validation confusion matrix">
+    </div>
+  </div>
+
 
   <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-  <!-- G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
-  <h5 class='mb-3' id='gru'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
-  <p></p>
 
   <!-- H1. Transformer -->
   <h5 class='mb-3' id='transformer'><strong>H1. Transformer</strong></h5>
