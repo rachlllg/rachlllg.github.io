@@ -5,7 +5,7 @@ year: 2024
 description: A continuation of the [Bird Song Classifier with Machine Learning](/project/2023-Bird_Song_Classifier_with_Machine_Learning) project by utilizing a vision transformer to classify bird species based on bird songs/calls. Python programming language is used with HuggingFace Transformers and Tensorflow as the primary machine learning libraries.
 
 ft_img: /assets/img/projects/bird_song_transformer/bird_transformer.jpeg
-categories: Python Transformer Classification DSP
+categories: Python MachineLearning Classification DSP
 ---
 <!-- DESCRIPTION -->
 <div class='mt-5 mb-5' id='description'>
