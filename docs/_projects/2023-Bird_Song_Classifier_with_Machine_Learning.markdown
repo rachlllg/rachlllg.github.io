@@ -36,7 +36,7 @@ categories: Python MachineLearning Classification DSP
   <h3 class='mb-3'><u>BACKGROUND</u></h3>
   <p>This was the final project for the Applied Machine Learning class in my Masters in Data Science program. The original project involved four team members including myself, for the showcase here, I have only presented the work I have done, unless noted otherwise.</p>
   <p>The project was very open-ended, the teams are free to select any topic of interest and any dataset pertaining to that topic, with the objective to build a machine learning model. </p>
-  <p>All work was done in Google Colab (Free), with Python as the programming language. Notable Python packages used:
+  <p>All work was done in Google Colab (Free), with Python as the programming language. For training the deep neural networks (FFNN, CNN, and RNN), GPU is recommended to speed-up the processing time. Notable Python packages used:
     <ul>
       <li>standard: numpy, pandas</li>
       <li>audio processing: librosa</li>
@@ -173,7 +173,7 @@ categories: Python MachineLearning Classification DSP
   <!-- Data Preprocessing -->
   <h5 class='mb-3'><strong>A. Data Preprocessing</strong></h5>
   <p>Summarized below are the top level data preprocessing steps I performed, the Google Colab notebook shown in the video is the a.preprocessing.ipynb file in the 1.preprocessing folder of the GitHub repo.</p>
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col-md-6">
       <ol>
         <li>Include only the species selected.</li>
@@ -201,7 +201,7 @@ categories: Python MachineLearning Classification DSP
   <!-- Data Cleaning -->
   <h5 class='mb-3'><strong>B. Data Cleaning</strong></h5>
   <p>After the top level preprocessing steps, the data was cleaned as summarized below. The Google Colab notebook shown in the videos is the b.data_cleaning.ipynb file in the 1.preprocessing folder of the GitHub repo.</p>
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col-md-6">
       <ol>
         <li>Inspect each column for NaN values.</li>
@@ -228,7 +228,7 @@ categories: Python MachineLearning Classification DSP
   </div>
   <!-- Data Extraction -->
   <h5 class='mb-3'><strong>C. Data Extraction</strong></h5>
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col-md-6">
       <p>One thing I discovered while working on the project was that loading the audio clips using librosa.load() is time consuming. librosa.load() takes in audio files as parameter and returns the audio object in a NumPy array. The same NumPy array object can be passed as parameters to other librosa functions to extract audio features. To save downstream processing time, I used librosa.load() to load the audio files and saved the returned NumPy array object to disk, which enabled me to use the NumPy array object directly when extracting audio features. The Google Colab notebook shown in the videos is the c.data_extraction.ipynb file in the 1.preprocessing folder of the GitHub repo.</p>
     </div>
@@ -242,7 +242,7 @@ categories: Python MachineLearning Classification DSP
 <div class='mb-5' id='eda'>
   <h3 class='mb-3'><u>EDA</u></h3>
   <p>To get a better understanding of what audio features would be appropriate for this project, what EDA could be performed on the features, and what machine learning algorithms are most suited for audio classification tasks, I looked at the notebooks from prior year BirdCLEF competitions and read a number of articles/papers that used audio features to build machine learning model. Listed below are some notable resources that was considered when performing feature extraction, EDA, and model building for this project.</p>
-  <ul class='mb-4'>
+  <ul class='mb-3'>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2021/discussion/243463">BirdCLEF 2021 2nd place</a></li>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2022/discussion/327047">BirdCLEF 2022 1st place</a></li>
     <li><a href="https://www.kaggle.com/competitions/birdclef-2023/discussion/412808">BirdCLEF 2023 1st place</a></li>
@@ -258,11 +258,11 @@ categories: Python MachineLearning Classification DSP
       <p>To build more generalizable models, EDAs are performed on training set only, so as to not gaining any information from the test set.</p>
       <p>Summarized below are some general EDA performed on the training set. The Google Colab notebook shown in the video is the a.EDA.ipynb file in the 2.EDA folder of the GitHub repo.</p>
     </div>
-    <div class="col-md-6 mb-4 d-flex align-items-center justify-content-center">
+    <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/2U3mY00rDeA?si=G7tSgU-Ld0Cnmovz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </div>
-  <ol class='mb-4'>
+  <ol class='mb-3'>
     <li>Check for class imbalance by number of samples.</li>
       <p>The three species are relatively balanced by number of samples, with barswa having slightly fewer number of samples than the other two, but the difference is not alarming.</p>
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/num_samples.png" alt="check for class imbalance by number of samples">
@@ -288,7 +288,7 @@ categories: Python MachineLearning Classification DSP
     <source src="/assets/img/projects/bird_song_classifier/XC587730.ogg" type="audio/ogg">
     Your browser does not support the audio element.
   </audio>
-  <ul class='mb-4'>
+  <ul class='mb-3'>
     <li class='mb-3'>Soundwave.</li>
       <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/soundwave.png" alt="soundwave">
     <li class='mb-3'>Melspectrogram & Mel-Frequency Cepstral Coefficients (MFCC): visualization of the power distribution of audio frequencies, transformed into the mel scale to better represent human perception of sound.</li>
@@ -348,7 +348,7 @@ categories: Python MachineLearning Classification DSP
       <p>Even though only 3 species were selected for the project, the audio features for the training and validation set are still too large to fit into memory of Google Colab (the free version only provides 12.7GB RAM). I therefore created two class methods which allowed me to manage the memory usage more efficiently.</p>
   <div class="row">
     <div class="col-md-6">
-      <p class='mb-4'>The Framed class is used to frame the audios (split audios of varying length to set lengths clips with or without augmentation, and with or without overlapping). The Extraction class is used to extract the audio features and labels from each of the framed clips (with or without normalization and/or average pooling) in a shape that's ready to be passed into the models. The code used to create and test the class methods can be found in the b.class_methods.ipynb file in the 3.model_prep folder of the GitHub repo.</p>
+      <p class='mb-3'>The Framed class is used to frame the audios (split audios of varying length to set lengths clips with or without augmentation, and with or without overlapping). The Extraction class is used to extract the audio features and labels from each of the framed clips (with or without normalization and/or average pooling) in a shape that's ready to be passed into the models. The code used to create and test the class methods can be found in the b.class_methods.ipynb file in the 3.model_prep folder of the GitHub repo.</p>
     </div>
     <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/44BFY5bFt10?si=jVPH70Kzb0EfFWgp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -397,19 +397,20 @@ categories: Python MachineLearning Classification DSP
     <a href="#baseline" style='text-decoration: none;'>Baseline</a> &#183;
     <a href="#rf" style='text-decoration: none;'>Random Forest</a> &#183;
     <a href="#xgboost" style='text-decoration: none;'>XGBoost</a> &#183;
-    <a href="#svm" style='text-decoration: none;'>Support Vector Machine</a> &#183;
+    <a href="#svm" style='text-decoration: none;'>SVM</a> &#183;
     <a href="#logistic" style='text-decoration: none;'>Logistic Regression</a> &#183;
     <a href="#ffnn" style='text-decoration: none;'>FFNN</a> &#183;
     <a href="#1d" style='text-decoration: none;'>1D CNN</a> &#183;
     <a href="#2d" style='text-decoration: none;'>2D CNN</a> &#183;
     <a href="#lstm" style='text-decoration: none;'>LSTM RNN</a> &#183;
     <a href="#gru" style='text-decoration: none;'>GRU RNN</a> &#183;
-    <a href="#transformer" style='text-decoration: none;'>Transformer</a>
+    <a href="#transformer" style='text-decoration: none;'>Transformer</a> &#183;
+    <a href="#tl" style='text-decoration: none;'>Transfer Learning</a>
   </p>
   <!-- A1. Baseline -->
   <h5 class='mb-3' id='baseline'><strong>A1. Baseline</strong></h5>
   <p>Each species represent 1/3 of the total duration in the training set, if one were to randomly guess the species, we would expect a 33% accuracy. This will serve as our baseline.</p>
-  <p class='mb-4'>All notebooks for the models can be found in the 4.training folder in the GitHub repo.</p>
+  <p class='mb-3'>All notebooks for the models can be found in the 4.training folder in the GitHub repo.</p>
   <!-- B1. Ensemble - Random Forest -->
   <h5 class='mb-3' id='rf'><strong>B1. Ensemble - Random Forest</strong></h5>
   <div class="row">
@@ -481,7 +482,7 @@ categories: Python MachineLearning Classification DSP
   </pre>
   <p>From this summary, we can see MFCC is predominently a better predictor than melspectrogram, and MFCC + continents are the strongest predictor among all combinations. The predictive power of RMS, chroma, and spectral centroid is not conclusive from this exercise alone, and even though framed audios with 8 seconds in length had the highest validation accuracy, the different to that of 5 seconds is not glaring so I would not conclude framed audios with 8 seconds in length are better than those with 5 seconds in length (at least not just yet). Notabily, framing audios to 3 seconds created more training samples, but did not improve the results. Going forward, I will only work with framing duration of 5 seconds or 8 seconds.</p>
   <p>I also tried applying random augmentation to the training samples for the 5 seconds and 8 seconds framed samples, but it did not improve the model performance. This is not to say augmentation is not useful, but rather the augmentation technique may need to be revisited. I also tried increasing the number of melspectrogram to 128 (instead of 20) which did not make a difference in model performance.</p>
-  <p class='mb-4'>The best performing model had 73% validation accuracy, which is much higher than our baseline of 33% (random guess), the algorithm is performing better than I expected but consistent with the general characteristics of random forest, all models are severely overfitted to the training data. For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
+  <p class='mb-3'>The best performing model had 73% validation accuracy, which is much higher than our baseline of 33% (random guess), the algorithm is performing better than I expected but consistent with the general characteristics of random forest, all models are severely overfitted to the training data. For hypertuning the models, I changed the number of estimators to 40 and 80. Neither change made notable difference in the model performance. I did not hypertune the criterion as my research suggested entropy is generally the better criterion to use.</p>
   <!-- B2. Ensemble - XGBoost -->
   <h5 class='mb-3' id='xgboost'><strong>B2. Ensemble - XGBoost</strong></h5>
   <p><a href="https://xgboost.readthedocs.io/en/stable/index.html#">XGBoost</a> is another ensemble machine learning technique that utilizes the gradient boosting framework to provide parallel tree boosting in decision tree algorithms. I used the Framed and Extraction classes for framing the audios and extracting the features in the random forest notebooks, but starting from XGBoost, I will be directly using the features saved in .pkl format to improve efficiency.</p>
@@ -537,7 +538,7 @@ categories: Python MachineLearning Classification DSP
   <p>Similar to the findings from the random forest models, MFCC is predominently a better predictor than melspectrogram, and MFCC + chroma or MFCC + RMS together with continents are consistently the better predictor than any other feature combinations. The 8 seconds framed audios again had higher validation accuracy than those with 5 seconds, and the random augmentation applied to the audios did not play a role in improving the models. The models had similar performance as random forest and are still severely overfitted to the training data.</p>
   <div class="row">
     <div class="col-md-6">
-      <p class='mb-4'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
+      <p class='mb-3'>For hypertuning the models, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV">GridSearchCV</a> from sklearn. The GridSearch was ran on the model with the same specifications as the highlighted model above. I also ran another model with the same specifications but replaced RMS with chroma. The GridSearch identified the best max depth at 6 with 200 estimators. However, the validation accuracy with this optimal hyperparameter setting did not improve over the original model, this is expected as the model is overfitted to the training data and already learned 100% of the features in the training data in the original model (with fewer estimators). To improve the model, more training data is likely needed.</p>
     </div>
     <div class="col-md-6 mb-3 d-flex flex-column align-items-center justify-content-center">
       <iframe src="https://www.youtube.com/embed/XOpfbJHPTOg?si=O7wyz7TcvxeYjXkh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -595,7 +596,7 @@ categories: Python MachineLearning Classification DSP
       </tbody>
     </table>
   </pre>
-  <p class='mb-4'>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy. For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
+  <p class='mb-3'>The results are still consistent with the findings from the previous two models so I will omit detailed discussion here. Notabily SVM was much faster to run than XGBoost and the training results are less overfitted with comparable validation accuracy. For hypertuning the models, I again used GridSearchCV from sklearn. The hypertuning did not improve the performance of the models.</p>
   <!-- D1. Logistic Regression -->
   <h5 class='mb-3' id='logistic'><strong>D1. Logistic Regression</strong></h5>
   <div class="row">
@@ -657,7 +658,7 @@ categories: Python MachineLearning Classification DSP
   <p>As expected, the logistic regression models performed poorly (still better than baseline but worse than any of the previous traditional machine learning algorithms), they are less overfitted (which is good), but the validation accuracy are consistently lower than prior models. Logistic regression is generally better suited for simpler classification tasks, where the data is linearly separable, which is rarely the case for most real life datasets. But nevertheless, I wanted to give it a try so I can compare the performance between shallow neural network (logistic regression) and deep neural networks (FFNN, CNN, etc).</p>
   <p>To visualize the learning progress for the best performing logistic regression model (highlighted above), I plotted the below loss and accuracy progression curves for training and validation over the 100 epochs. We can see the model is making steady learning progress one epoch after another. The validation curve is pretty far apart from the training curve, indicating signs of overfitting. I also observed the zig zag pattern in the learning curves, more prominently in the validation curves, indicating the performance is unsteady, a sign that the model is struggling with the validation data one epoch after another. I should expect the two learning curves (train and validation) be closer together, with less zig zag, with a more complex architecture.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/logistic_regression.png" alt="logistic regression learning curves">
-  <p class='mb-4'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
+  <p class='mb-3'>I did not bother hypertuning the models as I know logistic regression is not the best suited algorithm for the data.</p>
   <!-- E1. Feed Forward Neural Network (FFNN) -->
   <h5 class='mb-3' id='ffnn'><strong>E1. Feed Forward Neural Network (FFNN)</strong></h5>
   <p>The first deep neural network I tried is Feed Forward Neural Network (FFNN), it is essentially a logistic regression model but with hidden layers added. The hidden layers (actived with some non-linear activation function) allow the model to find non-linear relationships between the features and the labels.</p>
@@ -706,7 +707,7 @@ categories: Python MachineLearning Classification DSP
   <p>Compared to logistic regression and all prior models, FFNN had the highest validation accuracy and was the least overfitted. Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from logistic regression above, we still observe the zig zag in the validation curves, suggesting the model is still struggling with the validation data from one epoch to another.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/ffnn.png" alt="feed forward neural network learning curves">
   <p>To better understand how each hyperparameter changes the model performance, I did an ablation study on the best performing model (highlighted above) by changing the learning rate, batch size, number of epochs, the number of hidden layers, and the number of nodes in each hidden layer. Summarized below is the results from the ablation study, the study is not exhaustive but based on the study, the default hyperparameter settings (Adam optimizer, 0.0001 learning rate, batch size of 32, ran for 100 epochs, with 3 hidden layers, each of 128, 64, and 32 nodes) performed the best with this dataset. The validation accuracy changed slightly from the original model (highlighted above) due to randomness in initial weight initialization and shuffling.</p>
-  <pre class='csv-table mb-4'>
+  <pre class='csv-table mb-3'>
     <table>
       <thead>
         <tr>
@@ -882,7 +883,7 @@ categories: Python MachineLearning Classification DSP
     </div>
   </div>
   <p>I further ran comparable models by omitting the continents to evaluate whether the continents contribute to the overall model performance. With continents omitted, the best performing 1D CNN model (with similar architecture as above, with the same hyper-parameters) had the highest validation accuracy of 89%, evidence that including continents as feature in our models does improve the model performance.</p>
-  <div class="row mb-4">
+  <div class="row mb-3">
     <div class="col-md-6">
       <p>To perform hyperparameter tuning on the best performing model (highlighted above), I utilized <a href='http://hyperopt.github.io/hyperopt/'>HyperOpt</a>, a Python library for hyperparameter optimization. Hyperparameters selected for hyperparameter tuning are: learning rate, number of hidden layers, filter size, kernel size, stride size, pooling size, regularization strength, dropout rate, number of nodes in the last fully connected layer, and batch size. The different hyperarameters did not make a notable difference in the model performance, details can be seen in the c.1DCNN_8sec_w_continents_hyperopt.ipynb file.</p>
     </div>
@@ -933,17 +934,8 @@ categories: Python MachineLearning Classification DSP
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mt-3 mb-3' id='lstm'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
   <p>Long Short-Term Memory (LSTM) is one of the Recurrent Neural Networks (RNN), developed to solve the vanishing gradient and memoery loss issue with the traditional RNNs. Like RNNs in generally, LSTM are commonly used for sequential data, such as text and audios.</p>
-  <div class="row">
-    <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-4" src="/assets/img/projects/bird_song_classifier/LSTM_summary.png" alt="LSTM model summary">
-    </div>
-    <div class="col-md-10">
-      <p>For the LSTM models, I used 8 seconds framed audios without augmentation with audio features only. Similar to what I had done with the previous models, I experimented with different combinations of audio features using the same model architecture and hyperparameters and found that the combination of 20 MFCC + 1 Spectral Centroid had the best performance, as evidenced in the table below.</p>
-      <p>All models were ran with the same architecture: one LSTM layer with 256 nodes, followed by a BatchNormalization layer and a dropout layer with dropout=0.3, followed by three dense layers (each with 256, 128, and 48 nodes respectively, activated with the ReLU activation function, and L2 regularization=0.01) each followed by a dropout layer (dropout=0.3), before being passed to the output layer. Differ from the FFNN and CNNs where the Keras Functional API architecture was used, I used the Keras Sequential modeling for the LSTMs, adhering to the sequential nature of the LSTM model architecture. The 'rating' feature was used to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.002 learning rate, and batch size of 64.</p>
-      <p>A visualization of the model architecture can be seen on the left, this visualization uses 20 MFCC + 12 Chroma as the audio features for each 8 seconds framed audio.</p>
-    </div>
-  </div>
-  <pre class='csv-table mb-4'>
+  <p>For the LSTM models, I used 8 seconds framed audios without augmentation with audio features only. Similar to what I had done with the previous models, I experimented with different combinations of audio features using the same model architecture and hyperparameters and found that the combination of 20 MFCC + 1 Spectral Centroid had the best performance, as evidenced in the table below.</p>
+  <pre class='csv-table mb-3'>
     <table>
       <thead>
         <tr>
@@ -981,7 +973,16 @@ categories: Python MachineLearning Classification DSP
       </tbody>
     </table>
   </pre>
-  <p>Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from the CNN models, we observe more prominent zig zags, suggesting the model is still struggling from one epoch to another.</p>
+  <div class="row">
+    <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_summary.png" alt="LSTM model summary">
+    </div>
+    <div class="col-md-10">
+      <p>All models were ran with the same architecture: one LSTM layer with 256 nodes, followed by a BatchNormalization layer and a dropout layer with dropout=0.3, followed by three dense layers (each with 256, 128, and 48 nodes respectively, activated with the ReLU activation function, and L2 regularization=0.01) each followed by a dropout layer (dropout=0.3), before being passed to the output layer. Differ from the FFNN and CNNs where the Keras Functional API architecture was used, I used the Keras Sequential modeling for the LSTMs, adhering to the sequential nature of the LSTM model architecture. The 'rating' feature was used to create sample weights to give audio samples with worse ratings less weights during training. L2 regularization and dropout were employed to reduce overfitting, and callback technique was used to call the model back to the epoch with the highest weighted validation accuracy. All models were trained with the Adam optimizer, 0.002 learning rate, and batch size of 64. Note that another teammember experimented on the number of dense layers and the nodes for each layer and the specifications used here is based on the optimal results from that experiment.</p>
+      <p>A visualization of the model architecture can be seen on the left, this visualization uses 20 MFCC + 12 Chroma as the audio features for each 8 seconds framed audio.</p>
+      <p>Below is the learning curves from the best performing model (highlighted above). Compared to the learning curves from the CNN models, we observe more prominent zig zags, suggesting the model is still struggling from one epoch to another.</p>
+    </div>
+  </div>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/LSTM_progression.png" alt="LSTM learning curves">
   <p>By comparing the confusion matrix and classification reports for the training and validation sets against the best performing 1D CNN model above, we see that the performance between the two models are comparable, with the LSTM model being ever so slightly less overfitted and showing marginally better recall for barswa and comsan than the 1D CNN model.</p>
   <div class="row">
@@ -1003,7 +1004,7 @@ categories: Python MachineLearning Classification DSP
   <!-- G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN) -->
   <h5 class='mt-3 mb-3' id='gru'><strong>G2. Recurrent Neural Networks - Gated Recurrent Unit (GRU RNN)</strong></h5>
   <p>Similar to LSTM, Gated Recurrent Unit (GRU) is also a Recurrent Neural Network (RNN). Differ from LSTM, it employs a gated mechanism and uses fewer parameters. The GRU models were ran using the same features, model archiecture, and hyperparameters as the LSTM models, with the only difference being the LSTM layer was replaced with the GRU layer. Below is a summary of the model results.</p>
-  <pre class='csv-table mb-4'>
+  <pre class='csv-table mb-3'>
     <table>
       <thead>
         <tr>
@@ -1042,7 +1043,7 @@ categories: Python MachineLearning Classification DSP
     </table>
   </pre>
   <p>The model with 20 MFCC + 1 RMS + 1 Spectral Centroid performed equally well as the model without Spectral Centroid, suggesting the addition of Spectral Centroid did not add substantial value to the model performance, therefore, I will focus on the model without Spectral Centroid for the analysis of the results. This is the best performing model so far, with the validation accuracy at 93%, exceeding the validation accuracy of all previous models.</p>
-  <p>Compared to the learning curves from the LSTM model, the zig zags are less predominent.</p>
+  <p>Compared to the learning curves from the LSTM model, the zig zags are less predominent. And the two learning curves are more closely together with the training curve performing slightly better than the validation curve, suggesting less overfitting and overall better performance than all previous models.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_progression.png" alt="GRU learning curves">
   <p>By comparing the confusion matrix and classification reports for the training and validation sets against the best performing 1D CNN model above, we see that the GRU model outperforms the 1D CNN model in almost all metrics for all three species.</p>
   <div class="row">
@@ -1055,26 +1056,28 @@ categories: Python MachineLearning Classification DSP
   </div>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_train_cm.png" alt="GRU train confusion matrix">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/GRU_train_cm.png" alt="GRU train confusion matrix">
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_val_cm.png" alt="GRU validation confusion matrix">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/GRU_val_cm.png" alt="GRU validation confusion matrix">
     </div>
   </div>
 
-
-  <h5 class='mb-4'><strong>NOTE: I ALREADY RAN BELOW LISTED MODELS ON A DIFFERENT (SIMILAR) DATASET, BUT THE LANGUAGE FOR THE WEBSITE IS NOT FINALIZED, SO PLEASE STAY TUNED AS I CONTINUE TO FINALIZED THIS EVERY WEEK!</strong></h5>
-
   <!-- H1. Transformer -->
-  <h5 class='mb-3' id='transformer'><strong>H1. Transformer</strong></h5>
-  <p></p>
+  <h5 class='mt-3 mb-3' id='transformer'><strong>H1. Transformer</strong></h5>
+  <p>I did not experiment with using a transformer architecture at the time of the project, a <a href='/project/2024-Bird_Song_Classifier_with_Vision_Transformer/'>separate project</a> is dedicated to experiments conducted using a vision transformer architecture on the same dataset.</p>
 
+  <!-- J1. Transfer Learning -->
+  <h5 class='mt-3' id='tl'><strong>J1. Transfer Learning</strong></h5>
+  <p>A <a href='/project/2024-Bird_Song_Classifier_with_Vision_Transformer/'>separate project</a> is dedicated to experiments conducted using transfer learning on the same dataset.</p>
 </div>
-
 
 <!-- INFERENCE -->
 <div class='mb-5' id='inference'>
   <h3 class='mb-3'><u>INFERENCE</u></h3>
+
+
+
 </div>
 
 <!-- LIMITATIONS -->
