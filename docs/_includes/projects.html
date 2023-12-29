@@ -18,7 +18,7 @@
               </div>
               <h3 class="mb-0">{{ project.title }}</h3>
               <div class="mb-1 text-body-secondary">{{ project.year }}</div>
-              <p class="card-text mb-2">{{ project.description }}</p>
+              <p>{{ project.description | markdownify}}</p>
               <a href="{{project.url}}">Learn More...</a>
             </div>
         </div>
@@ -49,7 +49,7 @@
               </div>
               <h3 class="mb-0">{{ project.title }}</h3>
               <div class="mb-1 text-body-secondary">{{ project.year }}</div>
-              <p class="card-text mb-2">{{ project.description }}</p>
+              <p>{{ project.description | markdownify }}</p>
               <a href="{{project.url}}">Learn More...</a>
             </div>
         </div>
