@@ -1075,9 +1075,56 @@ categories: Python MachineLearning Classification DSP
 <!-- INFERENCE -->
 <div class='mb-5' id='inference'>
   <h3 class='mb-3'><u>INFERENCE</u></h3>
+  <p>Now that the trainings are completed, it is finally time to run inference on the test data. Given the 1D CNN and the GRU RNN models performed the best amongst all models, I ran inference using the trained weights from these two models.</p>
+  <p class='mb-3'>All notebooks for the inference can be found in the 5.inference folder in the GitHub repo.</p>
 
+  <!-- A1. Data Preparation -->
+  <h5 class='mb-3'><strong>A1. Data Preparation</strong></h5>
+  <p>The inference should be run using the same features as was used for training. First, the framed audios were extracted using the a1.inference_8sec.ipynb notebook, where the Framed class method is used. This is the same notebook in the 3.model_prep/c.extract_framed_audios/8sec.ipynb notebook that was used on the training data, note that I changed the class method slightly to accommodate for the test data.</p>
+  <p>Once the framed audios were extracted, the labels and audio features were extracted using the a2.inference_8_sec_audio_features_not_avgpooled.ipynb notebook by passing in the train_df and test_df to the Extraction class method. This is the same notebook as 3.model_prep/d.extract_feature_labels/8_sec_audio_features_not_avgpooled.ipynb notebook. It is important to pass in both train_df and test_df as the feature normalization scaler should be fit using the training data to prevent data leakage.</p>
+  <p>Similarly, the non-audio features were extracted using the a3.inference_8_sec_non_audio_features.ipynb notebook by passing in the train_df and test_df to the Extraction class method. This is the same notebook as 3.model_prep/d.extract_feature_labels/8_sec_non_audio_features.ipynb notebook. It is not neccessary to pass in train_df but I still passed in the train_df for convenience sake (so I wouldn't need to make adjustments to the Extraction class).</p>
+  
+  <!-- B1. 1D CNN -->
+  <h5 class='mt-3 mb-3'><strong>B1. 1D CNN</strong></h5>
+  <p>It is common to combine the training and validation set as one combined training set to train the best performing model with the same hypertuned hyperparameters one last time before using the final model for inference, so that is what I did for running the inference as well. I combined the training and validation set to one training dataset, used 20 MFCC, 1 RMS, 1 Spectral Centroid, with continents of embedding size = 2 as the main features with rating as sample weights, using the same hyperparameters as the hypertuned training model to train the model one last time. The model was trained for 35 epochs with no callback. Once the model is done training, I ran inference on the test set using the same features. Below summarized is the resulting classification report and the confusion matrix.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_inference_train_report.png" alt="1D CNN inference train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/1DCNN_inference_test_report.png" alt="1D CNN inference test classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/1DCNN_inference_train_cm.png" alt="1D CNN inference train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/1DCNN_inference_test_cm.png" alt="1D CNN inference test confusion matrix">
+    </div>
+  </div>
+  <p class='mt-3'>Compared to the original training results, we can see that the model performed slightly better on the test set (compared to the validation set) for barswa and comsan and slightly worse for eaywag1, although the difference is negligible. The test result is comparable to that of the validation result, suggesting the model is generalizing reasonabily well to the unseen test set. The overall test accuracy of 91% is also reasonabily high, as compared to the baseline.</p>
 
-
+  <!-- C1. GRU RNN -->
+  <h5 class='mt-3 mb-3'><strong>C1. GRU RNN</strong></h5>
+  <p>Similar to what I did for inference on 1D CNN, I combined the training and validation set to one training dataset to train the model one last time before running inference using the GRU RNN model.Following the best performing GRU RNN training model, I used 20 MFCC + 1 RMS without continents as the main features with rating as sample weights, using the same hyperparameters as the hypertuned training model. The model was trained for 58 epochs with no callback. Once the model is done training, I ran inference on the test set using the same features. Below summarized is the resulting classification report and the confusion matrix.</p>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_inference_train_report.png" alt="GRU RNN inference train classification report">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/GRU_inference_test_report.png" alt="GRU RNN inference test classification report">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/GRU_inference_train_cm.png" alt="GRU RNN inference train confusion matrix">
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <img class="img-fluid" src="/assets/img/projects/bird_song_classifier/GRU_inference_test_cm.png" alt="GRU RNN inference test confusion matrix">
+    </div>
+  </div>
+  <p class='mt-3'>The result is similar to that of the 1D CNN inference results, but with slightly higher overall accuracy and better performance across all three species. This is expected as RNNs are generally better suited for sequence processing tasks, whereas CNNs are generally better suited for image classification tasks. Audios, a form of digital signal, are sequential in nature. Although, by converting audio to spectrograms, therefore converting a digital signal processing task to a computer task seem to also yield promissing results. It is notable that CNNs are faster than RNNs, so perhaps the slight reduction in performance is affordable considering the potential in efficieny gain, although more thorough analysis should be performed to draw meaningful conclusions. The overall test accuracy of 93% is also reasonabily high, as compared to the baseline and as compared to all other models experimented.</p>
 </div>
 
 <!-- LIMITATIONS -->
