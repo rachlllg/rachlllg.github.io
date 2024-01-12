@@ -908,7 +908,7 @@ categories: Python MachineLearning Classification DSP
   </ol>
   <p>I decided to go with the second option, below is an illustration of the features using the second option.</p>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN.png" alt="2D CNN features">
-  <p>With MFCC as the main feature of shape [n_frames, n_features] = [251, 20], RMS is tiled/repeated 20 times at each time step to match the shape of MFCC, the same was done for Spectral Centroid. Since continents embeddings had shape of [,embedding_dim] = [,2], the continents embeddings were first tiled/repeated 10 times along the features dimension and then repeated 251 times along the time dimension to match the shape of MFCC. After all features have shape [251, 20], they are stacked on top of each other to create a combined 3D features with shape [n_frame, n_features, n_channels] = [251, 20, 4], where the n_channels can be viewed similar to the number of colors in an image classification 2D CNN task, except an image would only have 3 channels (Red, Green, and Blue).</p>
+  <p>With MFCC as the main feature of shape [n_frames, n_features] = [251, 20], RMS is tiled/repeated 20 times at each time step to match the shape of MFCC, the same was done for Spectral Centroid. Since continents embeddings had shape of [,embedding_dim] = [,2], the continents embeddings were first tiled/repeated 10 times along the features dimension and then repeated 251 times along the time dimension to match the shape of MFCC. After all features have shape [251, 20], they are stacked on top of each other to create a combined 3D features with shape [n_frame, n_features, n_channels] = [251, 20, 4], where the n_channels can be viewed similar to the number of colors in an image classification 2D CNN task.</p>
   <div class='text-center'>
   <img class="img-fluid mb-3" src="/assets/img/projects/bird_song_classifier/2DCNN_summary.png" alt="2D CNN architecture">
   </div>
@@ -933,8 +933,15 @@ categories: Python MachineLearning Classification DSP
   </div>
   <!-- G1. Recurrent Neural Networks - Long Short-Term Memory (LSTM RNN) -->
   <h5 class='mt-3 mb-3' id='lstm'><strong>G1. Recurrent Neural Networks - Long short-term memory (LSTM RNN)</strong></h5>
-  <p>Long Short-Term Memory (LSTM) is one of the Recurrent Neural Networks (RNN), developed to solve the vanishing gradient and memoery loss issue with the traditional RNNs. Like RNNs in generally, LSTM are commonly used for sequential data, such as text and audios.</p>
-  <p>For the LSTM models, I used 8 seconds framed audios without augmentation with audio features only. Similar to what I had done with the previous models, I experimented with different combinations of audio features using the same model architecture and hyperparameters and found that the combination of 20 MFCC + 1 Spectral Centroid had the best performance, as evidenced in the table below.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <p>Long Short-Term Memory (LSTM) is one of the Recurrent Neural Networks (RNN), developed to solve the vanishing gradient and memoery loss issue with the traditional RNNs. Like RNNs in generally, LSTM are commonly used for sequential data, such as text and audios.</p>
+      <p>For the LSTM models, I used 8 seconds framed audios without augmentation with audio features only. Similar to what I had done with the previous models, I experimented with different combinations of audio features using the same model architecture and hyperparameters and found that the combination of 20 MFCC + 1 Spectral Centroid had the best performance, as evidenced in the table below.</p>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/xiKCFVnKwGU?si=TNctHlQvv-Y0c2QN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
   <pre class='csv-table mb-3'>
     <table>
       <thead>
@@ -1075,9 +1082,15 @@ categories: Python MachineLearning Classification DSP
 <!-- INFERENCE -->
 <div class='mb-5' id='inference'>
   <h3 class='mb-3'><u>INFERENCE</u></h3>
-  <p>Now that the trainings are completed, it is finally time to run inference on the test data. Given the 1D CNN and the GRU RNN models performed the best amongst all models, I ran inference using the trained weights from these two models.</p>
-  <p class='mb-3'>All notebooks for the inference can be found in the 5.inference folder in the GitHub repo.</p>
-
+  <div class="row">
+    <div class="col-md-6">
+      <p>Now that the trainings are completed, it is finally time to run inference on the test data. Given the 1D CNN and the GRU RNN models performed the best amongst all models, I ran inference using the trained weights from these two models.</p>
+      <p class='mb-3'>All notebooks for the inference can be found in the 5.inference folder in the GitHub repo.</p>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <iframe src="https://www.youtube.com/embed/9fyq2-wE4KI?si=-B1ZY3OMstZAkOXi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
   <!-- A1. Data Preparation -->
   <h5 class='mb-3'><strong>A1. Data Preparation</strong></h5>
   <p>The inference should be run using the same features as was used for training. First, the framed audios were extracted using the a1.inference_8sec.ipynb notebook, where the Framed class method is used. This is the same notebook in the 3.model_prep/c.extract_framed_audios/8sec.ipynb notebook that was used on the training data, note that I changed the class method slightly to accommodate for the test data.</p>
@@ -1140,5 +1153,3 @@ categories: Python MachineLearning Classification DSP
   <h3 class='mb-3'><u>GITHUB</u></h3>
   <p>Please see my <a href="https://github.com/rachlllg/Project_Bird-Song-Classifier-with-Machine-Learning">GitHub</a> for the code for the project.</p>
 </div>
-
-
