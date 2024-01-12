@@ -249,22 +249,22 @@ categories: Python MachineLearning Clustering ComputerVision
   <p>Since the previous image contained only plain background with mostly brown colors, I wanted to try an image with more colors and with a busy background. So I used an image of our dog Tofu wrapped in a blanket. I went straight to with clustering this time, since the main goal of this project is color reduction. The original image size was reduced by setting resize_ratio=0.2 and I used grid_size=8.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tofu_original.png" alt="original Tofu image">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tofu_original.png" alt="original Tofu image">
       <p>original Tofu image</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tofu_ch_clustering.png" alt="pixelated Tofu with ch clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tofu_ch_clustering.png" alt="pixelated Tofu with ch clustering">
       <p>pixelated Tofu with ch clustering</p>
     </div>
   </div>
   <p>Similar to the previous experiment, both sil and db methods reduced the number of colors drastically, in this case, the number of colors were reduce to only 2 (which is the minimum as defined in the class). The ch method image is better, but really not that great, the finer details of her face is no longer visible, this might be attributable to a larger grid_size as more pixels are now been combined together to one grid.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tofu_sil_clustering.png" alt="pixelated Tofu with sil clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tofu_sil_clustering.png" alt="pixelated Tofu with sil clustering">
       <p>pixelated Tofu with sil clustering</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tofu_db_clustering.png" alt="pixelated Tofu with db clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tofu_db_clustering.png" alt="pixelated Tofu with db clustering">
       <p>pixelated Tofu with db clustering</p>
     </div>
   </div>
@@ -273,11 +273,11 @@ categories: Python MachineLearning Clustering ComputerVision
   <p>I am now curious to see how the pixelation would turn out if the grid_size is set to 1, meaning the pixels in the original image are retained and not aggregated to grids. For this experiment, I used an image of our cat Tux, he is a black cat so I figured the algorithm might struggle since we often struggle with even taking clear photos and videos of him as the camera keeps going out of focus because of his fur. I used an image editor tool to remove the background from the original image and reduced the original image size by setting resize_ratio=0.1.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tux_original.png" alt="original Tux image">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tux_original.png" alt="original Tux image">
       <p>original Tux image</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Tux_ch_clustering.png" alt="pixelated Tux with ch clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/tux_ch_clustering.png" alt="pixelated Tux with ch clustering">
       <p>pixelated Tux with ch clustering</p>
     </div>
   </div>
@@ -287,26 +287,26 @@ categories: Python MachineLearning Clustering ComputerVision
   <p>Since I've only experimented with animals so far, I figured I should try something different next. So I used an image of our Miata, a happy little car that we love (if you don't have one, you should!). I reduced the original image size by passing in resize_ratio=0.1 and used grid_size=5.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_original.png" alt="original Miata image">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_original.png" alt="original Miata image">
       <p>original Miata image</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_wo_clustering.png" alt="pixelated Miata without clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_wo_clustering.png" alt="pixelated Miata without clustering">
       <p>pixelated Miata without clustering</p>
     </div>
   </div>
   <p>The pixelated without clustering image is again a very good representation of the original image, we can still see some of the trees in the background and the curb at the front.</p>
   <div class="row">
     <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_sil_clustering.png" alt="pixelated Miata with sil clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_sil_clustering.png" alt="pixelated Miata with sil clustering">
       <p>pixelated Miata with sil clustering</p>
     </div>
     <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_db_clustering.png" alt="pixelated Miata with db clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_db_clustering.png" alt="pixelated Miata with db clustering">
       <p>pixelated Miata with db clustering</p>
     </div>
     <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering.png" alt="pixelated Miata with ch clustering">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering.png" alt="pixelated Miata with ch clustering">
       <p>pixelated Miata with ch clustering</p>
     </div>
   </div>
@@ -314,32 +314,32 @@ categories: Python MachineLearning Clustering ComputerVision
   <p>So I then tried reducing the grid_size to 3 and reducing the maximum number of clusters to 7, with ch method, which reduced the optimal number of clusters to 5, with below 5 colors as the centroids. This is now looking really amazing! I love how the Miata came out, and the colors adds a 'retro' look to the image, which fits the car just perfectly!</p> 
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5.png" alt="pixelated Miata with ch clustering and 5 centroid">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5.png" alt="pixelated Miata with ch clustering and 5 centroid">
       <p>pixelated Miata with ch clustering and 5 centroids</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5_centroids.png" alt="centroids">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_centroids.png" alt="centroids">
       <p>centroids</p>
     </div>
   </div>
   <p>But remember I mentioned that I started this project because I wanted to create a way to make pixelated images for crocheting blankets? Since I did not have the yarn colors that matches the centroids, I needed to replace some of the centroid colors with the yarn colors that I had. Here are two versions based on the yarn colors I had at hand. I combined the two redish colors to red and replaced the greyish blue color and the light purple color respectively. The manually adjusted versions are certainly not as nice as the originally rendered version, but the one with white and grey (the one on the right) actually turned out looking decent. I am still working on the blanket at the time of writing, but I'll be sure to show you the finished blanket when it's done! The code used to manually adjust the centroid colors can be found in the 'miata.ipynb' notebook on the GitHub.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5_1.png" alt="pixelated Miata with manually adjusted centroids">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_1.png" alt="pixelated Miata with manually adjusted centroids">
       <p>pixelated Miata with manually adjusted centroids</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5_2.png" alt="pixelated Miata with manually adjusted centroids">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_2.png" alt="pixelated Miata with manually adjusted centroids">
       <p>pixelated Miata with manually adjusted centroids</p>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5_centroids_1.png" alt="centroids">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_centroids_1.png" alt="centroids">
       <p>centroids</p>
     </div>
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
-      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/Miata_ch_clustering_5_centroids_2.png" alt="centroids">
+      <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_centroids_2.png" alt="centroids">
       <p>centroids</p>
     </div>
   </div>
