@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "YOU TOO SHALL PASS! How to make Gandalf reveal its secrets."
-description: Discover the wizardry behind unlocking Lakera's Gandalf 🧙‍♂️ as I spill the beans 🫘 on its secrets all the way to level 7️⃣.  
+description: Discover the wizardry behind unlocking Lakera's Gandalf 🧙‍♂️ as I spill the beans 🫘 on its secrets all the way to level 7️⃣, with a brief discussion on the importance of AI security and the risk of prompt injection and jailbreaking.  
 categories: GenAI ResponsibleAI NLP
 ---
 
