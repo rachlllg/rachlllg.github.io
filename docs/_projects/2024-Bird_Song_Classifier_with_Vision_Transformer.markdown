@@ -6,6 +6,7 @@ description: A continuation of the [Bird Song Classifier with Machine Learning](
 ft_img: /assets/img/projects/bird_song_transformer/bird_transformer.jpeg
 categories: Python MachineLearning Classification DSP
 ---
+
 <!-- DESCRIPTION -->
 <div class='mt-5 mb-5' id='description'>
   <h3 class='mb-3'><u>DESCRIPTION</u></h3>

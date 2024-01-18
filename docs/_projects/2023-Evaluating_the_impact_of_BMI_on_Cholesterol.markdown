@@ -8,7 +8,7 @@ categories: R Statistics Regression CausalInference
 ---
 
 <!-- LINKS -->
-<div class='mb-5'>
+<div>
 <p class='mt-3 mb-3 text-center' style="font-size:0.75em;">
   <a href="#description" style='text-decoration: none;'>DESCRIPTION</a> &#183;
   <a href="#background" style='text-decoration: none;'>BACKGROUND</a> &#183;
@@ -21,7 +21,7 @@ categories: R Statistics Regression CausalInference
   <a href="#github" style='text-decoration: none;'>GITHUB</a> &#183;
   <a href="#member-contribution" style='text-decoration: none;'>MEMBER CONTRIBUTIONS</a>
 </p>
-<div>
+</div>
 <hr class="m-0 mb-3">
 
 <!-- DESCRIPTION -->

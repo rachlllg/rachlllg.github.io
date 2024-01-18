@@ -8,7 +8,7 @@ categories: Python MachineLearning Clustering ComputerVision
 ---
 
 <!-- LINKS -->
-<div class='mb-5'>
+<div>
 <p class='mt-3 mb-3 text-center' style="font-size:0.75em;">
   <a href="#background" style='text-decoration: none;'>BACKGROUND</a> &#183;
   <a href="#overview" style='text-decoration: none;'>OVERVIEW</a> &#183;
@@ -18,7 +18,7 @@ categories: Python MachineLearning Clustering ComputerVision
   <a href="#conclusion" style='text-decoration: none;'>CONCLUSION</a> &#183;
   <a href="#github" style='text-decoration: none;'>GITHUB</a>
 </p>
-<div>
+</div>
 <hr class="m-0 mb-3">
 
 <!-- BACKGROUND -->
