@@ -322,7 +322,7 @@ categories: Python MachineLearning Clustering ComputerVision
       <p>centroids</p>
     </div>
   </div>
-  <p>But remember I mentioned that I started this project because I wanted to create a way to make pixelated images for crocheting blankets? Since I did not have the yarn colors that matches the centroids, I needed to replace some of the centroid colors with the yarn colors that I had. Here are two versions based on the yarn colors I had at hand. I combined the two redish colors to red and replaced the greyish blue color and the light purple color respectively. The manually adjusted versions are certainly not as nice as the originally rendered version, but the one with white and grey (the one on the right) actually turned out looking decent. I am still working on the blanket at the time of writing, but I'll be sure to show you the finished blanket when it's done! The code used to manually adjust the centroid colors can be found in the 'miata.ipynb' notebook on the GitHub.</p>
+  <p>But remember I mentioned that I started this project because I wanted to create a way to make pixelated images for crocheting blankets? Since I did not have the yarn colors that match the centroids, I needed to replace some of the centroid colors with the yarn colors that I had. Here are two versions based on the yarn colors I had at hand. I combined the two redish colors to red and replaced the greyish blue color and the light purple color respectively. The manually adjusted versions are certainly not as nice as the originally rendered version, but the one with white and grey (the one on the right) actually turned out looking decent. I am still working on the blanket at the time of writing, but I'll be sure to show you the finished blanket when it's done! The code used to manually adjust the centroid colors can be found in the 'miata.ipynb' notebook on the GitHub.</p>
   <div class="row">
     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
       <img class="img-fluid mb-3" src="/assets/img/projects/pixelate_kmeans/miata_ch_clustering_5_1.png" alt="pixelated Miata with manually adjusted centroids">
@@ -349,7 +349,7 @@ categories: Python MachineLearning Clustering ComputerVision
 <!-- CONCLUSION -->
 <div class='mt-5 mb-5' id='conclusion'>
   <h3 class='mb-3'><u>CONCLUSION</u></h3>
-  <p>That's it for this project, I had a lot of fun working on it and will certainly be using the code in my crochet projects. The color could definitely be optimized, which I will work on next!</p>
+  <p>That's it for this project, I had a lot of fun working on it and will certainly be using the code in my crochet projects. The code could definitely be optimized, especially since the code is currently processing the grids sequentially, but perhaps there is a way to better parallelize the process, which I will work on next!</p>
 </div>
 
 
